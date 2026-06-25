@@ -112,7 +112,8 @@
 @can('about_us_access')
     @php
         $aboutActive = request()->is('admin/founder-section*')
-            || request()->is('admin/founder-responsibilities*');
+            || request()->is('admin/founder-responsibilities*')
+            || request()->is('admin/founder-timelines*');
     @endphp
 
     <div x-data="{ open: {{ $aboutActive ? 'true' : 'false' }} }">
@@ -155,6 +156,13 @@
                     Founder Responsibilities
                 </a>
             @endcan
+            @can('founder_timeline_access')
+    <a href="{{ route('admin.founder-timelines.index') }}"
+       class="sub-link {{ request()->is('admin/founder-timelines*') ? 'active' : '' }}">
+        <i class="fas fa-clock"></i>
+        Founder Timeline
+    </a>
+@endcan
 
         </div>
     </div>

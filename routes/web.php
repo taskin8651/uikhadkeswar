@@ -32,6 +32,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('founder-section', 'FounderSectionController@edit')->name('founder-section.edit');
     Route::put('founder-section', 'FounderSectionController@update')->name('founder-section.update');
     Route::resource('founder-responsibilities', 'FounderResponsibilityController');
+
+    // Founder Timeline
+Route::resource('founder-timelines', 'FounderTimelineController');
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {

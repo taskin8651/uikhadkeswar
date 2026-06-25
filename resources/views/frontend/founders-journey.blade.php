@@ -385,52 +385,31 @@
 
         <!-- Timeline -->
         <div class="col-lg-6">
-          <div class="fjx-roadmap-card" data-aos="fade-right">
+    <div class="fjx-roadmap-card" data-aos="fade-right">
 
-            <div class="fjx-card-title">
-              <i class="bi bi-clock-history"></i>
-              <div>
+        <div class="fjx-card-title">
+            <i class="bi bi-clock-history"></i>
+            <div>
                 <span>Journey Timeline</span>
                 <h3>Roadmap of the academy vision</h3>
-              </div>
             </div>
+        </div>
 
+        @if(isset($founderTimelines) && $founderTimelines->count())
             <div class="fjx-timeline-list">
 
-              <div>
-                <strong>2022</strong>
-                <p>Khadkeshwar Development Services Pvt Ltd vision started with a focus on education development.</p>
-              </div>
-
-              <div>
-                <strong>2023</strong>
-                <p>Rural education support and affordable academic planning began for deserving students.</p>
-              </div>
-
-              <div>
-                <strong>2024</strong>
-                <p>NEET/JEE coaching model strengthened with test practice and mentorship support.</p>
-              </div>
-
-              <div>
-                <strong>2025</strong>
-                <p>Scholarship, fee concession and free coaching support expanded for rural students.</p>
-              </div>
-
-              <div>
-                <strong>2026</strong>
-                <p>AI learning dashboard, smart test analysis and student progress roadmap planned.</p>
-              </div>
-
-              <div>
-                <strong>2030</strong>
-                <p>Long-term vision to become a rural AI education platform and future national brand.</p>
-              </div>
+                @foreach($founderTimelines as $timeline)
+                    <div>
+                        <strong>{{ $timeline->year }}</strong>
+                        <p>{{ $timeline->title }}</p>
+                    </div>
+                @endforeach
 
             </div>
+        @endif
 
-          </div>
-        </div>
+    </div>
+</div>
 
         <!-- Impact -->
         <div class="col-lg-6">
