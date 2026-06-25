@@ -28,6 +28,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);
 
+     // Founder Section
+    Route::get('founder-section', 'FounderSectionController@edit')->name('founder-section.edit');
+    Route::put('founder-section', 'FounderSectionController@update')->name('founder-section.update');
     
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -40,3 +43,5 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
     }
 });
 
+
+Route::get('founder-journey', 'Frontend\AboutController@index')->name('frontend.about');
