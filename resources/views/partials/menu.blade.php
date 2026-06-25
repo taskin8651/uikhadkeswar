@@ -108,6 +108,15 @@
             </div>
         @endcan
 
+        @can('result_ranker_access')
+            <a href="{{ route('admin.result-rankers.index') }}"
+               data-tooltip="Results"
+               class="nav-link {{ request()->is('admin/result-rankers*') ? 'active' : '' }}">
+                <i class="fas fa-trophy nav-icon"></i>
+                <span class="nav-label">Result Rankers</span>
+            </a>
+        @endcan
+
        {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php

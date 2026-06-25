@@ -35815,10 +35815,11 @@ textarea.form-control {
 }
 
 .resultx-ranker-image {
-  min-height: 210px;
+  min-height: 410px;
   position: relative;
   display: grid;
   place-items: center;
+  overflow: hidden;
   border-radius: 24px;
   background:
     radial-gradient(circle at 50% 20%, rgba(212, 13, 31, .22), transparent 34%),
@@ -35836,6 +35837,14 @@ textarea.form-control {
   background: rgba(255, 255, 255, .12);
   border: 1px solid rgba(255, 255, 255, .16);
   font-size: 42px;
+}
+
+.resultx-ranker-image img {
+  width: 100%;
+  height: 410px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 24px;
 }
 
 .resultx-ranker-image span {

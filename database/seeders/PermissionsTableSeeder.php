@@ -110,6 +110,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'company_recognition_access',
             ],
+            [
+                'title' => 'result_ranker_create',
+            ],
+            [
+                'title' => 'result_ranker_edit',
+            ],
+            [
+                'title' => 'result_ranker_delete',
+            ],
+            [
+                'title' => 'result_ranker_access',
+            ],
         ];
 
         Permission::insert($permissions);

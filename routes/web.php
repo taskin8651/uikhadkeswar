@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('founder-timelines', 'FounderTimelineController');
     Route::resource('about-why-items', 'AboutWhyItemController');
     Route::resource('company-recognitions', 'CompanyRecognitionController');
+    Route::resource('result-rankers', 'ResultRankerController');
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -58,3 +59,5 @@ Route::get('founder-journey', 'Frontend\AboutController@index')->name('frontend.
 Route::get('about-academy', 'Frontend\AboutAcademyController@index');
 Route::get('company-information.html', 'Frontend\AboutController@company')->name('frontend.company-information');
 Route::get('company-information', 'Frontend\AboutController@company');
+Route::get('results.html', 'Frontend\ResultController@index')->name('frontend.results');
+Route::get('results', 'Frontend\ResultController@index');
