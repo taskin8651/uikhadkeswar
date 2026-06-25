@@ -393,6 +393,122 @@
             </div>
         </div>
 
+        {{-- FOUNDER STORY --}}
+<div class="form-card">
+    <div class="form-card-header">
+        <div class="form-card-icon">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+
+        <div>
+            <p class="form-card-title">Founder Story</p>
+            <p class="form-card-subtitle">Story title, rich description and founder quote</p>
+        </div>
+    </div>
+
+    <div class="form-card-body">
+
+        <div class="field-group">
+            <label class="field-label" for="story_title">
+                Story Title
+            </label>
+
+            <div class="input-icon-wrap">
+                <i class="fas fa-heading icon"></i>
+
+                <input type="text"
+                       name="story_title"
+                       id="story_title"
+                       value="{{ old('story_title', $founderSection->story_title) }}"
+                       placeholder="A mission to bridge the education gap for rural students."
+                       class="field-input {{ $errors->has('story_title') ? 'error' : '' }}">
+            </div>
+
+            @if($errors->has('story_title'))
+                <p class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $errors->first('story_title') }}
+                </p>
+            @endif
+        </div>
+
+        <div class="field-group">
+            <label class="field-label" for="story_description">
+                Story Description
+            </label>
+
+            <textarea name="story_description"
+                      id="story_description"
+                      rows="8"
+                      class="field-input ckeditor {{ $errors->has('story_description') ? 'error' : '' }}"
+                      placeholder="Write founder story description">{{ old('story_description', $founderSection->story_description) }}</textarea>
+
+            @if($errors->has('story_description'))
+                <p class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $errors->first('story_description') }}
+                </p>
+            @else
+                <p class="field-hint">
+                    <i class="fas fa-info-circle"></i>
+                    You can use paragraphs, bold text and formatted content here.
+                </p>
+            @endif
+        </div>
+
+        <div class="field-group">
+            <label class="field-label" for="quote_text">
+                Quote Text
+            </label>
+
+            <textarea name="quote_text"
+                      id="quote_text"
+                      rows="4"
+                      placeholder="My mission is simple..."
+                      class="field-input {{ $errors->has('quote_text') ? 'error' : '' }}">{{ old('quote_text', $founderSection->quote_text) }}</textarea>
+
+            @if($errors->has('quote_text'))
+                <p class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $errors->first('quote_text') }}
+                </p>
+            @endif
+        </div>
+
+        <div class="field-group">
+            <label class="field-label" for="quote_author">
+                Quote Author
+            </label>
+
+            <div class="input-icon-wrap">
+                <i class="fas fa-user-edit icon"></i>
+
+                <input type="text"
+                       name="quote_author"
+                       id="quote_author"
+                       value="{{ old('quote_author', $founderSection->quote_author) }}"
+                       placeholder="Dr. Vitthal Nagare"
+                       class="field-input {{ $errors->has('quote_author') ? 'error' : '' }}">
+            </div>
+
+            @if($errors->has('quote_author'))
+                <p class="field-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ $errors->first('quote_author') }}
+                </p>
+            @endif
+        </div>
+
+        <div class="form-info-box">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                Frontend story and quote icons will remain static.
+            </p>
+        </div>
+
+    </div>
+</div>
+
         {{-- STATUS --}}
         <div class="form-card">
             <div class="form-card-header">
@@ -446,5 +562,33 @@
     </div>
 
 </form>
+@section('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.ckeditor').forEach(function (textarea) {
+            ClassicEditor
+                .create(textarea, {
+                    toolbar: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'undo',
+                        'redo'
+                    ]
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        });
+    });
+</script>
+@endsection
 
 @endsection

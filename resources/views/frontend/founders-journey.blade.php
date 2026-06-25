@@ -174,47 +174,79 @@
       <div class="row g-4 align-items-stretch">
 
         <!-- Story -->
-        <div class="col-lg-8">
-          <div class="fjx-story-card" data-aos="fade-right">
+        @if($founderSection)
+    <!-- Story -->
+    <div class="col-lg-8">
+        <div class="fjx-story-card" data-aos="fade-right">
 
             <div class="fjx-story-icon">
-              <i class="bi bi-lightbulb-fill"></i>
+                <i class="bi bi-lightbulb-fill"></i>
             </div>
 
-            <h3>A mission to bridge the education gap for rural students.</h3>
+            @if($founderSection->story_title)
+                <h3>{{ $founderSection->story_title }}</h3>
+            @else
+                <h3>A mission to bridge the education gap for rural students.</h3>
+            @endif
 
-            <p>
-              Dr. Vitthal Nagare started Khadkeshwar Development Services Pvt Ltd with a
-              clear vision to help rural students who often struggle due to lack of affordable
-              coaching, digital access, expert guidance and structured academic mentorship.
-            </p>
+            @if($founderSection->story_description)
+                <div class="fjx-story-description">
+                    {!! $founderSection->story_description !!}
+                </div>
+            @else
+                <p>
+                    Dr. Vitthal Nagare started Khadkeshwar Development Services Pvt Ltd with a
+                    clear vision to help rural students who often struggle due to lack of affordable
+                    coaching, digital access, expert guidance and structured academic mentorship.
+                </p>
 
-            <p>
-              Coming from a rural background, he understood that many talented students do
-              not fail because of lack of ability, but because of lack of guidance, confidence,
-              exposure and a disciplined preparation environment.
-            </p>
+                <p>
+                    Coming from a rural background, he understood that many talented students do
+                    not fail because of lack of ability, but because of lack of guidance, confidence,
+                    exposure and a disciplined preparation environment.
+                </p>
 
-            <p>
-              Through Khadkeshwar NEET JEE Academy, his goal is to create a premium yet
-              affordable learning ecosystem where students can prepare for NEET, JEE and
-              Foundation courses with personal mentoring, regular tests, revision support,
-              scholarships and future AI-enabled progress tracking.
-            </p>
+                <p>
+                    Through Khadkeshwar NEET JEE Academy, his goal is to create a premium yet
+                    affordable learning ecosystem where students can prepare for NEET, JEE and
+                    Foundation courses with personal mentoring, regular tests, revision support,
+                    scholarships and future AI-enabled progress tracking.
+                </p>
+            @endif
 
-            <div class="fjx-premium-quote">
-              <i class="bi bi-quote"></i>
-              <div>
-                <h4>
-                  My mission is simple — empower every rural student with quality education,
-                  technology and the right guidance to build a better tomorrow.
-                </h4>
-                <span>— Dr. Vitthal Nagare</span>
-              </div>
-            </div>
+            @if($founderSection->quote_text || $founderSection->quote_author)
+                <div class="fjx-premium-quote">
+                    <i class="bi bi-quote"></i>
 
-          </div>
+                    <div>
+                        @if($founderSection->quote_text)
+                            <h4>
+                                {{ $founderSection->quote_text }}
+                            </h4>
+                        @endif
+
+                        @if($founderSection->quote_author)
+                            <span>— {{ $founderSection->quote_author }}</span>
+                        @endif
+                    </div>
+                </div>
+            @else
+                <div class="fjx-premium-quote">
+                    <i class="bi bi-quote"></i>
+
+                    <div>
+                        <h4>
+                            My mission is simple — empower every rural student with quality education,
+                            technology and the right guidance to build a better tomorrow.
+                        </h4>
+                        <span>— Dr. Vitthal Nagare</span>
+                    </div>
+                </div>
+            @endif
+
         </div>
+    </div>
+@endif
 
         <!-- Company Panel -->
         <div class="col-lg-4">

@@ -23,6 +23,10 @@ class FounderSection extends Model implements HasMedia
         'designation_value',
         'company_value',
         'location_value',
+         'story_title',
+    'story_description',
+    'quote_text',
+    'quote_author',
         'status',
     ];
 
