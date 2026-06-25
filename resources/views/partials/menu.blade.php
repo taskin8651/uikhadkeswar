@@ -113,7 +113,9 @@
     @php
         $aboutActive = request()->is('admin/founder-section*')
             || request()->is('admin/founder-responsibilities*')
-            || request()->is('admin/founder-timelines*');
+            || request()->is('admin/founder-timelines*')
+            || request()->is('admin/about-why-items*')
+             || request()->is('admin/about-page-content*');
     @endphp
 
     <div x-data="{ open: {{ $aboutActive ? 'true' : 'false' }} }">
@@ -163,6 +165,21 @@
         Founder Timeline
     </a>
 @endcan
+@can('about_page_content_access')
+    <a href="{{ route('admin.about-page-content.edit') }}"
+       class="sub-link {{ request()->is('admin/about-page-content*') ? 'active' : '' }}">
+        <i class="fas fa-building"></i>
+        About Page Content
+    </a>
+@endcan
+
+            @can('about_why_item_access')
+                <a href="{{ route('admin.about-why-items.index') }}"
+                   class="sub-link {{ request()->is('admin/about-why-items*') ? 'active' : '' }}">
+                    <i class="fas fa-award"></i>
+                    Why Choose Cards
+                </a>
+            @endcan
 
         </div>
     </div>

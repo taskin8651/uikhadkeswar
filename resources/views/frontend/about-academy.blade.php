@@ -25,93 +25,98 @@
         <span>About Khadkeshwar Academy</span>
       </nav>
 
-      <div class="aboutv2-hero-card" data-aos="fade-up">
-        <div class="aboutv2-hero-shine"></div>
+      @if($aboutPageContent)
+<div class="aboutv2-hero-card" data-aos="fade-up">
+    <div class="aboutv2-hero-shine"></div>
 
-        <div class="row g-0 align-items-stretch">
+    <div class="row g-0 align-items-stretch">
 
-          <!-- LEFT CONTENT -->
-          <div class="col-lg-7">
+        <div class="col-lg-7">
             <div class="aboutv2-hero-content">
 
-              <span class="aboutv2-kicker">
-                <i class="bi bi-building-check"></i>
-                About Khadkeshwar Academy
-              </span>
+                <span class="aboutv2-kicker">
+                    <i class="bi bi-building-check"></i>
+                    About Khadkeshwar Academy
+                </span>
 
-              <h1>
-                Building Rural India’s Future
-                <span>NEET & JEE Learning Ecosystem</span>
-              </h1>
+                <h1>
+                    {{ $aboutPageContent->hero_title }}
+                    <span>{{ $aboutPageContent->hero_highlight_text }}</span>
+                </h1>
 
-              <p>
-                Khadkeshwar NEET JEE Academy, Lonar is a rural-first coaching institute
-                with personal mentorship, affordable academic support, disciplined preparation
-                and a future-ready AI education vision.
-              </p>
+                <p>{{ $aboutPageContent->hero_description }}</p>
 
-              <div class="aboutv2-hero-tags">
-                <span><i class="bi bi-check-circle-fill"></i> NEET Preparation</span>
-                <span><i class="bi bi-check-circle-fill"></i> JEE Preparation</span>
-                <span><i class="bi bi-check-circle-fill"></i> Foundation Course</span>
-                <span><i class="bi bi-check-circle-fill"></i> AI Learning Vision</span>
-              </div>
+                <div class="aboutv2-hero-tags">
+                    @foreach([
+                        $aboutPageContent->hero_tag_one,
+                        $aboutPageContent->hero_tag_two,
+                        $aboutPageContent->hero_tag_three,
+                        $aboutPageContent->hero_tag_four,
+                    ] as $tag)
+                        @if($tag)
+                            <span><i class="bi bi-check-circle-fill"></i> {{ $tag }}</span>
+                        @endif
+                    @endforeach
+                </div>
 
-              <div class="aboutv2-hero-actions">
-                <a href="admission.html" class="btn-main">
-                  Apply for Admission
-                  <i class="bi bi-arrow-right"></i>
-                </a>
+                <div class="aboutv2-hero-actions">
+                    <a href="admission.html" class="btn-main">
+                        Apply for Admission
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
 
-                <a href="tel:+918856822032" class="aboutv2-outline-btn">
-                  <i class="bi bi-telephone-fill"></i>
-                  Call Academy
-                </a>
-              </div>
+                    <a href="tel:+918856822032" class="aboutv2-outline-btn">
+                        <i class="bi bi-telephone-fill"></i>
+                        Call Academy
+                    </a>
+                </div>
 
             </div>
-          </div>
+        </div>
 
-          <!-- RIGHT IMAGE -->
-          <div class="col-lg-5">
+        <div class="col-lg-5">
             <div class="aboutv2-hero-visual">
 
-              <div class="aboutv2-image-frame">
-                <img src="assets/img/img5.jpeg" alt="Khadkeshwar Academy classroom learning environment">
+                <div class="aboutv2-image-frame">
+                    <img
+                        src="{{ $aboutPageContent->getFirstMediaUrl('about_hero_image') ?: asset('assets/img/img5.jpeg') }}"
+                        alt="{{ $aboutPageContent->hero_image_alt ?: 'Khadkeshwar Academy classroom learning environment' }}"
+                    >
 
-                <div class="aboutv2-image-badge">
-                  <i class="bi bi-stars"></i>
-                  Rural-First Education Mission
+                    <div class="aboutv2-image-badge">
+                        <i class="bi bi-stars"></i>
+                        Rural-First Education Mission
+                    </div>
+
+                    <div class="aboutv2-image-info">
+                        <span>{{ $aboutPageContent->hero_focus_label }}</span>
+                        <h3>{{ $aboutPageContent->hero_focus_title }}</h3>
+                        <p>{{ $aboutPageContent->hero_focus_description }}</p>
+                    </div>
                 </div>
 
-                <div class="aboutv2-image-info">
-                  <span>Academy Focus</span>
-                  <h3>NEET / JEE / Foundation</h3>
-                  <p>Premium academic preparation for rural aspirants.</p>
+                <div class="aboutv2-floating-stat aboutv2-stat-1">
+                    <i class="bi bi-percent"></i>
+                    <div>
+                        <strong>{{ $aboutPageContent->hero_stat_one_value }}</strong>
+                        <span>{{ $aboutPageContent->hero_stat_one_label }}</span>
+                    </div>
                 </div>
-              </div>
 
-              <div class="aboutv2-floating-stat aboutv2-stat-1">
-                <i class="bi bi-percent"></i>
-                <div>
-                  <strong>50%</strong>
-                  <span>Fee Concession</span>
+                <div class="aboutv2-floating-stat aboutv2-stat-2">
+                    <i class="bi bi-clipboard2-check-fill"></i>
+                    <div>
+                        <strong>{{ $aboutPageContent->hero_stat_two_value }}</strong>
+                        <span>{{ $aboutPageContent->hero_stat_two_label }}</span>
+                    </div>
                 </div>
-              </div>
-
-              <div class="aboutv2-floating-stat aboutv2-stat-2">
-                <i class="bi bi-clipboard2-check-fill"></i>
-                <div>
-                  <strong>Regular Tests</strong>
-                  <span>Performance Practice</span>
-                </div>
-              </div>
 
             </div>
-          </div>
-
         </div>
-      </div>
+
+    </div>
+</div>
+@endif
 
     </div>
   </section>
@@ -119,230 +124,195 @@
 
 
   <!-- ================= INTRO START ================= -->
-  <section class="aboutv2-intro section-padding">
+ @if($aboutPageContent)
+<section class="aboutv2-intro section-padding">
     <div class="container">
 
-      <div class="aboutv2-section-head" data-aos="fade-up">
-        <span class="section-badge">
-          <i class="bi bi-info-circle-fill"></i>
-          Academy Introduction
-        </span>
+        <div class="aboutv2-section-head" data-aos="fade-up">
+            <span class="section-badge">
+                <i class="bi bi-info-circle-fill"></i>
+                Academy Introduction
+            </span>
 
-        <h2>Premium coaching with personal guidance for rural students.</h2>
-
-        <p>
-          A focused academic environment designed to help students prepare for NEET, JEE
-          and Foundation goals with confidence, consistency and the right guidance.
-        </p>
-      </div>
-
-      <div class="aboutv2-intro-card" data-aos="fade-up">
-        <div class="row g-4 align-items-center">
-
-          <div class="col-lg-6">
-            <div class="aboutv2-intro-text">
-              <h3>Quality preparation should not depend on city location.</h3>
-
-              <p>
-                Khadkeshwar NEET JEE Academy is created with a clear mission — to make
-                quality NEET, JEE and Foundation preparation accessible for rural students.
-                The academy focuses on disciplined classroom learning, regular tests,
-                revision support and personal mentorship.
-              </p>
-
-              <p>
-                We believe rural students deserve the same academic guidance, confidence
-                and preparation environment that students get in larger cities. The future
-                roadmap includes AI-enabled learning support, performance tracking and
-                smart study planning.
-              </p>
-
-              <div class="aboutv2-quote-box">
-                <i class="bi bi-quote"></i>
-                <div>
-                  <strong>“Education with discipline, mentorship and technology can transform rural talent.”</strong>
-                  <span>Khadkeshwar NEET JEE Academy</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="aboutv2-core-grid">
-
-              <div class="aboutv2-core-card dark">
-                <span>01</span>
-                <i class="bi bi-bullseye"></i>
-                <h3>Exam-Focused Learning</h3>
-                <p>NEET, JEE and Foundation preparation with proper academic planning.</p>
-              </div>
-
-              <div class="aboutv2-core-card">
-                <span>02</span>
-                <i class="bi bi-person-check-fill"></i>
-                <h3>Personal Mentorship</h3>
-                <p>Guidance, doubt support and motivation for consistent preparation.</p>
-              </div>
-
-              <div class="aboutv2-core-card">
-                <span>03</span>
-                <i class="bi bi-graph-up-arrow"></i>
-                <h3>Progress Tracking</h3>
-                <p>Tests, revision and improvement-focused student performance support.</p>
-              </div>
-
-              <div class="aboutv2-core-card">
-                <span>04</span>
-                <i class="bi bi-cpu-fill"></i>
-                <h3>AI Learning Vision</h3>
-                <p>Future roadmap for AI test analysis and smart student dashboard.</p>
-              </div>
-
-            </div>
-          </div>
-
+            <h2>{{ $aboutPageContent->intro_heading }}</h2>
+            <p>{!! $aboutPageContent->intro_description !!}</p>
         </div>
-      </div>
+
+        <div class="aboutv2-intro-card" data-aos="fade-up">
+            <div class="row g-4 align-items-center">
+
+                <div class="col-lg-6">
+                    <div class="aboutv2-intro-text">
+                        <h3>{{ $aboutPageContent->intro_card_title }}</h3>
+
+                        {!! $aboutPageContent->intro_card_description !!}
+
+                        <div class="aboutv2-quote-box">
+                            <i class="bi bi-quote"></i>
+                            <div>
+                                <strong>“{{ $aboutPageContent->intro_quote_text }}”</strong>
+                                <span>{{ $aboutPageContent->intro_quote_author }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="aboutv2-core-grid">
+
+                        <div class="aboutv2-core-card dark">
+                            <span>01</span>
+                            <i class="bi bi-bullseye"></i>
+                            <h3>{{ $aboutPageContent->intro_core_one_title }}</h3>
+                            <p>{!! $aboutPageContent->intro_core_one_description !!}</p>
+                        </div>
+
+                        <div class="aboutv2-core-card">
+                            <span>02</span>
+                            <i class="bi bi-person-check-fill"></i>
+                            <h3>{{ $aboutPageContent->intro_core_two_title }}</h3>
+                            <p>{!! $aboutPageContent->intro_core_two_description !!}</p>
+                        </div>
+
+                        <div class="aboutv2-core-card">
+                            <span>03</span>
+                            <i class="bi bi-graph-up-arrow"></i>
+                            <h3>{{ $aboutPageContent->intro_core_three_title }}</h3>
+                            <p>{!! $aboutPageContent->intro_core_three_description !!}</p>
+                        </div>
+
+                        <div class="aboutv2-core-card">
+                            <span>04</span>
+                            <i class="bi bi-cpu-fill"></i>
+                            <h3>{{ $aboutPageContent->intro_core_four_title }}</h3>
+                            <p>{!! $aboutPageContent->intro_core_four_description !!}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
-  </section>
+</section>
+@endif
   <!-- ================= INTRO END ================= -->
 
 
   <!-- ================= VISION MISSION START ================= -->
-  <section class="aboutv2-vm section-padding">
+ @if($aboutPageContent)
+<section class="aboutv2-vm section-padding">
     <div class="container">
 
-      <div class="aboutv2-section-head" data-aos="fade-up">
-        <span class="section-badge">
-          <i class="bi bi-bullseye"></i>
-          Vision & Mission
-        </span>
+        <div class="aboutv2-section-head" data-aos="fade-up">
+            <span class="section-badge">
+                <i class="bi bi-bullseye"></i>
+                Vision & Mission
+            </span>
 
-        <h2>Focused on affordable, disciplined and future-ready education.</h2>
-
-        <p>
-          Our vision is to create a trusted rural education platform where students can
-          prepare confidently for competitive exams with the right academic system.
-        </p>
-      </div>
-
-      <div class="aboutv2-vm-grid">
-
-        <div class="aboutv2-vm-card dark" data-aos="fade-up" data-aos-delay="100">
-          <div class="aboutv2-icon">
-            <i class="bi bi-eye-fill"></i>
-          </div>
-          <h3>Our Vision</h3>
-          <p>
-            To build a strong rural learning ecosystem where NEET, JEE and Foundation
-            students can access quality coaching, mentorship, test practice and future
-            AI-enabled learning support.
-          </p>
+            <h2>{{ $aboutPageContent->vm_heading }}</h2>
+            <p>{!! $aboutPageContent->vm_description !!}</p>
         </div>
 
-        <div class="aboutv2-vm-card" data-aos="fade-up" data-aos-delay="180">
-          <div class="aboutv2-icon">
-            <i class="bi bi-rocket-takeoff-fill"></i>
-          </div>
-          <h3>Our Mission</h3>
-          <p>
-            To support rural students through affordable education, personal guidance,
-            scholarship support, hostel and reading room facilities, regular revision and
-            disciplined preparation.
-          </p>
-        </div>
+        <div class="aboutv2-vm-grid">
 
-        <div class="aboutv2-vm-card" data-aos="fade-up" data-aos-delay="260">
-          <div class="aboutv2-icon">
-            <i class="bi bi-stars"></i>
-          </div>
-          <h3>Future Goal</h3>
-          <p>
-            To grow from a coaching institute into a future AI education platform and
-            rural EdTech startup working toward a national learning brand for rural India.
-          </p>
-        </div>
+            <div class="aboutv2-vm-card dark" data-aos="fade-up" data-aos-delay="100">
+                <div class="aboutv2-icon">
+                    <i class="bi bi-eye-fill"></i>
+                </div>
+                <h3>{{ $aboutPageContent->vision_title }}</h3>
+                <p>{!! $aboutPageContent->vision_description !!}</p>
+            </div>
 
-      </div>
+            <div class="aboutv2-vm-card" data-aos="fade-up" data-aos-delay="180">
+                <div class="aboutv2-icon">
+                    <i class="bi bi-rocket-takeoff-fill"></i>
+                </div>
+                <h3>{{ $aboutPageContent->mission_title }}</h3>
+                <p>{!! $aboutPageContent->mission_description !!}</p>
+            </div>
+
+            <div class="aboutv2-vm-card" data-aos="fade-up" data-aos-delay="260">
+                <div class="aboutv2-icon">
+                    <i class="bi bi-stars"></i>
+                </div>
+                <h3>{{ $aboutPageContent->future_title }}</h3>
+                <p>{!! $aboutPageContent->future_description !!}</p>
+            </div>
+
+        </div>
 
     </div>
-  </section>
+</section>
+@endif
   <!-- ================= VISION MISSION END ================= -->
 
 
   <!-- ================= TEACHING METHOD START ================= -->
-  <section class="aboutv2-method section-padding">
-    <div class="aboutv2-dark-grid"></div>
-
+  @if($aboutPageContent)
+<section class="aboutv2-support section-padding">
     <div class="container">
 
-      <div class="row align-items-center g-5">
+        <div class="row align-items-center g-5">
 
-        <div class="col-lg-5">
-          <div class="aboutv2-method-content" data-aos="fade-right">
-            <span class="section-badge">
-              <i class="bi bi-person-video3"></i>
-              Teaching Methodology
-            </span>
+            <div class="col-lg-6">
+                <div class="aboutv2-support-main" data-aos="fade-right">
+                    <span class="section-badge">
+                        <i class="bi bi-person-hearts"></i>
+                        Student Support System
+                    </span>
 
-            <h2>Structured learning system for strong preparation.</h2>
+                    <h2>{{ $aboutPageContent->support_heading }}</h2>
 
-            <p>
-              Our teaching system is built around concept clarity, exam-oriented practice,
-              regular tests, revision planning and doubt support.
-            </p>
+                    <p>{!! $aboutPageContent->support_description !!}</p>
 
-            <div class="aboutv2-method-note">
-              <i class="bi bi-check2-circle"></i>
-              <span>Daily discipline + regular tests + personal guidance</span>
+                    <div class="aboutv2-support-highlight">
+                        <i class="bi bi-building-fill-check"></i>
+                        <div>
+                            <h3>{{ $aboutPageContent->support_highlight_title }}</h3>
+                            <p>{!! $aboutPageContent->support_highlight_description !!}</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <a href="courses.html" class="btn-main">
-              Explore Courses
-              <i class="bi bi-arrow-right"></i>
-            </a>
-          </div>
+            <div class="col-lg-6">
+                <div class="aboutv2-support-grid">
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="100">
+                        <i class="bi bi-person-check-fill"></i>
+                        <h3>{{ $aboutPageContent->support_one_title }}</h3>
+                        <p>{!! $aboutPageContent->support_one_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="160">
+                        <i class="bi bi-percent"></i>
+                        <h3>{{ $aboutPageContent->support_two_title }}</h3>
+                        <p>{!! $aboutPageContent->support_two_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="220">
+                        <i class="bi bi-clipboard2-check-fill"></i>
+                        <h3>{{ $aboutPageContent->support_three_title }}</h3>
+                        <p>{!! $aboutPageContent->support_three_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="280">
+                        <i class="bi bi-robot"></i>
+                        <h3>{{ $aboutPageContent->support_four_title }}</h3>
+                        <p>{!! $aboutPageContent->support_four_description !!}</p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-
-        <div class="col-lg-7">
-          <div class="aboutv2-method-grid">
-
-            <div class="aboutv2-method-card" data-aos="zoom-in" data-aos-delay="100">
-              <span>01</span>
-              <i class="bi bi-book-fill"></i>
-              <h3>Concept Clarity</h3>
-              <p>Strong subject foundation through classroom explanation and practice.</p>
-            </div>
-
-            <div class="aboutv2-method-card" data-aos="zoom-in" data-aos-delay="160">
-              <span>02</span>
-              <i class="bi bi-pencil-square"></i>
-              <h3>Daily Practice</h3>
-              <p>Problem solving, question practice and chapter-wise revision support.</p>
-            </div>
-
-            <div class="aboutv2-method-card" data-aos="zoom-in" data-aos-delay="220">
-              <span>03</span>
-              <i class="bi bi-clipboard2-check-fill"></i>
-              <h3>Regular Tests</h3>
-              <p>Chapter tests, mock tests and performance-based improvement planning.</p>
-            </div>
-
-            <div class="aboutv2-method-card" data-aos="zoom-in" data-aos-delay="280">
-              <span>04</span>
-              <i class="bi bi-chat-dots-fill"></i>
-              <h3>Doubt Support</h3>
-              <p>Personal academic guidance to clear doubts and improve confidence.</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
 
     </div>
-  </section>
+</section>
+@endif
   <!-- ================= TEACHING METHOD END ================= -->
 
 
@@ -428,73 +398,69 @@
 
 
   <!-- ================= SUPPORT START ================= -->
-  <section class="aboutv2-support section-padding">
+ @if($aboutPageContent)
+<section class="aboutv2-support section-padding">
     <div class="container">
 
-      <div class="row align-items-center g-5">
+        <div class="row align-items-center g-5">
 
-        <div class="col-lg-6">
-          <div class="aboutv2-support-main" data-aos="fade-right">
-            <span class="section-badge">
-              <i class="bi bi-person-hearts"></i>
-              Student Support System
-            </span>
+            <div class="col-lg-6">
+                <div class="aboutv2-support-main" data-aos="fade-right">
+                    <span class="section-badge">
+                        <i class="bi bi-person-hearts"></i>
+                        Student Support System
+                    </span>
 
-            <h2>Support beyond classroom learning.</h2>
+                    <h2>{{ $aboutPageContent->support_heading }}</h2>
 
-            <p>
-              Khadkeshwar Academy supports students with mentorship, scholarship guidance,
-              test feedback, doubt support and a focused learning environment.
-            </p>
+                    <p>{!! $aboutPageContent->support_description !!}</p>
 
-            <div class="aboutv2-support-highlight">
-              <i class="bi bi-building-fill-check"></i>
-              <div>
-                <h3>Hostel & Reading Room Facilities</h3>
-                <p>
-                  Hostel and Reading Room facilities are provided for students through the
-                  academy for a focused and disciplined learning environment.
-                </p>
-              </div>
+                    <div class="aboutv2-support-highlight">
+                        <i class="bi bi-building-fill-check"></i>
+                        <div>
+                            <h3>{{ $aboutPageContent->support_highlight_title }}</h3>
+                            <p>{!! $aboutPageContent->support_highlight_description !!}</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-          </div>
+            <div class="col-lg-6">
+                <div class="aboutv2-support-grid">
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="100">
+                        <i class="bi bi-person-check-fill"></i>
+                        <h3>{{ $aboutPageContent->support_one_title }}</h3>
+                        <p>{!! $aboutPageContent->support_one_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="160">
+                        <i class="bi bi-percent"></i>
+                        <h3>{{ $aboutPageContent->support_two_title }}</h3>
+                        <p>{!! $aboutPageContent->support_two_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="220">
+                        <i class="bi bi-clipboard2-check-fill"></i>
+                        <h3>{{ $aboutPageContent->support_three_title }}</h3>
+                        <p>{!! $aboutPageContent->support_three_description !!}</p>
+                    </div>
+
+                    <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="280">
+                        <i class="bi bi-robot"></i>
+                        <h3>{{ $aboutPageContent->support_four_title }}</h3>
+                        <p>{!! $aboutPageContent->support_four_description !!}</p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-
-        <div class="col-lg-6">
-          <div class="aboutv2-support-grid">
-
-            <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="100">
-              <i class="bi bi-person-check-fill"></i>
-              <h3>Personal Mentorship</h3>
-              <p>Regular guidance to keep students focused and consistent.</p>
-            </div>
-
-            <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="160">
-              <i class="bi bi-percent"></i>
-              <h3>Fee Concession</h3>
-              <p>Support for eligible and deserving students up to 50%.</p>
-            </div>
-
-            <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="220">
-              <i class="bi bi-clipboard2-check-fill"></i>
-              <h3>Test Series</h3>
-              <p>Chapter-wise tests, revision tests and full mock practice.</p>
-            </div>
-
-            <div class="aboutv2-support-item" data-aos="fade-up" data-aos-delay="280">
-              <i class="bi bi-robot"></i>
-              <h3>AI Learning Vision</h3>
-              <p>Future roadmap for AI test analysis and progress tracking.</p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
 
     </div>
-  </section>
+</section>
+@endif
   <!-- ================= SUPPORT END ================= -->
 
 
@@ -516,51 +482,25 @@
         </p>
       </div>
 
-      <div class="aboutv2-why-grid">
+      @php
+        $whyDelays = [100, 160, 220, 280, 340, 400];
+      @endphp
 
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="100">
-          <span>01</span>
-          <i class="bi bi-person-workspace"></i>
-          <h3>Experienced Faculty</h3>
-          <p>Subject-focused teaching for NEET, JEE and Foundation preparation.</p>
+      @if(isset($aboutWhyItems) && $aboutWhyItems->count())
+        <div class="aboutv2-why-grid">
+          @foreach($aboutWhyItems as $index => $whyItem)
+            <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="{{ $whyDelays[$index] ?? 100 }}">
+              <span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+              <i class="{{ $whyItem->icon ?: 'bi bi-award-fill' }}"></i>
+              <h3>{{ $whyItem->title }}</h3>
+
+              @if($whyItem->description)
+                <p>{{ $whyItem->description }}</p>
+              @endif
+            </div>
+          @endforeach
         </div>
-
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="160">
-          <span>02</span>
-          <i class="bi bi-people-fill"></i>
-          <h3>Rural-First Model</h3>
-          <p>Focused on helping rural students access quality preparation locally.</p>
-        </div>
-
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="220">
-          <span>03</span>
-          <i class="bi bi-wallet2"></i>
-          <h3>Affordable Learning</h3>
-          <p>Fee support and concession options for eligible students.</p>
-        </div>
-
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="280">
-          <span>04</span>
-          <i class="bi bi-graph-up-arrow"></i>
-          <h3>Progress Tracking</h3>
-          <p>Regular test practice and improvement-based academic support.</p>
-        </div>
-
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="340">
-          <span>05</span>
-          <i class="bi bi-chat-quote-fill"></i>
-          <h3>Parent Trust</h3>
-          <p>Transparent communication and disciplined student environment.</p>
-        </div>
-
-        <div class="aboutv2-why-card" data-aos="zoom-in" data-aos-delay="400">
-          <span>06</span>
-          <i class="bi bi-cpu-fill"></i>
-          <h3>Future AI Vision</h3>
-          <p>Phase 2 roadmap includes AI-enabled learning support.</p>
-        </div>
-
-      </div>
+      @endif
 
     </div>
   </section>
