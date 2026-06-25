@@ -21,7 +21,7 @@ class AboutController extends Controller
             ->take(6)
             ->get();
 
-        return view('frontend.about', compact(
+        return view('frontend.founders-journey', compact(
             'founderSection',
             'founderResponsibilities'
         ));
