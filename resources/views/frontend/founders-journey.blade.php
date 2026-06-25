@@ -335,51 +335,42 @@
         </p>
       </div>
 
-      <div class="fjx-resp-grid">
+      @php
+    $respIcons = [
+        'bi bi-bullseye',
+        'bi bi-handshake-fill',
+        'bi bi-cpu-fill',
+        'bi bi-mortarboard-fill',
+        'bi bi-percent',
+        'bi bi-graph-up-arrow',
+    ];
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="100">
-          <span>01</span>
-          <i class="bi bi-bullseye"></i>
-          <h3>Strategic Leadership & Vision</h3>
-          <p>Driving long-term vision and mission alignment for rural education transformation.</p>
-        </div>
+    $respDelays = [100, 160, 220, 280, 340, 400];
+@endphp
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="160">
-          <span>02</span>
-          <i class="bi bi-handshake-fill"></i>
-          <h3>Business Development & Partnerships</h3>
-          <p>Building collaborations, strategic alliances and growth opportunities.</p>
-        </div>
+@if(isset($founderResponsibilities) && $founderResponsibilities->count())
+    <div class="fjx-resp-grid">
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="220">
-          <span>03</span>
-          <i class="bi bi-cpu-fill"></i>
-          <h3>Technology & AI Integration</h3>
-          <p>Planning AI-based test analysis, dashboard, performance tracking and digital support.</p>
-        </div>
+        @foreach($founderResponsibilities as $index => $responsibility)
+            <div class="fjx-resp-card"
+                 data-aos="fade-up"
+                 data-aos-delay="{{ $respDelays[$index] ?? 100 }}">
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="280">
-          <span>04</span>
-          <i class="bi bi-mortarboard-fill"></i>
-          <h3>Academic System Development</h3>
-          <p>Creating a disciplined NEET/JEE preparation model with mentorship and test practice.</p>
-        </div>
+                <span>{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="340">
-          <span>05</span>
-          <i class="bi bi-percent"></i>
-          <h3>Scholarship & Fee Support</h3>
-          <p>Supporting deserving rural students through fee concession and scholarship support.</p>
-        </div>
+                <i class="{{ $respIcons[$index] ?? 'bi bi-bullseye' }}"></i>
 
-        <div class="fjx-resp-card" data-aos="fade-up" data-aos-delay="400">
-          <span>06</span>
-          <i class="bi bi-graph-up-arrow"></i>
-          <h3>Impact Measurement</h3>
-          <p>Creating measurable academic and social impact for students and families.</p>
-        </div>
+                <h3>{{ $responsibility->title }}</h3>
 
-      </div>
+                @if($responsibility->description)
+                    <p>{{ $responsibility->description }}</p>
+                @endif
+
+            </div>
+        @endforeach
+
+    </div>
+@endif
 
     </div>
   </section>

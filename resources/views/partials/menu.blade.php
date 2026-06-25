@@ -108,10 +108,11 @@
             </div>
         @endcan
 
-        {{-- ABOUT US GROUP --}}
+       {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php
-        $aboutActive = request()->is('admin/founder-section*');
+        $aboutActive = request()->is('admin/founder-section*')
+            || request()->is('admin/founder-responsibilities*');
     @endphp
 
     <div x-data="{ open: {{ $aboutActive ? 'true' : 'false' }} }">
@@ -144,6 +145,14 @@
                    class="sub-link {{ request()->is('admin/founder-section*') ? 'active' : '' }}">
                     <i class="fas fa-user-tie"></i>
                     Founder Section
+                </a>
+            @endcan
+
+            @can('founder_responsibility_access')
+                <a href="{{ route('admin.founder-responsibilities.index') }}"
+                   class="sub-link {{ request()->is('admin/founder-responsibilities*') ? 'active' : '' }}">
+                    <i class="fas fa-tasks"></i>
+                    Founder Responsibilities
                 </a>
             @endcan
 
