@@ -378,33 +378,24 @@
         </p>
       </div>
 
-      <div class="companyx-recognition-grid">
+      @php
+        $recognitionDelays = [100, 160, 220, 280, 340, 400];
+      @endphp
 
-        <div class="companyx-recognition-card" data-aos="zoom-in" data-aos-delay="100">
-          <i class="bi bi-shield-check"></i>
-          <h3>ISO 9001:2015 Certified Institute</h3>
-          <p>Quality-focused education process and organized academic support system.</p>
+      @if(isset($companyRecognitions) && $companyRecognitions->count())
+        <div class="companyx-recognition-grid">
+          @foreach($companyRecognitions as $index => $recognition)
+            <div class="companyx-recognition-card" data-aos="zoom-in" data-aos-delay="{{ $recognitionDelays[$index] ?? 100 }}">
+              <i class="{{ $recognition->icon ?: 'bi bi-award-fill' }}"></i>
+              <h3>{{ $recognition->title }}</h3>
+
+              @if($recognition->description)
+                <p>{{ $recognition->description }}</p>
+              @endif
+            </div>
+          @endforeach
         </div>
-
-        <div class="companyx-recognition-card" data-aos="zoom-in" data-aos-delay="160">
-          <i class="bi bi-patch-check-fill"></i>
-          <h3>Trademark Registered</h3>
-          <p>Khadkeshwar NEET/JEE Academy brand identity and recognition.</p>
-        </div>
-
-        <div class="companyx-recognition-card" data-aos="zoom-in" data-aos-delay="220">
-          <i class="bi bi-rocket-takeoff-fill"></i>
-          <h3>Startup India Recognized Startup</h3>
-          <p>Rural education and EdTech startup vision for future learning growth.</p>
-        </div>
-
-        <div class="companyx-recognition-card" data-aos="zoom-in" data-aos-delay="280">
-          <i class="bi bi-stars"></i>
-          <h3>DPIIT Recognition</h3>
-          <p>Startup-focused recognition roadmap and future-ready education mission.</p>
-        </div>
-
-      </div>
+      @endif
 
     </div>
   </section>

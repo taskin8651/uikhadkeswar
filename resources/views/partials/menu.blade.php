@@ -115,6 +115,7 @@
             || request()->is('admin/founder-responsibilities*')
             || request()->is('admin/founder-timelines*')
             || request()->is('admin/about-why-items*')
+            || request()->is('admin/company-recognitions*')
              || request()->is('admin/about-page-content*');
     @endphp
 
@@ -178,6 +179,14 @@
                    class="sub-link {{ request()->is('admin/about-why-items*') ? 'active' : '' }}">
                     <i class="fas fa-award"></i>
                     Why Choose Cards
+                </a>
+            @endcan
+
+            @can('company_recognition_access')
+                <a href="{{ route('admin.company-recognitions.index') }}"
+                   class="sub-link {{ request()->is('admin/company-recognitions*') ? 'active' : '' }}">
+                    <i class="fas fa-certificate"></i>
+                    Company Recognitions
                 </a>
             @endcan
 

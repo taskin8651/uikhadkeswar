@@ -98,6 +98,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'about_why_item_access',
             ],
+            [
+                'title' => 'company_recognition_create',
+            ],
+            [
+                'title' => 'company_recognition_edit',
+            ],
+            [
+                'title' => 'company_recognition_delete',
+            ],
+            [
+                'title' => 'company_recognition_access',
+            ],
         ];
 
         Permission::insert($permissions);
