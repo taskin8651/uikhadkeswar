@@ -42,6 +42,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('gallery-items', 'GalleryItemController', ['except' => ['show']]);
     Route::resource('faculty-members', 'FacultyMemberController', ['except' => ['show']]);
     Route::resource('startup-cards', 'StartupCardController', ['except' => ['show']]);
+    Route::resource('contact-inquiries', 'ContactInquiryController', ['only' => ['index', 'destroy']]);
+    Route::resource('admission-inquiries', 'AdmissionInquiryController', ['only' => ['index', 'destroy']]);
+    Route::resource('scholarship-inquiries', 'ScholarshipInquiryController', ['only' => ['index', 'destroy']]);
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -69,3 +72,12 @@ Route::get('gallery', 'Frontend\GalleryController@index');
 Route::get('faculty', 'Frontend\FacultyController@index');
 Route::get('startup-vision.html', 'Frontend\StartupVisionController@index')->name('frontend.startup-vision');
 Route::get('startup-vision', 'Frontend\StartupVisionController@index');
+Route::view('contact.html', 'frontend.contact')->name('frontend.contact');
+Route::view('contact', 'frontend.contact');
+Route::view('admission.html', 'frontend.admission')->name('frontend.admission');
+Route::view('admission', 'frontend.admission');
+Route::view('scholarship-exam.html', 'frontend.scholarship-exam')->name('frontend.scholarship');
+Route::view('scholarship-exam', 'frontend.scholarship-exam');
+Route::post('contact-inquiry', 'Frontend\InquiryController@storeContact')->name('frontend.contact-inquiry.store');
+Route::post('admission-inquiry', 'Frontend\InquiryController@storeAdmission')->name('frontend.admission-inquiry.store');
+Route::post('scholarship-inquiry', 'Frontend\InquiryController@storeScholarship')->name('frontend.scholarship-inquiry.store');

@@ -170,6 +170,24 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'startup_card_access',
             ],
+            [
+                'title' => 'contact_inquiry_access',
+            ],
+            [
+                'title' => 'contact_inquiry_delete',
+            ],
+            [
+                'title' => 'admission_inquiry_access',
+            ],
+            [
+                'title' => 'admission_inquiry_delete',
+            ],
+            [
+                'title' => 'scholarship_inquiry_access',
+            ],
+            [
+                'title' => 'scholarship_inquiry_delete',
+            ],
         ];
 
         Permission::insert($permissions);

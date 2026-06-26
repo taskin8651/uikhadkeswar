@@ -1161,6 +1161,19 @@
   </div>
   <!-- ========================= FLOATING CONTACT END ========================== -->
 
+  @php
+    $inquirySuccessMessage = session('contact_success')
+      ?? session('admission_success')
+      ?? session('scholarship_success');
+  @endphp
+
+  @if($inquirySuccessMessage)
+    <div class="success-msg global-success-msg" id="globalSuccessMsg">
+      <i class="bi bi-check-circle-fill"></i>
+      {{ $inquirySuccessMessage }}
+    </div>
+  @endif
+
 
   <!-- ========================= ADMISSION MODAL START ========================== -->
   <div class="modal fade admission-modal" id="admissionModal" tabindex="-1" aria-hidden="true">
@@ -1198,7 +1211,9 @@
             Thank you. Your admission inquiry has been submitted successfully.
           </div>
 
-          <form id="admissionForm">
+          <form id="admissionForm" method="POST" action="{{ route('frontend.admission-inquiry.store') }}">
+            @csrf
+            <input type="hidden" name="source" value="admission_modal">
             <div class="row g-3">
 
               <div class="col-md-6">
@@ -1228,7 +1243,7 @@
 
                 <div class="input-box">
                   <i class="bi bi-telephone-fill"></i>
-                  <input type="tel" class="form-control" name="phone" placeholder="10 digit mobile number" required
+                  <input type="tel" class="form-control" name="mobile_number" placeholder="10 digit mobile number" required
                     pattern="[0-9]{10}">
                 </div>
               </div>
@@ -1249,7 +1264,7 @@
 
                 <div class="input-box select-box">
                   <i class="bi bi-journal-bookmark-fill"></i>
-                  <select class="form-select" name="course" required>
+                  <select class="form-select" name="course_interested" required>
                     <option value="">Select Course</option>
                     <option>NEET Preparation</option>
                     <option>JEE Preparation</option>

@@ -237,24 +237,16 @@ const successMsg = document.getElementById("successMsg");
 
 if (admissionForm && successMsg) {
   admissionForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const phoneInput = admissionForm.querySelector('input[name="phone"]');
+    const phoneInput = admissionForm.querySelector('input[name="mobile_number"]');
     const phone = phoneInput.value.trim();
     const phoneValid = /^[0-9]{10}$/.test(phone);
 
     if (!phoneValid) {
+      e.preventDefault();
       alert("Please enter a valid 10 digit mobile number.");
       phoneInput.focus();
       return;
     }
-
-    successMsg.style.display = "block";
-    admissionForm.reset();
-
-    setTimeout(() => {
-      successMsg.style.display = "none";
-    }, 4500);
   });
 }
 
@@ -860,8 +852,6 @@ document.querySelectorAll(".video-item").forEach((item) => {
   }
 
   form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
     const studentName = form.querySelector("#studentName").value.trim();
     const mobileNumber = form.querySelector("#mobileNumber").value.trim();
     const courseInterested = form.querySelector("#courseInterested").value.trim();
@@ -870,28 +860,28 @@ document.querySelectorAll(".video-item").forEach((item) => {
     const phonePattern = /^[6-9]\d{9}$/;
 
     if (!studentName) {
+      event.preventDefault();
       showMessage("error", "Please enter student name.");
       return;
     }
 
     if (!phonePattern.test(mobileNumber)) {
+      event.preventDefault();
       showMessage("error", "Please enter a valid 10 digit mobile number.");
       return;
     }
 
     if (!courseInterested) {
+      event.preventDefault();
       showMessage("error", "Please select course interested in.");
       return;
     }
 
     if (!agreeCheck) {
+      event.preventDefault();
       showMessage("error", "Please accept contact permission before submitting.");
       return;
     }
-
-    showMessage("success", "Thank you. Your admission inquiry has been submitted successfully. Our team will contact you soon.");
-
-    form.reset();
   });
 
   const mobileInput = form.querySelector("#mobileNumber");
@@ -901,6 +891,15 @@ document.querySelectorAll(".video-item").forEach((item) => {
     });
   }
 })();
+
+["contactPhone", "scholarMobile"].forEach((inputId) => {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+
+  input.addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 10);
+  });
+});
 
 
 

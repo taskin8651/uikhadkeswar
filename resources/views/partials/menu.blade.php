@@ -153,6 +153,33 @@
             </a>
         @endcan
 
+        @can('contact_inquiry_access')
+            <a href="{{ route('admin.contact-inquiries.index') }}"
+               data-tooltip="Contact"
+               class="nav-link {{ request()->is('admin/contact-inquiries*') ? 'active' : '' }}">
+                <i class="fas fa-envelope nav-icon"></i>
+                <span class="nav-label">Contact Inquiries</span>
+            </a>
+        @endcan
+
+        @can('admission_inquiry_access')
+            <a href="{{ route('admin.admission-inquiries.index') }}"
+               data-tooltip="Admission"
+               class="nav-link {{ request()->is('admin/admission-inquiries*') ? 'active' : '' }}">
+                <i class="fas fa-user-graduate nav-icon"></i>
+                <span class="nav-label">Admission Inquiries</span>
+            </a>
+        @endcan
+
+        @can('scholarship_inquiry_access')
+            <a href="{{ route('admin.scholarship-inquiries.index') }}"
+               data-tooltip="Scholarship"
+               class="nav-link {{ request()->is('admin/scholarship-inquiries*') ? 'active' : '' }}">
+                <i class="fas fa-award nav-icon"></i>
+                <span class="nav-label">Scholarship Inquiries</span>
+            </a>
+        @endcan
+
        {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php

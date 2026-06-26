@@ -19342,6 +19342,16 @@ a.knj-footer-contact-item:hover {
   font-size: 16px;
 }
 
+.global-success-msg {
+  position: fixed;
+  top: 92px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  max-width: min(420px, calc(100vw - 32px));
+  box-shadow: 0 18px 44px rgba(7, 27, 77, .16);
+}
+
 /* =========================
    FORM
 ========================= */

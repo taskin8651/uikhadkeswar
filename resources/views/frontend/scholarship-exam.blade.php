@@ -361,7 +361,8 @@
               <i class="bi bi-award-fill"></i>
             </div>
 
-            <form class="scholarx-form" id="scholarxForm" novalidate>
+            <form class="scholarx-form" id="scholarxForm" method="POST" action="{{ route('frontend.scholarship-inquiry.store') }}" novalidate>
+              @csrf
 
               <div class="row g-3">
 
@@ -435,7 +436,7 @@
 
                 <div class="col-12">
                   <div class="scholarx-form-check">
-                    <input type="checkbox" id="scholarAgree" required>
+                    <input type="checkbox" id="scholarAgree" name="agree" value="1" required>
                     <label for="scholarAgree">
                       I understand that scholarship/fee concession approval depends on eligibility, documents and academy decision.
                     </label>
