@@ -1,7 +1,24 @@
 @extends('frontend.master')
 @section('content')
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= STARTUP VISION PAGE START ========================== -->
 
 <main class="startupx-page">
@@ -240,7 +257,7 @@
             <h2>Official recognition that supports credibility and growth.</h2>
 
             <p>
-              Khadkeshwar Development Services Pvt Ltd represents the vision behind Khadkeshwar NEET JEE Academy,
+              {{ $settings?->company_name ?? $settingDefaults['company_name'] }} represents the vision behind Khadkeshwar NEET JEE Academy,
               with a professional and scalable education-focused direction.
             </p>
 
@@ -475,37 +492,37 @@
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="100">
           <i class="bi bi-buildings-fill"></i>
           <span>Company Name</span>
-          <h3>Khadkeshwar Development Services Pvt Ltd</h3>
+          <h3>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</h3>
         </div>
 
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="180">
           <i class="bi bi-telephone-fill"></i>
           <span>Operational Number</span>
-          <h3>+91 88568 22032</h3>
+          <h3>{{ $phonePrimary }}</h3>
         </div>
 
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="260">
           <i class="bi bi-envelope-fill"></i>
           <span>Email</span>
-          <h3>info@khadkeshwaracademy.com</h3>
+          <h3>{{ $emailPrimary }}</h3>
         </div>
 
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="340">
           <i class="bi bi-geo-alt-fill"></i>
           <span>Registered Address</span>
-          <h3>Lonar, Buldhana, Maharashtra - 443302, India</h3>
+          <h3>{{ $address }}</h3>
         </div>
 
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="420">
           <i class="bi bi-receipt-cutoff"></i>
           <span>GSTIN</span>
-          <h3>27AAVCKD9876K1ZL</h3>
+          <h3>{{ $settings?->gstin ?? $settingDefaults['gstin'] }}</h3>
         </div>
 
         <div class="startupx-company-card" data-aos="fade-up" data-aos-delay="500">
           <i class="bi bi-file-earmark-lock-fill"></i>
           <span>CIN</span>
-          <h3>U80904MH2022PTC400123</h3>
+          <h3>{{ $settings?->cin ?? $settingDefaults['cin'] }}</h3>
         </div>
 
       </div>
@@ -541,7 +558,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

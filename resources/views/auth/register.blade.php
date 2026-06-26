@@ -1,113 +1,151 @@
 @extends('layouts.app')
+
+@section('page-title', trans('global.register') . ' | ' . trans('panel.site_title'))
+
 @section('content')
 
-<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+<div class="auth-form-head">
+    <span class="auth-form-kicker">
+        <i class="bi bi-person-plus-fill"></i>
+        Create Account
+    </span>
 
-    <div class="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-sm">
+    <h2>{{ trans('global.register') }}</h2>
 
-        {{-- HEADER --}}
-        <div class="px-8 pt-8 pb-4 text-center">
-            <h1 class="text-2xl font-semibold text-gray-900">
-                {{ trans('panel.site_title') }}
-            </h1>
-            <p class="text-sm text-gray-500 mt-1">
-                {{ trans('global.register') }}
-            </p>
+    <p>
+        Create your account to access Khadkeshwar Academy dashboard and management panel.
+    </p>
+</div>
+
+<form method="POST" action="{{ route('register') }}">
+    @csrf
+
+    {{-- NAME --}}
+    <div class="auth-field">
+        <label class="auth-label" for="name">
+            {{ trans('global.user_name') }}
+        </label>
+
+        <div class="auth-input-wrap">
+            <i class="bi bi-person-fill"></i>
+
+            <input type="text"
+                   name="name"
+                   id="name"
+                   value="{{ old('name') }}"
+                   required
+                   autofocus
+                   autocomplete="name"
+                   placeholder="Enter full name"
+                   class="auth-input {{ $errors->has('name') ? 'error' : '' }}">
         </div>
 
-        {{-- FORM --}}
-        <form method="POST" action="{{ route('register') }}" class="px-8 pb-8 space-y-5">
-            @csrf
-
-            {{-- NAME --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.user_name') }}
-                </label>
-                <input type="text"
-                       name="name"
-                       value="{{ old('name') }}"
-                       required
-                       autofocus
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('name'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('name') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- EMAIL --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_email') }}
-                </label>
-                <input type="email"
-                       name="email"
-                       value="{{ old('email') }}"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('email'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('email') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- PASSWORD --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_password') }}
-                </label>
-                <input type="password"
-                       name="password"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              {{ $errors->has('password') ? 'border-red-500' : 'border-gray-300' }}">
-                @if($errors->has('password'))
-                    <p class="mt-1 text-xs text-red-600">
-                        {{ $errors->first('password') }}
-                    </p>
-                @endif
-            </div>
-
-            {{-- CONFIRM PASSWORD --}}
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ trans('global.login_password_confirmation') }}
-                </label>
-                <input type="password"
-                       name="password_confirmation"
-                       required
-                       class="w-full px-3 py-2 border rounded-md text-sm
-                              focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                              border-gray-300">
-            </div>
-
-            {{-- ACTION --}}
-            <div class="pt-2">
-                <button type="submit"
-                        class="w-full py-2.5 bg-blue-600 text-white text-sm font-medium
-                               rounded-md hover:bg-blue-700 transition">
-                    {{ trans('global.register') }}
-                </button>
-            </div>
-
-            {{-- LOGIN LINK --}}
-            <div class="text-center pt-2">
-                <a href="{{ route('login') }}"
-                   class="text-sm text-blue-600 hover:underline">
-                    Already have an account? Login
-                </a>
-            </div>
-
-        </form>
+        @if($errors->has('name'))
+            <p class="auth-error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ $errors->first('name') }}
+            </p>
+        @endif
     </div>
-</div>
+
+    {{-- EMAIL --}}
+    <div class="auth-field">
+        <label class="auth-label" for="email">
+            {{ trans('global.login_email') }}
+        </label>
+
+        <div class="auth-input-wrap">
+            <i class="bi bi-envelope-fill"></i>
+
+            <input type="email"
+                   name="email"
+                   id="email"
+                   value="{{ old('email') }}"
+                   required
+                   autocomplete="email"
+                   placeholder="Enter email address"
+                   class="auth-input {{ $errors->has('email') ? 'error' : '' }}">
+        </div>
+
+        @if($errors->has('email'))
+            <p class="auth-error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ $errors->first('email') }}
+            </p>
+        @endif
+    </div>
+
+    {{-- PASSWORD --}}
+    <div class="auth-field">
+        <label class="auth-label" for="password">
+            {{ trans('global.login_password') }}
+        </label>
+
+        <div class="auth-input-wrap">
+            <i class="bi bi-key-fill"></i>
+
+            <input type="password"
+                   name="password"
+                   id="password"
+                   required
+                   autocomplete="new-password"
+                   placeholder="Create password"
+                   class="auth-input {{ $errors->has('password') ? 'error' : '' }}">
+        </div>
+
+        @if($errors->has('password'))
+            <p class="auth-error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ $errors->first('password') }}
+            </p>
+        @endif
+    </div>
+
+    {{-- CONFIRM PASSWORD --}}
+    <div class="auth-field">
+        <label class="auth-label" for="password_confirmation">
+            {{ trans('global.login_password_confirmation') }}
+        </label>
+
+        <div class="auth-input-wrap">
+            <i class="bi bi-shield-lock-fill"></i>
+
+            <input type="password"
+                   name="password_confirmation"
+                   id="password_confirmation"
+                   required
+                   autocomplete="new-password"
+                   placeholder="Confirm password"
+                   class="auth-input {{ $errors->has('password_confirmation') ? 'error' : '' }}">
+        </div>
+
+        @if($errors->has('password_confirmation'))
+            <p class="auth-error">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ $errors->first('password_confirmation') }}
+            </p>
+        @endif
+    </div>
+
+    {{-- REGISTER BUTTON --}}
+    <button type="submit" class="auth-submit">
+        <i class="bi bi-person-check-fill"></i>
+        {{ trans('global.register') }}
+    </button>
+
+    @if(Route::has('login'))
+        <div class="auth-divider">
+            <span>Already Registered</span>
+        </div>
+
+        <div class="auth-register">
+            Already have an account?
+            <a href="{{ route('login') }}">
+                Login
+            </a>
+        </div>
+    @endif
+
+</form>
 
 @endsection

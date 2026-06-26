@@ -91,7 +91,7 @@
                                          style="width:48px;height:48px;object-fit:cover;border-radius:50%;border:1px solid #E2E8F0;">
                                 @else
                                     @php
-                                        $colors = ['#4F46E5','#0EA5E9','#10B981','#F59E0B','#EF4444','#8B5CF6','#EC4899','#14B8A6'];
+                                        $colors = ['#d40d1f','#a60717','#111116','#ef4444','#f97316','#0f766e','#be123c','#7f1d1d'];
                                         $color  = $colors[$member->id % count($colors)];
                                     @endphp
 

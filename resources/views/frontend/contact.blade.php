@@ -1,16 +1,34 @@
 
 @extends('frontend.master')
 @section('content')
-
 @php
-  $contactSettings = $websiteSetting ?? null;
-  $contactPhone = $contactSettings?->phone_primary ?? '+91 88568 22032';
-  $contactEmail = $contactSettings?->email_primary ?? 'info@khadkeshwaracademy.com';
-  $contactAddress = $contactSettings?->address ?? 'Lonar, Buldhana, Maharashtra - 443302, India';
-  $contactWorkingHours = $contactSettings?->working_hours ?? 'Admission Support';
-  $contactTel = $contactSettings?->telLink($contactPhone) ?? 'tel:+918856822032';
-  $contactMail = $contactSettings?->mailLink($contactEmail) ?? 'mailto:info@khadkeshwaracademy.com';
-  $contactMapSrc = $contactSettings?->map_embed_url ?: 'https://www.google.com/maps?q=Lonar%2C%20Buldhana%2C%20Maharashtra%20443302%2C%20India&output=embed';
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
+@php
+  $contactSettings = $settings;
+  $contactPhone = $phonePrimary ?? $contactSettings?->phone_primary;
+  $contactEmail = $emailPrimary ?? $contactSettings?->email_primary;
+  $contactAddress = $address ?? $contactSettings?->address;
+  $contactWorkingHours = $contactSettings?->working_hours ?? ($settingDefaults['working_hours'] ?? 'Admission Support');
+  $contactTel = $telPrimary ?? $contactSettings?->telLink($contactPhone);
+  $contactMail = $mailPrimary ?? $contactSettings?->mailLink($contactEmail);
+  $contactMapSrc = $contactSettings?->map_embed_url ?: 'https://www.google.com/maps?q=' . urlencode($contactAddress ?: 'India') . '&output=embed';
 @endphp
 
 <!-- ========================= CONTACT PAGE START ========================== -->
@@ -214,7 +232,7 @@
         <div class="contactx-detail-card" data-aos="fade-up" data-aos-delay="340">
           <i class="bi bi-building-fill-check"></i>
           <span>Academy Address</span>
-          <h3>Loni Naka, Mantha Road, Vitthal Krupa Complex, Lonar</h3>
+          <h3>{{ $address }}</h3>
           <p>Additional address from academy poster</p>
         </div>
 
@@ -475,7 +493,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            {{ $contactSettings?->admission_badge_text ?? 'Admission Open 2026' }}
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Start your NEET & JEE preparation with the right guidance.</h2>

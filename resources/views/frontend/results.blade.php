@@ -1,7 +1,24 @@
 @extends('frontend.master')
 @section('content')
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= RESULTS PAGE START ========================== -->
 
 <main class="resultx-page">
@@ -68,7 +85,7 @@
                   <i class="bi bi-arrow-right"></i>
                 </button>
 
-                <a href="tel:+918856822032" class="resultx-outline-btn">
+                <a href="{{ $telPrimary }}" class="resultx-outline-btn">
                   <i class="bi bi-telephone-fill"></i>
                   Call Now
                 </a>
@@ -544,7 +561,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Start your NEET & JEE preparation with result-focused guidance.</h2>
@@ -561,7 +578,7 @@
             <i class="bi bi-arrow-right"></i>
           </button>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

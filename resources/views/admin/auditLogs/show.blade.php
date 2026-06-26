@@ -68,7 +68,7 @@
     <div>
         <div class="detail-card" style="margin-bottom:16px;">
             <div style="padding:28px 24px; text-align:center; background:linear-gradient(135deg, var(--accent-light) 0%, #fff 60%); border-bottom:1px solid #F1F5F9;">
-                @php $colors = ['#4F46E5','#0EA5E9','#10B981','#F59E0B','#EF4444','#8B5CF6','#EC4899','#14B8A6']; @endphp
+                @php $colors = ['#d40d1f','#a60717','#111116','#ef4444','#f97316','#0f766e','#be123c','#7f1d1d']; @endphp
                 <div style="width:72px; height:72px; border-radius:18px; background:{{ $colors[$auditLog->id % count($colors)] }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:700; margin:0 auto 14px;">
                     <i class="fas fa-history"></i>
                 </div>

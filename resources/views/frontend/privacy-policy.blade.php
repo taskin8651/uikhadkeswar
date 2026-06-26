@@ -1,7 +1,25 @@
 @extends('frontend.master')
 
 @section('content')
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <main class="contactx-page">
   <section class="contactx-hero">
     <div class="container">

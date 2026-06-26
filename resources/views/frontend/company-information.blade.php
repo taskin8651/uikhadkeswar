@@ -1,8 +1,25 @@
 
 @extends('frontend.master')
 @section('content')
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= COMPANY INFORMATION PAGE START ========================== -->
 
 <main class="companyx-page">
@@ -46,7 +63,7 @@
               </h1>
 
               <p>
-                Khadkeshwar Development Services Pvt Ltd is the official company behind
+                {{ $settings?->company_name ?? $settingDefaults['company_name'] }} is the official company behind
                 Khadkeshwar NEET JEE Academy, working with a rural education mission,
                 quality coaching vision and future AI-enabled learning roadmap.
               </p>
@@ -64,7 +81,7 @@
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
-                <a href="tel:+918856822032" class="companyx-outline-btn">
+                <a href="{{ $telPrimary }}" class="companyx-outline-btn">
                   <i class="bi bi-telephone-fill"></i>
                   Call Team
                 </a>
@@ -82,22 +99,22 @@
     </div>
 
     <span>Registered Company</span>
-    <h3>Khadkeshwar Development Services Pvt Ltd</h3>
+    <h3>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</h3>
 
     <div class="companyx-official-list">
       <div>
         <small>Operational Number</small>
-        <strong><a href="tel:+918856822032">+91 88568 22032</a></strong>
+        <strong><a href="{{ $telPrimary }}">{{ $phonePrimary }}</a></strong>
       </div>
 
       <div>
         <small>Email Address</small>
-        <strong><a href="mailto:info@khadkeshwaracademy.com">info@khadkeshwaracademy.com</a></strong>
+        <strong><a href="{{ $mailPrimary }}">{{ $emailPrimary }}</a></strong>
       </div>
 
       <div>
         <small>Registered Address</small>
-        <strong>Lonar, Buldhana, Maharashtra - 443302, India</strong>
+        <strong>{{ $address }}</strong>
       </div>
     </div>
   </div>
@@ -147,10 +164,10 @@
               Official Business Identity
             </span>
 
-            <h2>Khadkeshwar Development Services Pvt Ltd</h2>
+            <h2>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</h2>
 
             <p>
-              Khadkeshwar Development Services Pvt Ltd operates with a mission to support
+              {{ $settings?->company_name ?? $settingDefaults['company_name'] }} operates with a mission to support
               students through quality education, NEET/JEE preparation, academic mentorship
               and rural-first learning opportunities.
             </p>
@@ -165,7 +182,7 @@
               <i class="bi bi-quote"></i>
               <div>
                 <strong>Building a trusted rural education ecosystem with quality, affordability and future technology.</strong>
-                <span>Khadkeshwar Development Services Pvt Ltd</span>
+                <span>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</span>
               </div>
             </div>
 
@@ -226,7 +243,7 @@
         <h2>Company registration and identity information.</h2>
 
         <p>
-          Important official details of Khadkeshwar Development Services Pvt Ltd are shown
+          Important official details of {{ $settings?->company_name ?? $settingDefaults['company_name'] }} are shown
           below for transparency, trust and professional identity.
         </p>
       </div>
@@ -239,7 +256,7 @@
             <i class="bi bi-building-fill"></i>
           </div>
           <small>Company Name</small>
-          <h3>Khadkeshwar Development Services Pvt Ltd</h3>
+          <h3>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</h3>
           <p>Official company operating Khadkeshwar NEET JEE Academy.</p>
         </div>
 
@@ -249,7 +266,7 @@
             <i class="bi bi-receipt-cutoff"></i>
           </div>
           <small>GSTIN</small>
-          <h3>27AAVCKD9876K1ZL</h3>
+          <h3>{{ $settings?->gstin ?? $settingDefaults['gstin'] }}</h3>
           <p>Goods and Services Tax identification number.</p>
         </div>
 
@@ -259,7 +276,7 @@
             <i class="bi bi-file-earmark-lock-fill"></i>
           </div>
           <small>CIN</small>
-          <h3>U80904MH2022PTC400123</h3>
+          <h3>{{ $settings?->cin ?? $settingDefaults['cin'] }}</h3>
           <p>Corporate Identification Number of the company.</p>
         </div>
 
@@ -269,7 +286,7 @@
             <i class="bi bi-credit-card-2-front-fill"></i>
           </div>
           <small>PAN</small>
-          <h3>AAVCKD9876K</h3>
+          <h3>{{ $settings?->pan ?? $settingDefaults['pan'] }}</h3>
           <p>Permanent Account Number for official business identity.</p>
         </div>
 
@@ -293,7 +310,7 @@
               <i class="bi bi-geo-alt-fill"></i>
               <div>
                 <span>Registered Address</span>
-                <h2>Lonar, Buldhana, Maharashtra - 443302, India</h2>
+                <h2>{{ $address }}</h2>
               </div>
             </div>
 
@@ -324,15 +341,15 @@
 
             <div class="companyx-contact-list">
 
-              <a href="tel:+918856822032">
+              <a href="{{ $telPrimary }}">
                 <i class="bi bi-telephone-fill"></i>
                 <div>
                   <span>Operational Number</span>
-                  <strong>+91 88568 22032</strong>
+                  <strong>{{ $phonePrimary }}</strong>
                 </div>
               </a>
 
-              <a href="https://wa.me/918856822032" target="_blank" rel="noopener noreferrer">
+              <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer">
                 <i class="bi bi-whatsapp"></i>
                 <div>
                   <span>WhatsApp</span>
@@ -340,11 +357,11 @@
                 </div>
               </a>
 
-              <a href="mailto:info@khadkeshwaracademy.com">
+              <a href="{{ $mailPrimary }}">
                 <i class="bi bi-envelope-fill"></i>
                 <div>
                   <span>Email</span>
-                  <strong>info@khadkeshwaracademy.com</strong>
+                  <strong>{{ $emailPrimary }}</strong>
                 </div>
               </a>
 
@@ -426,27 +443,27 @@
 
           <div>
             <span>Company Name</span>
-            <strong>Khadkeshwar Development Services Pvt Ltd</strong>
+            <strong>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</strong>
           </div>
 
           <div>
             <span>GSTIN</span>
-            <strong>27AAVCKD9876K1ZL</strong>
+            <strong>{{ $settings?->gstin ?? $settingDefaults['gstin'] }}</strong>
           </div>
 
           <div>
             <span>CIN</span>
-            <strong>U80904MH2022PTC400123</strong>
+            <strong>{{ $settings?->cin ?? $settingDefaults['cin'] }}</strong>
           </div>
 
           <div>
             <span>PAN</span>
-            <strong>AAVCKD9876K</strong>
+            <strong>{{ $settings?->pan ?? $settingDefaults['pan'] }}</strong>
           </div>
 
           <div>
             <span>Address</span>
-            <strong>Lonar, Buldhana, Maharashtra - 443302, India</strong>
+            <strong>{{ $address }}</strong>
           </div>
 
         </div>
@@ -467,7 +484,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Want to know more about admissions and courses?</h2>
@@ -484,7 +501,7 @@
             <i class="bi bi-arrow-right"></i>
           </button>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

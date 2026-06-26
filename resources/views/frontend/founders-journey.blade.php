@@ -1,8 +1,24 @@
 @extends('frontend.master')
 @section('content')
-
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= FOUNDER JOURNEY PAGE START ========================== -->
 <main class="fjx-founder-page">
 
@@ -117,7 +133,7 @@
                     <div class="fjx-hero-info-card">
                         <i class="bi bi-building-check"></i>
                         <span>Company</span>
-                        <strong>{{ $founderSection->company_value ?: 'Khadkeshwar Development Services Pvt Ltd' }}</strong>
+                        <strong>{{ $founderSection->company_value ?: ($settings?->company_name ?? $settingDefaults['company_name']) }}</strong>
                     </div>
 
                     <div class="fjx-hero-info-card">
@@ -129,7 +145,7 @@
                 </div>
 
                 <div class="fjx-hero-actions">
-                    <a href="tel:+918856822032" class="btn-main">
+                    <a href="{{ $telPrimary }}" class="btn-main">
                         <i class="bi bi-telephone-fill"></i>
                         Call Admission Team
                     </a>
@@ -195,7 +211,7 @@
                 </div>
             @else
                 <p>
-                    Dr. Vitthal Nagare started Khadkeshwar Development Services Pvt Ltd with a
+                    Dr. Vitthal Nagare started {{ $settings?->company_name ?? $settingDefaults['company_name'] }} with a
                     clear vision to help rural students who often struggle due to lack of affordable
                     coaching, digital access, expert guidance and structured academic mentorship.
                 </p>
@@ -265,37 +281,37 @@
 
               <div>
                 <span>Company Name</span>
-                <strong>Khadkeshwar Development Services Pvt Ltd</strong>
+                <strong>{{ $settings?->company_name ?? $settingDefaults['company_name'] }}</strong>
               </div>
 
               <div>
                 <span>Operational Number</span>
-                <strong><a href="tel:+918856822032">+91 88568 22032</a></strong>
+                <strong><a href="{{ $telPrimary }}">{{ $phonePrimary }}</a></strong>
               </div>
 
               <div>
                 <span>Email</span>
-                <strong><a href="mailto:info@khadkeshwaracademy.com">info@khadkeshwaracademy.com</a></strong>
+                <strong><a href="{{ $mailPrimary }}">{{ $emailPrimary }}</a></strong>
               </div>
 
               <div>
                 <span>GSTIN</span>
-                <strong>27AAVCKD9876K1ZL</strong>
+                <strong>{{ $settings?->gstin ?? $settingDefaults['gstin'] }}</strong>
               </div>
 
               <div>
                 <span>CIN</span>
-                <strong>U80904MH2022PTC400123</strong>
+                <strong>{{ $settings?->cin ?? $settingDefaults['cin'] }}</strong>
               </div>
 
               <div>
                 <span>PAN</span>
-                <strong>AAVCKD9876K</strong>
+                <strong>{{ $settings?->pan ?? $settingDefaults['pan'] }}</strong>
               </div>
 
               <div>
                 <span>Registered Address</span>
-                <strong>Lonar, Buldhana, Maharashtra - 443302, India</strong>
+                <strong>{{ $address }}</strong>
               </div>
 
             </div>
@@ -564,7 +580,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Start your NEET & JEE preparation with the right guidance.</h2>
@@ -581,7 +597,7 @@
             <i class="bi bi-arrow-right"></i>
           </button>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

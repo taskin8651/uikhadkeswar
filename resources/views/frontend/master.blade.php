@@ -1,7 +1,12 @@
 @php
-  $settings = $websiteSetting ?? null;
-  $siteName = $settings?->site_name ?? 'Khadkeshwar NEET JEE Academy';
-  $siteTagline = $settings?->site_tagline ?? 'AI Education Platform for Rural India';
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $siteTagline = $settings?->site_tagline ?? $settingDefaults['site_tagline'];
   $logoAlt = $settings?->logo_alt ?? $siteName . ' Logo';
   $headerLogo = $settings?->mediaUrl('logo', asset('assets/img/imageedit_1_8311115967.png')) ?? asset('assets/img/imageedit_1_8311115967.png');
   $footerLogo = $settings?->mediaUrl('footer_logo', $settings?->mediaUrl('logo', asset('assets/img/logo.png'))) ?? asset('assets/img/logo.png');
@@ -9,21 +14,23 @@
   $appleTouchIcon = $settings?->mediaUrl('apple_touch_icon');
   $ogImage = $settings?->mediaUrl('og_image', $headerLogo) ?? $headerLogo;
   $twitterImage = $settings?->mediaUrl('twitter_image', $ogImage) ?? $ogImage;
-  $metaTitle = $settings?->meta_title ?? 'Khadkeshwar NEET JEE Academy Lonar | AI-Powered NEET & JEE Learning for Rural India';
-  $metaDescription = $settings?->meta_description ?? 'Khadkeshwar NEET JEE Academy, Lonar offers NEET, JEE and Foundation coaching with personal guidance, test series, affordable fee structure and future AI-enabled learning plans.';
-  $metaKeywords = $settings?->meta_keywords ?? 'NEET Coaching Lonar, JEE Coaching Lonar, Khadkeshwar Academy, NEET JEE Academy, Foundation Course, Test Series';
+  $metaTitle = $settings?->meta_title ?? $settingDefaults['meta_title'];
+  $metaDescription = $settings?->meta_description ?? $settingDefaults['meta_description'];
+  $metaKeywords = $settings?->meta_keywords ?? $settingDefaults['meta_keywords'];
   $canonicalUrl = $settings?->canonical_url ?: url()->current();
-  $robots = $settings?->robots ?? 'index, follow';
-  $phonePrimary = $settings?->phone_primary ?? '+91 88568 22032';
-  $emailPrimary = $settings?->email_primary ?? 'info@khadkeshwaracademy.com';
-  $address = $settings?->address ?? 'Lonar, Buldhana, Maharashtra, India';
+  $siteUrl = $settings?->canonical_url ?: url('/');
+  $robots = $settings?->robots ?? $settingDefaults['robots'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
   $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
-  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:+918856822032';
-  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:info@khadkeshwaracademy.com';
-  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/918856822032';
-  $footerDescription = $settings?->footer_description ?? 'Khadkeshwar Academy is a rural-first AI education platform building a national learning brand for NEET & JEE aspirants through technology, mentorship and quality teaching.';
-  $admissionBadgeText = $settings?->admission_badge_text ?? 'Admission Open 2026';
-  $copyrightText = $settings?->copyright_text ?? 'Copyright 2026 Khadkeshwar NEET JEE Academy. All Rights Reserved.';
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $footerDescription = $settings?->footer_description ?? $settingDefaults['footer_description'];
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $copyrightText = $settings?->copyright_text ?? $settingDefaults['copyright_text'];
   $socialLinks = [
     'facebook' => ['url' => $settings?->facebook_url ?? null, 'icon' => 'bi bi-facebook', 'class' => 'knj-social-facebook', 'label' => 'Facebook'],
     'instagram' => ['url' => $settings?->instagram_url ?? null, 'icon' => 'bi bi-instagram', 'class' => 'knj-social-instagram', 'label' => 'Instagram'],
@@ -180,7 +187,7 @@
         <div class="top-right">
           <!-- <span class="top-mini-badge">
             <i class="bi bi-stars"></i>
-            Admission Open 2025
+            {{ $admissionBadgeText }}
           </span> -->
 
           <div class="top-social">
@@ -1161,22 +1168,22 @@
 
           <div class="knj-legal-item">
             <span>GSTIN</span>
-            <strong>{{ $settings?->gstin ?? '27AAMCK749F1ZY' }}</strong>
+            <strong>{{ $settings?->gstin ?? $settingDefaults['gstin'] }}</strong>
           </div>
 
           <div class="knj-legal-item">
             <span>CIN</span>
-            <strong>{{ $settings?->cin ?? 'U85500ME2026PTC474210' }}</strong>
+            <strong>{{ $settings?->cin ?? $settingDefaults['cin'] }}</strong>
           </div>
 
           <div class="knj-legal-item">
             <span>PAN</span>
-            <strong>{{ $settings?->pan ?? 'AAMCK7494F' }}</strong>
+            <strong>{{ $settings?->pan ?? $settingDefaults['pan'] }}</strong>
           </div>
 
           <div class="knj-legal-item">
             <span>TAN</span>
-            <strong>{{ $settings?->tan ?? 'NQPK07435B' }}</strong>
+            <strong>{{ $settings?->tan ?? $settingDefaults['tan'] }}</strong>
           </div>
 
         </div>
@@ -1325,7 +1332,7 @@
             <div>
               <span class="modal-small-badge">
                 <i class="bi bi-stars"></i>
-                Admission Open 2025
+                {{ $admissionBadgeText }}
               </span>
 
               <h3>Admission Inquiry Form</h3>

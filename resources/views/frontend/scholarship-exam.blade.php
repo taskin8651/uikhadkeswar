@@ -1,8 +1,24 @@
 @extends('frontend.master')
 @section('content')
-
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= SCHOLARSHIP EXAM PAGE START ========================== -->
 
 <main class="scholarx-page">
@@ -69,7 +85,7 @@
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
-                <a href="tel:+918856822032" class="scholarx-outline-btn">
+                <a href="{{ $telPrimary }}" class="scholarx-outline-btn">
                   <i class="bi bi-telephone-fill"></i>
                   Check Eligibility
                 </a>
@@ -133,7 +149,7 @@
                 <div class="scholarx-info-card">
                   <i class="bi bi-telephone-fill"></i>
                   <div>
-                    <strong>8856822032</strong>
+                    <strong>{{ $phoneDigits }}</strong>
                     <span>Admission Desk</span>
                   </div>
                 </div>
@@ -245,7 +261,7 @@
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="tel:+918856822032" class="btn-white">
+              <a href="{{ $telPrimary }}" class="btn-white">
                 Call Now
               </a>
             </div>
@@ -326,7 +342,7 @@
                 <i class="bi bi-telephone-fill"></i>
                 <div>
                   <span>Call Scholarship Desk</span>
-                  <strong><a href="tel:+918856822032">+91 88568 22032</a></strong>
+                  <strong><a href="{{ $telPrimary }}">{{ $phonePrimary }}</a></strong>
                 </div>
               </div>
 
@@ -334,7 +350,7 @@
                 <i class="bi bi-envelope-fill"></i>
                 <div>
                   <span>Email</span>
-                  <strong><a href="mailto:info@khadkeshwaracademy.com">info@khadkeshwaracademy.com</a></strong>
+                  <strong><a href="{{ $mailPrimary }}">{{ $emailPrimary }}</a></strong>
                 </div>
               </div>
 
@@ -342,7 +358,7 @@
                 <i class="bi bi-geo-alt-fill"></i>
                 <div>
                   <span>Address</span>
-                  <strong>Loni Naka, Mantha Road, Vitthal Krupa Complex, Lonar</strong>
+                  <strong>{{ $address }}</strong>
                 </div>
               </div>
             </div>
@@ -614,7 +630,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

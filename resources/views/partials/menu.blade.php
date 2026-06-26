@@ -21,7 +21,6 @@
 
         <div class="user-meta">
             <p class="user-name">{{ auth()->user()->name }}</p>
-            <p class="user-role">Administrator</p>
         </div>
     </div>
 

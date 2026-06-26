@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/admin-form.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/admin-list.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/admin-show.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/admin-theme.css') }}">
 
     @yield('styles')
 </head>
@@ -126,7 +127,6 @@
 
                         <div class="hidden sm:block text-start">
                             <p class="user-dropdown-name">{{ auth()->user()->name }}</p>
-                            <p class="user-dropdown-role">Administrator</p>
                         </div>
 
                         <i class="fas fa-chevron-down hidden sm:block user-dropdown-chevron"></i>

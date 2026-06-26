@@ -1,41 +1,23 @@
 @extends('frontend.master')
 @section('content')
-
-
 @php
-  $settings = $websiteSetting ?? null;
-  $siteName = $settings?->site_name ?? 'Khadkeshwar NEET JEE Academy';
-  $siteTagline = $settings?->site_tagline ?? 'AI Education Platform for Rural India';
-  $logoAlt = $settings?->logo_alt ?? $siteName . ' Logo';
-  $headerLogo = $settings?->mediaUrl('logo', asset('assets/img/imageedit_1_8311115967.png')) ?? asset('assets/img/imageedit_1_8311115967.png');
-  $footerLogo = $settings?->mediaUrl('footer_logo', $settings?->mediaUrl('logo', asset('assets/img/logo.png'))) ?? asset('assets/img/logo.png');
-  $favicon = $settings?->mediaUrl('favicon');
-  $appleTouchIcon = $settings?->mediaUrl('apple_touch_icon');
-  $ogImage = $settings?->mediaUrl('og_image', $headerLogo) ?? $headerLogo;
-  $twitterImage = $settings?->mediaUrl('twitter_image', $ogImage) ?? $ogImage;
-  $metaTitle = $settings?->meta_title ?? 'Khadkeshwar NEET JEE Academy Lonar | AI-Powered NEET & JEE Learning for Rural India';
-  $metaDescription = $settings?->meta_description ?? 'Khadkeshwar NEET JEE Academy, Lonar offers NEET, JEE and Foundation coaching with personal guidance, test series, affordable fee structure and future AI-enabled learning plans.';
-  $metaKeywords = $settings?->meta_keywords ?? 'NEET Coaching Lonar, JEE Coaching Lonar, Khadkeshwar Academy, NEET JEE Academy, Foundation Course, Test Series';
-  $canonicalUrl = $settings?->canonical_url ?: url()->current();
-  $robots = $settings?->robots ?? 'index, follow';
-  $phonePrimary = $settings?->phone_primary ?? '+91 88568 22032';
-  $emailPrimary = $settings?->email_primary ?? 'info@khadkeshwaracademy.com';
-  $address = $settings?->address ?? 'Lonar, Buldhana, Maharashtra, India';
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
   $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
-  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:+918856822032';
-  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:info@khadkeshwaracademy.com';
-  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/918856822032';
-  $footerDescription = $settings?->footer_description ?? 'Khadkeshwar Academy is a rural-first AI education platform building a national learning brand for NEET & JEE aspirants through technology, mentorship and quality teaching.';
-  $admissionBadgeText = $settings?->admission_badge_text ?? 'Admission Open 2026';
-  $copyrightText = $settings?->copyright_text ?? 'Copyright 2026 Khadkeshwar NEET JEE Academy. All Rights Reserved.';
-  $socialLinks = [
-    'facebook' => ['url' => $settings?->facebook_url ?? null, 'icon' => 'bi bi-facebook', 'class' => 'knj-social-facebook', 'label' => 'Facebook'],
-    'instagram' => ['url' => $settings?->instagram_url ?? null, 'icon' => 'bi bi-instagram', 'class' => 'knj-social-instagram', 'label' => 'Instagram'],
-    'youtube' => ['url' => $settings?->youtube_url ?? null, 'icon' => 'bi bi-youtube', 'class' => 'knj-social-youtube', 'label' => 'YouTube'],
-    'linkedin' => ['url' => $settings?->linkedin_url ?? null, 'icon' => 'bi bi-linkedin', 'class' => 'knj-social-linkedin', 'label' => 'LinkedIn'],
-    'x' => ['url' => $settings?->x_url ?? null, 'icon' => 'bi bi-twitter-x', 'class' => 'knj-social-x', 'label' => 'X'],
-    'telegram' => ['url' => $settings?->telegram_url ?? null, 'icon' => 'bi bi-telegram', 'class' => 'knj-social-telegram', 'label' => 'Telegram'],
-  ];
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
 @endphp
 <!-- ========================= ABOUT PAGE START ========================== -->
 
@@ -100,7 +82,7 @@
                         <i class="bi bi-arrow-right"></i>
                     </a>
 
-                    <a href="tel:{{ $phonePrimary }}" class="aboutv2-outline-btn">
+                    <a href="{{ $telPrimary }}" class="aboutv2-outline-btn">
                         <i class="bi bi-telephone-fill"></i>
                         Call Academy
                     </a>
@@ -550,7 +532,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Start your NEET & JEE preparation with the right guidance.</h2>
@@ -567,7 +549,7 @@
             Apply Now
           </button>
 
-          <a href="tel:{{ $phonePrimary }}" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

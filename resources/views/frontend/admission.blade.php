@@ -1,7 +1,24 @@
 @extends('frontend.master')
 @section('content')
-
-
+@php
+  $settingDefaults = \App\Models\WebsiteSetting::defaults();
+  try {
+    $settings = $websiteSetting ?? \App\Models\WebsiteSetting::current();
+  } catch (\Throwable $exception) {
+    $settings = null;
+  }
+  $siteName = $settings?->site_name ?? $settingDefaults['site_name'];
+  $phonePrimary = $settings?->phone_primary ?? $settingDefaults['phone_primary'];
+  $phoneDigits = $settings?->cleanPhone($phonePrimary) ?? preg_replace('/\D+/', '', $phonePrimary);
+  $emailPrimary = $settings?->email_primary ?? $settingDefaults['email_primary'];
+  $address = $settings?->address ?? $settingDefaults['address'];
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:' . preg_replace('/\s+/', '', $phonePrimary);
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:' . $emailPrimary;
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/' . $phoneDigits;
+  $admissionBadgeText = $settings?->admission_badge_text ?? $settingDefaults['admission_badge_text'];
+  $siteUrl = $settings?->canonical_url ?: url('/');
+@endphp
 <!-- ========================= ADMISSION PAGE START ========================== -->
 
 <main class="admissionx-page">
@@ -34,7 +51,7 @@
 
               <span class="admissionx-kicker">
                 <i class="bi bi-mortarboard-fill"></i>
-                Admission Open 2026
+                {{ $admissionBadgeText }}
               </span>
 
               <h1>
@@ -67,7 +84,7 @@
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
-                <a href="tel:+918856822032" class="admissionx-outline-btn">
+                <a href="{{ $telPrimary }}" class="admissionx-outline-btn">
                   <i class="bi bi-telephone-fill"></i>
                   Call Now
                 </a>
@@ -184,19 +201,19 @@
               <div>
                 <i class="bi bi-telephone-fill"></i>
                 <span>Call Admission Desk</span>
-                <strong>+91 88568 22032</strong>
+                <strong>{{ $phonePrimary }}</strong>
               </div>
 
               <div>
                 <i class="bi bi-envelope-fill"></i>
                 <span>Email</span>
-                <strong>info@khadkeshwaracademy.com</strong>
+                <strong>{{ $emailPrimary }}</strong>
               </div>
 
               <div>
                 <i class="bi bi-geo-alt-fill"></i>
                 <span>Address</span>
-                <strong>Lonar, Buldhana, Maharashtra - 443302</strong>
+                <strong>{{ $address }}</strong>
               </div>
             </div>
 
@@ -396,7 +413,7 @@
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="tel:+918856822032" class="btn-white">
+              <a href="{{ $telPrimary }}" class="btn-white">
                 Check Eligibility
               </a>
             </div>
@@ -516,7 +533,7 @@
           <i class="bi bi-telephone-fill"></i>
           <div>
             <span>Phone</span>
-            <a href="tel:+918856822032">+91 88568 22032</a>
+            <a href="{{ $telPrimary }}">{{ $phonePrimary }}</a>
           </div>
         </div>
 
@@ -524,7 +541,7 @@
           <i class="bi bi-envelope-fill"></i>
           <div>
             <span>Email</span>
-            <a href="mailto:info@khadkeshwaracademy.com">info@khadkeshwaracademy.com</a>
+            <a href="{{ $mailPrimary }}">{{ $emailPrimary }}</a>
           </div>
         </div>
 
@@ -532,7 +549,7 @@
           <i class="bi bi-geo-alt-fill"></i>
           <div>
             <span>Location</span>
-            <p>Lonar, Buldhana, Maharashtra - 443302</p>
+            <p>{{ $address }}</p>
           </div>
         </div>
 
@@ -552,7 +569,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $admissionBadgeText }}
           </span>
 
           <h2>Ready to begin your NEET & JEE success journey?</h2>
@@ -569,7 +586,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $telPrimary }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>
