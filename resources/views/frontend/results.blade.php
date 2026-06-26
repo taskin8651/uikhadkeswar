@@ -425,6 +425,37 @@
         </p>
       </div>
 
+      @php
+        $testimonialDelays = [100, 180, 260, 340, 420, 500];
+      @endphp
+
+      @if(isset($resultTestimonials) && $resultTestimonials->count())
+        <div class="resultx-testimonial-grid">
+          @foreach($resultTestimonials as $index => $testimonial)
+            <div class="resultx-testimonial-card {{ $testimonial->is_featured ? 'featured' : '' }}" data-aos="fade-up" data-aos-delay="{{ $testimonialDelays[$index] ?? 100 }}">
+              <div class="resultx-stars">
+                @for($star = 1; $star <= (int) $testimonial->rating; $star++)
+                  <i class="bi bi-star-fill"></i>
+                @endfor
+              </div>
+
+              <p>
+                "{{ $testimonial->review_text }}"
+              </p>
+
+              <div class="resultx-reviewer">
+                <div><i class="bi bi-person-fill"></i></div>
+                <div>
+                  <strong>{{ $testimonial->reviewer_name }}</strong>
+                  @if($testimonial->reviewer_type)
+                    <span>{{ $testimonial->reviewer_type }}</span>
+                  @endif
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      @else
       <div class="resultx-testimonial-grid">
 
         <div class="resultx-testimonial-card" data-aos="fade-up" data-aos-delay="100">
@@ -497,6 +528,7 @@
         </div>
 
       </div>
+      @endif
 
     </div>
   </section>

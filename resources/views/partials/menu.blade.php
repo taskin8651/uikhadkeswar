@@ -117,6 +117,24 @@
             </a>
         @endcan
 
+        @can('result_testimonial_access')
+            <a href="{{ route('admin.result-testimonials.index') }}"
+               data-tooltip="Reviews"
+               class="nav-link {{ request()->is('admin/result-testimonials*') ? 'active' : '' }}">
+                <i class="fas fa-comment-dots nav-icon"></i>
+                <span class="nav-label">Result Testimonials</span>
+            </a>
+        @endcan
+
+        @can('gallery_item_access')
+            <a href="{{ route('admin.gallery-items.index') }}"
+               data-tooltip="Gallery"
+               class="nav-link {{ request()->is('admin/gallery-items*') ? 'active' : '' }}">
+                <i class="fas fa-images nav-icon"></i>
+                <span class="nav-label">Gallery Items</span>
+            </a>
+        @endcan
+
        {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php

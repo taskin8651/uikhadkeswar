@@ -38,6 +38,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('about-why-items', 'AboutWhyItemController');
     Route::resource('company-recognitions', 'CompanyRecognitionController');
     Route::resource('result-rankers', 'ResultRankerController');
+    Route::resource('result-testimonials', 'ResultTestimonialController');
+    Route::resource('gallery-items', 'GalleryItemController', ['except' => ['show']]);
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -61,3 +63,5 @@ Route::get('company-information.html', 'Frontend\AboutController@company')->name
 Route::get('company-information', 'Frontend\AboutController@company');
 Route::get('results.html', 'Frontend\ResultController@index')->name('frontend.results');
 Route::get('results', 'Frontend\ResultController@index');
+Route::get('gallery.html', 'Frontend\GalleryController@index')->name('frontend.gallery');
+Route::get('gallery', 'Frontend\GalleryController@index');

@@ -122,6 +122,30 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'result_ranker_access',
             ],
+            [
+                'title' => 'result_testimonial_create',
+            ],
+            [
+                'title' => 'result_testimonial_edit',
+            ],
+            [
+                'title' => 'result_testimonial_delete',
+            ],
+            [
+                'title' => 'result_testimonial_access',
+            ],
+            [
+                'title' => 'gallery_item_create',
+            ],
+            [
+                'title' => 'gallery_item_edit',
+            ],
+            [
+                'title' => 'gallery_item_delete',
+            ],
+            [
+                'title' => 'gallery_item_access',
+            ],
         ];
 
         Permission::insert($permissions);
