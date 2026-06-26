@@ -206,6 +206,36 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'resource_item_access',
             ],
+            [
+                'title' => 'home_hero_setting_access',
+            ],
+            [
+                'title' => 'home_hero_setting_edit',
+            ],
+            [
+                'title' => 'startup_trust_card_create',
+            ],
+            [
+                'title' => 'startup_trust_card_edit',
+            ],
+            [
+                'title' => 'startup_trust_card_delete',
+            ],
+            [
+                'title' => 'startup_trust_card_access',
+            ],
+            [
+                'title' => 'key_point_trust_card_create',
+            ],
+            [
+                'title' => 'key_point_trust_card_edit',
+            ],
+            [
+                'title' => 'key_point_trust_card_delete',
+            ],
+            [
+                'title' => 'key_point_trust_card_access',
+            ],
         ];
 
         Permission::insert($permissions);

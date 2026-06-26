@@ -1,10 +1,52 @@
 
 @extends('frontend.master')
 @section('content')
+@php
+  $settings = $websiteSetting ?? null;
+  $siteName = $settings?->site_name ?? 'Khadkeshwar NEET JEE Academy';
+  $siteTagline = $settings?->site_tagline ?? 'AI Education Platform for Rural India';
+  $logoAlt = $settings?->logo_alt ?? $siteName . ' Logo';
+  $headerLogo = $settings?->mediaUrl('logo', asset('assets/img/imageedit_1_8311115967.png')) ?? asset('assets/img/imageedit_1_8311115967.png');
+  $footerLogo = $settings?->mediaUrl('footer_logo', $settings?->mediaUrl('logo', asset('assets/img/logo.png'))) ?? asset('assets/img/logo.png');
+  $favicon = $settings?->mediaUrl('favicon');
+  $appleTouchIcon = $settings?->mediaUrl('apple_touch_icon');
+  $ogImage = $settings?->mediaUrl('og_image', $headerLogo) ?? $headerLogo;
+  $twitterImage = $settings?->mediaUrl('twitter_image', $ogImage) ?? $ogImage;
+  $metaTitle = $settings?->meta_title ?? 'Khadkeshwar NEET JEE Academy Lonar | AI-Powered NEET & JEE Learning for Rural India';
+  $metaDescription = $settings?->meta_description ?? 'Khadkeshwar NEET JEE Academy, Lonar offers NEET, JEE and Foundation coaching with personal guidance, test series, affordable fee structure and future AI-enabled learning plans.';
+  $metaKeywords = $settings?->meta_keywords ?? 'NEET Coaching Lonar, JEE Coaching Lonar, Khadkeshwar Academy, NEET JEE Academy, Foundation Course, Test Series';
+  $canonicalUrl = $settings?->canonical_url ?: url()->current();
+  $robots = $settings?->robots ?? 'index, follow';
+  $phonePrimary = $settings?->phone_primary ?? '+91 88568 22032';
+  $emailPrimary = $settings?->email_primary ?? 'info@khadkeshwaracademy.com';
+  $address = $settings?->address ?? 'Lonar, Buldhana, Maharashtra, India';
+  $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:+918856822032';
+  $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:info@khadkeshwaracademy.com';
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/918856822032';
+  $footerDescription = $settings?->footer_description ?? 'Khadkeshwar Academy is a rural-first AI education platform building a national learning brand for NEET & JEE aspirants through technology, mentorship and quality teaching.';
+  $admissionBadgeText = $settings?->admission_badge_text ?? 'Admission Open 2026';
+  $copyrightText = $settings?->copyright_text ?? 'Copyright 2026 Khadkeshwar NEET JEE Academy. All Rights Reserved.';
+  $socialLinks = [
+    'facebook' => ['url' => $settings?->facebook_url ?? null, 'icon' => 'bi bi-facebook', 'class' => 'knj-social-facebook', 'label' => 'Facebook'],
+    'instagram' => ['url' => $settings?->instagram_url ?? null, 'icon' => 'bi bi-instagram', 'class' => 'knj-social-instagram', 'label' => 'Instagram'],
+    'youtube' => ['url' => $settings?->youtube_url ?? null, 'icon' => 'bi bi-youtube', 'class' => 'knj-social-youtube', 'label' => 'YouTube'],
+    'linkedin' => ['url' => $settings?->linkedin_url ?? null, 'icon' => 'bi bi-linkedin', 'class' => 'knj-social-linkedin', 'label' => 'LinkedIn'],
+    'x' => ['url' => $settings?->x_url ?? null, 'icon' => 'bi bi-twitter-x', 'class' => 'knj-social-x', 'label' => 'X'],
+    'telegram' => ['url' => $settings?->telegram_url ?? null, 'icon' => 'bi bi-telegram', 'class' => 'knj-social-telegram', 'label' => 'Telegram'],
+  ];
+@endphp
+
+@php
+  $homeHero = $homeHero ?? \App\Models\HomeHeroSetting::current();
+  $heroImage = $homeHero->getFirstMediaUrl('hero_image') ?: asset('assets/img/1.png');
+  $classroomImage = $homeHero->getFirstMediaUrl('classroom_image') ?: asset('assets/img/img5.jpeg');
+@endphp
 
  <!-- =====================================================
      ULTRA PREMIUM HERO SECTION START
 ====================================================== -->
+@if($homeHero->status)
 <section class="knj-hero">
 
   <div class="knj-hero-grid-bg" aria-hidden="true"></div>
@@ -34,14 +76,14 @@
         </div>
 
         <h1>
-          Future-Ready
-          <span>NEET &amp; JEE Learning</span>
-          for Rural India
+          {{ $homeHero->hero_title_top }}
+          <span>{{ $homeHero->hero_title_highlight }}</span>
+          {{ $homeHero->hero_title_bottom }}
         </h1>
 
         <p class="knj-hero-description">
-          Affordable coaching, personal mentorship and AI-powered test analytics
-          for <strong>every aspirant.</strong>
+          {{ $homeHero->hero_description }}
+          <strong>{{ $homeHero->hero_strong_text }}</strong>
         </p>
 
         <!-- TOP FEATURES -->
@@ -53,8 +95,8 @@
             </span>
 
             <div>
-              <strong>Personal Mentorship</strong>
-              <small>One-to-one guidance</small>
+              <strong>{{ $homeHero->feature_one_title }}</strong>
+              <small>{{ $homeHero->feature_one_subtitle }}</small>
             </div>
           </div>
 
@@ -64,8 +106,8 @@
             </span>
 
             <div>
-              <strong>AI Test Analytics</strong>
-              <small>Smart performance insights</small>
+              <strong>{{ $homeHero->feature_two_title }}</strong>
+              <small>{{ $homeHero->feature_two_subtitle }}</small>
             </div>
           </div>
 
@@ -75,8 +117,8 @@
             </span>
 
             <div>
-              <strong>Scholarship Support</strong>
-              <small>For deserving students</small>
+              <strong>{{ $homeHero->feature_three_title }}</strong>
+              <small>{{ $homeHero->feature_three_subtitle }}</small>
             </div>
           </div>
 
@@ -101,14 +143,14 @@
             <span>Explore AI Learning</span>
           </a>
 
-          <a href="tel:+918856822032" class="knj-call-btn">
+          <a href="{{ $telPrimary }}" class="knj-call-btn">
             <span class="knj-call-icon">
               <i class="bi bi-telephone-fill"></i>
             </span>
 
             <span>
               <small>Call Admission</small>
-              <strong>88568 22032</strong>
+              <strong>{{ $phonePrimary }}</strong>
             </span>
           </a>
 
@@ -120,8 +162,8 @@
       <div class="knj-hero-image-wrap">
 
         <img
-          src="assets/img/1.png"
-          alt="Khadkeshwar Academy NEET and JEE students"
+          src="{{ $heroImage }}"
+          alt="{{ $homeHero->hero_image_alt }}"
           class="knj-hero-image">
 
         <div class="knj-hero-image-overlay"></div>
@@ -144,8 +186,8 @@
         </span>
 
         <div>
-          <strong>500+</strong>
-          <span>Students Mentored<br>and Growing</span>
+          <strong>{{ $homeHero->stat_one_value }}</strong>
+          <span>{!! $homeHero->stat_one_label !!}</span>
         </div>
       </div>
 
@@ -155,8 +197,8 @@
         </span>
 
         <div>
-          <strong>15+</strong>
-          <span>Rural Villages<br>Connected</span>
+          <strong>{{ $homeHero->stat_two_value }}</strong>
+          <span>{!! $homeHero->stat_two_label !!}</span>
         </div>
       </div>
 
@@ -166,8 +208,8 @@
         </span>
 
         <div>
-          <strong>1000+</strong>
-          <span>AI Tests<br>Analysed</span>
+          <strong>{{ $homeHero->stat_three_value }}</strong>
+          <span>{!! $homeHero->stat_three_label !!}</span>
         </div>
       </div>
 
@@ -177,8 +219,8 @@
         </span>
 
         <div>
-          <strong>50%+</strong>
-          <span>Scholarship Support<br>Available</span>
+          <strong>{{ $homeHero->stat_four_value }}</strong>
+          <span>{!! $homeHero->stat_four_label !!}</span>
         </div>
       </div>
 
@@ -190,8 +232,8 @@
       <div class="knj-classroom-image">
 
         <img
-          src="assets/img/img5.jpeg"
-          alt="Khadkeshwar Academy classroom">
+          src="{{ $classroomImage }}"
+          alt="{{ $homeHero->classroom_image_alt }}">
 
         <div class="knj-classroom-overlay"></div>
 
@@ -199,8 +241,8 @@
           <i class="bi bi-calendar2-check-fill"></i>
 
           <div>
-            <strong>2026</strong>
-            <span>Admissions Open</span>
+            <strong>{{ $homeHero->year_card_value }}</strong>
+            <span>{{ $homeHero->year_card_label }}</span>
           </div>
         </div>
 
@@ -208,8 +250,8 @@
           <i class="bi bi-robot"></i>
 
           <div>
-            <strong>AI Learning</strong>
-            <span>Coming Soon</span>
+            <strong>{{ $homeHero->ai_card_title }}</strong>
+            <span>{{ $homeHero->ai_card_subtitle }}</span>
           </div>
         </div>
 
@@ -223,8 +265,8 @@
           </span>
 
           <div>
-            <strong>Expert Faculty</strong>
-            <small>Experienced and dedicated mentors</small>
+            <strong>{{ $homeHero->classroom_feature_one_title }}</strong>
+            <small>{{ $homeHero->classroom_feature_one_subtitle }}</small>
           </div>
         </div>
 
@@ -234,8 +276,8 @@
           </span>
 
           <div>
-            <strong>AI Performance Tracking</strong>
-            <small>Smart insights for better results</small>
+            <strong>{{ $homeHero->classroom_feature_two_title }}</strong>
+            <small>{{ $homeHero->classroom_feature_two_subtitle }}</small>
           </div>
         </div>
 
@@ -245,8 +287,8 @@
           </span>
 
           <div>
-            <strong>Weekly Test Series</strong>
-            <small>Practice · Analyse · Improve</small>
+            <strong>{{ $homeHero->classroom_feature_three_title }}</strong>
+            <small>{{ $homeHero->classroom_feature_three_subtitle }}</small>
           </div>
         </div>
 
@@ -256,8 +298,8 @@
           </span>
 
           <div>
-            <strong>Scholarship Program</strong>
-            <small>For deserving rural students</small>
+            <strong>{{ $homeHero->classroom_feature_four_title }}</strong>
+            <small>{{ $homeHero->classroom_feature_four_subtitle }}</small>
           </div>
         </div>
 
@@ -275,10 +317,10 @@
         </span>
 
         <div>
-          <h2>Book Free Career Counselling</h2>
+          <h2>{{ $homeHero->counselling_title }}</h2>
 
           <p>
-            Get your personalized NEET/JEE preparation roadmap from our expert counsellors.
+            {{ $homeHero->counselling_description }}
           </p>
         </div>
 
@@ -286,15 +328,15 @@
 
       <div class="knj-counselling-action">
 
-        <a href="tel:+918856822032" class="knj-counselling-btn">
+        <a href="{{ $telPrimary }}" class="knj-counselling-btn">
           <i class="bi bi-telephone-fill"></i>
           Talk to Our Experts
         </a>
 
         <div class="knj-counselling-points">
-          <span><i class="bi bi-patch-check-fill"></i> Free Guidance</span>
-          <span><i class="bi bi-shield-check"></i> No Commitment</span>
-          <span><i class="bi bi-stars"></i> Expert Advice</span>
+          <span><i class="bi bi-patch-check-fill"></i> {{ $homeHero->counselling_point_one }}</span>
+          <span><i class="bi bi-shield-check"></i> {{ $homeHero->counselling_point_two }}</span>
+          <span><i class="bi bi-stars"></i> {{ $homeHero->counselling_point_three }}</span>
         </div>
 
       </div>
@@ -306,7 +348,7 @@
 
       <div class="knj-trust-heading">
         <span></span>
-        <h2>Why Parents &amp; Students Trust Us</h2>
+        <h2>{{ $homeHero->trust_heading }}</h2>
         <span></span>
       </div>
 
@@ -316,8 +358,8 @@
           <i class="bi bi-graph-up-arrow"></i>
 
           <div>
-            <strong>Proven Results</strong>
-            <small>Consistent student success</small>
+            <strong>{{ $homeHero->trust_one_title }}</strong>
+            <small>{{ $homeHero->trust_one_subtitle }}</small>
           </div>
         </div>
 
@@ -325,8 +367,8 @@
           <i class="bi bi-people-fill"></i>
 
           <div>
-            <strong>Affordable Fees</strong>
-            <small>Quality education for all</small>
+            <strong>{{ $homeHero->trust_two_title }}</strong>
+            <small>{{ $homeHero->trust_two_subtitle }}</small>
           </div>
         </div>
 
@@ -334,8 +376,8 @@
           <i class="bi bi-shield-heart-fill"></i>
 
           <div>
-            <strong>Safe &amp; Supportive</strong>
-            <small>Positive learning environment</small>
+            <strong>{{ $homeHero->trust_three_title }}</strong>
+            <small>{{ $homeHero->trust_three_subtitle }}</small>
           </div>
         </div>
 
@@ -343,8 +385,8 @@
           <i class="bi bi-robot"></i>
 
           <div>
-            <strong>Technology Driven</strong>
-            <small>AI for better outcomes</small>
+            <strong>{{ $homeHero->trust_four_title }}</strong>
+            <small>{{ $homeHero->trust_four_subtitle }}</small>
           </div>
         </div>
 
@@ -352,8 +394,8 @@
           <i class="bi bi-geo-alt-fill"></i>
 
           <div>
-            <strong>Rural Focus</strong>
-            <small>Building future leaders</small>
+            <strong>{{ $homeHero->trust_five_title }}</strong>
+            <small>{{ $homeHero->trust_five_subtitle }}</small>
           </div>
         </div>
 
@@ -363,6 +405,7 @@
 
   </div>
 </section>
+@endif
 <!-- =====================================================
      ULTRA PREMIUM HERO SECTION END
 ====================================================== -->
@@ -397,143 +440,7 @@
       </div>
 
       <!-- TRUST CARDS -->
-      <div class="startup-recognition-grid trust-us-grid">
-
-        <!-- CARD 01 -->
-        <article class="startup-recognition-card trust-card trust-card-red">
-
-          <div class="trust-card-main">
-
-            <div class="startup-recognition-icon trust-card-icon">
-              <i class="bi bi-person-video3"></i>
-            </div>
-
-            <div class="trust-card-content">
-              <h3>Expert Faculty</h3>
-
-              <span class="trust-card-line"></span>
-
-              <p>
-                Experienced teachers and mentors specialized in NEET, JEE and
-                Foundation preparation.
-              </p>
-            </div>
-
-          </div>
-
-          <div class="trust-card-footer">
-            <i class="bi bi-person"></i>
-
-            <span>
-              <strong>10+</strong>
-              Years of Teaching Experience
-            </span>
-          </div>
-
-        </article>
-
-        <!-- CARD 02 -->
-        <article class="startup-recognition-card trust-card trust-card-blue">
-
-          <div class="trust-card-main">
-
-            <div class="startup-recognition-icon trust-card-icon">
-              <i class="bi bi-clipboard2-check-fill"></i>
-            </div>
-
-            <div class="trust-card-content">
-              <h3>Weekly Test Series</h3>
-
-              <span class="trust-card-line"></span>
-
-              <p>
-                Regular mock tests with detailed analysis to track performance
-                and improvement.
-              </p>
-            </div>
-
-          </div>
-
-          <div class="trust-card-footer">
-            <i class="bi bi-graph-up-arrow"></i>
-
-            <span>
-              Performance Reports Every Week
-            </span>
-          </div>
-
-        </article>
-
-        <!-- CARD 03 -->
-        <article class="startup-recognition-card trust-card trust-card-green">
-
-          <div class="trust-card-main">
-
-            <div class="startup-recognition-icon trust-card-icon">
-              <i class="bi bi-mortarboard-fill"></i>
-            </div>
-
-            <div class="trust-card-content">
-              <h3>Scholarship Support</h3>
-
-              <span class="trust-card-line"></span>
-
-              <p>
-                Merit-based scholarships for deserving students to make quality
-                education affordable.
-              </p>
-            </div>
-
-          </div>
-
-          <div class="trust-card-footer">
-            <i class="bi bi-award-fill"></i>
-
-            <span>
-              Merit-Based
-              <b></b>
-              Need-Based Support
-            </span>
-          </div>
-
-        </article>
-
-        <!-- CARD 04 -->
-        <article class="startup-recognition-card trust-card trust-card-purple">
-
-          <div class="trust-card-main">
-
-            <div class="startup-recognition-icon trust-card-icon">
-              <i class="bi bi-bar-chart-line-fill"></i>
-            </div>
-
-            <div class="trust-card-content">
-              <h3>AI Performance Tracking</h3>
-
-              <span class="trust-card-line"></span>
-
-              <p>
-                AI-powered analytics and personalized insights to help students
-                improve smarter.
-              </p>
-            </div>
-
-          </div>
-
-          <div class="trust-card-footer">
-            <i class="bi bi-cpu-fill"></i>
-
-            <span>
-              Smart Analytics
-              <b></b>
-              Personalized Insights
-            </span>
-          </div>
-
-        </article>
-
-      </div>
-
+      @include('frontend.partials.startup-trust-cards')
       <!-- BOTTOM COMMITMENT -->
       <div class="trust-commitment-box">
 
@@ -609,295 +516,7 @@
     </div>
 
     <!-- TRUST CARDS -->
-    <div class="kpt-grid">
-
-      <!-- CARD 01 -->
-      <article class="kpt-card kpt-card-red"
-               data-aos="fade-up"
-               data-aos-delay="80">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-person-video3"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Experienced Faculty</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Highly qualified teachers with deep subject expertise and a
-              passion for student success.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-person-check"></i>
-
-          <span>
-            <strong>10+</strong>
-            Years of Teaching Experience
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 02 -->
-      <article class="kpt-card kpt-card-blue"
-               data-aos="fade-up"
-               data-aos-delay="130">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-bar-chart-line-fill"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>AI Performance Tracking</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              AI-powered analytics to monitor progress, identify strengths
-              and improve performance.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-graph-up-arrow"></i>
-
-          <span>
-            Smart Reports
-            <b></b>
-            Personalized Insights
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 03 -->
-      <article class="kpt-card kpt-card-green"
-               data-aos="fade-up"
-               data-aos-delay="180">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-clipboard2-check-fill"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Weekly Test Series</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Regular mock tests with detailed analysis to boost accuracy,
-              speed and confidence.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-calendar2-check"></i>
-
-          <span>
-            Practice
-            <b></b>
-            Analyze
-            <b></b>
-            Improve
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 04 -->
-      <article class="kpt-card kpt-card-purple"
-               data-aos="fade-up"
-               data-aos-delay="230">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Scholarship Support</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Merit-based scholarships and affordable fees to support
-              deserving rural students.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-award-fill"></i>
-
-          <span>
-            Merit-Based
-            <b></b>
-            Need-Based
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 05 -->
-      <article class="kpt-card kpt-card-orange"
-               data-aos="fade-up"
-               data-aos-delay="280">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-chat-square-heart-fill"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Parent Testimonials</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Real feedback from parents who trust our academy for their
-              child’s bright future.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-people"></i>
-
-          <span>
-            Trusted by 1000+ Parents
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 06 -->
-      <article class="kpt-card kpt-card-cyan"
-               data-aos="fade-up"
-               data-aos-delay="330">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-trophy-fill"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Results &amp; Achievements</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Consistent results, toppers and success stories that reflect
-              our academic commitment.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-star"></i>
-
-          <span>
-            Rankers
-            <b></b>
-            Improvements
-            <b></b>
-            Success Stories
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 07 -->
-      <article class="kpt-card kpt-card-violet"
-               data-aos="fade-up"
-               data-aos-delay="380">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-shield-check"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Registered &amp; Trusted</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              GST registered and transparent operations for complete safety
-              and long-term trust.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-patch-check-fill"></i>
-
-          <span>
-            GST Registered
-            <b></b>
-            Transparent
-            <b></b>
-            Reliable
-          </span>
-        </div>
-
-      </article>
-
-      <!-- CARD 08 -->
-      <article class="kpt-card kpt-card-coral"
-               data-aos="fade-up"
-               data-aos-delay="430">
-
-        <div class="kpt-card-body">
-
-          <div class="kpt-card-icon">
-            <i class="bi bi-play-btn"></i>
-          </div>
-
-          <div class="kpt-card-content">
-            <h3>Future-Ready Learning</h3>
-            <span class="kpt-card-line"></span>
-
-            <p>
-              Digital learning support, recorded lectures and AI tools for
-              smarter preparation.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="kpt-card-footer">
-          <i class="bi bi-phone"></i>
-
-          <span>
-            Digital
-            <b></b>
-            AI-Powered
-            <b></b>
-            24x7 Support
-          </span>
-        </div>
-
-      </article>
-
-    </div>
-
+    @include('frontend.partials.key-point-trust-cards')
     <!-- COMMITMENT BANNER -->
     <div class="kpt-commitment" data-aos="fade-up">
 

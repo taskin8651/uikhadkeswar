@@ -43,11 +43,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('faculty-members', 'FacultyMemberController', ['except' => ['show']]);
     Route::resource('startup-cards', 'StartupCardController', ['except' => ['show']]);
     Route::resource('resource-items', 'ResourceItemController', ['except' => ['show']]);
+    Route::resource('startup-trust-cards', 'StartupTrustCardController', ['except' => ['show']]);
+    Route::resource('key-point-trust-cards', 'KeyPointTrustCardController', ['except' => ['show']]);
     Route::resource('contact-inquiries', 'ContactInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('admission-inquiries', 'AdmissionInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('scholarship-inquiries', 'ScholarshipInquiryController', ['only' => ['index', 'destroy']]);
     Route::get('website-settings', 'WebsiteSettingController@edit')->name('website-settings.edit');
     Route::put('website-settings', 'WebsiteSettingController@update')->name('website-settings.update');
+    Route::get('home-hero-settings', 'HomeHeroSettingController@edit')->name('home-hero-settings.edit');
+    Route::put('home-hero-settings', 'HomeHeroSettingController@update')->name('home-hero-settings.update');
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -65,7 +69,7 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 });
 
 
-Route::view('index', 'frontend.index')->name('frontend.home');
+Route::get('/', 'Frontend\HomeController@index')->name('frontend.home');
 Route::get('founders-journey', 'Frontend\AboutController@index')->name('frontend.founders-journey');
 Route::get('about-academy', 'Frontend\AboutAcademyController@index')->name('frontend.about-academy');
 Route::get('company-information', 'Frontend\AboutController@company')->name('frontend.company-information');

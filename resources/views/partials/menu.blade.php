@@ -117,6 +117,33 @@
             </a>
         @endcan
 
+        @can('home_hero_setting_access')
+            <a href="{{ route('admin.home-hero-settings.edit') }}"
+               data-tooltip="Home Hero"
+               class="nav-link {{ request()->is('admin/home-hero-settings*') ? 'active' : '' }}">
+                <i class="fas fa-home nav-icon"></i>
+                <span class="nav-label">Home Hero</span>
+            </a>
+        @endcan
+
+        @can('startup_trust_card_access')
+            <a href="{{ route('admin.startup-trust-cards.index') }}"
+               data-tooltip="Trust"
+               class="nav-link {{ request()->is('admin/startup-trust-cards*') ? 'active' : '' }}">
+                <i class="fas fa-handshake nav-icon"></i>
+                <span class="nav-label">Startup Trust Cards</span>
+            </a>
+        @endcan
+
+        @can('key_point_trust_card_access')
+            <a href="{{ route('admin.key-point-trust-cards.index') }}"
+               data-tooltip="Parent Trust"
+               class="nav-link {{ request()->is('admin/key-point-trust-cards*') ? 'active' : '' }}">
+                <i class="fas fa-shield-alt nav-icon"></i>
+                <span class="nav-label">Parent Trust Cards</span>
+            </a>
+        @endcan
+
         @can('result_testimonial_access')
             <a href="{{ route('admin.result-testimonials.index') }}"
                data-tooltip="Reviews"
