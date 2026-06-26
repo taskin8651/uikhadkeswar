@@ -36,6 +36,7 @@ class FounderTimelineController extends Controller
         $data = $request->validate([
             'year' => ['required', 'string', 'max:20'],
             'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['nullable', 'boolean'],
         ]);
@@ -71,6 +72,7 @@ class FounderTimelineController extends Controller
         $data = $request->validate([
             'year' => ['required', 'string', 'max:20'],
             'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
             'status' => ['nullable', 'boolean'],
         ]);
@@ -96,5 +98,17 @@ class FounderTimelineController extends Controller
             ->with('message', 'Founder timeline deleted successfully.');
     }
 
-    
+    public function massDestroy(Request $request)
+    {
+        abort_if(Gate::denies('founder_timeline_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'ids' => ['required', 'array'],
+            'ids.*' => ['integer', 'exists:founder_timelines,id'],
+        ]);
+
+        FounderTimeline::whereIn('id', $request->ids)->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
+    }
 }

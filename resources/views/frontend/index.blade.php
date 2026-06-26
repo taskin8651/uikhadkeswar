@@ -21,9 +21,9 @@
   $emailPrimary = $settings?->email_primary ?? 'info@khadkeshwaracademy.com';
   $address = $settings?->address ?? 'Lonar, Buldhana, Maharashtra, India';
   $shortAddress = str_contains($address, ',') ? collect(explode(',', $address))->take(2)->implode(',') : $address;
-  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:+918856822032';
+  $telPrimary = $settings?->telLink($phonePrimary) ?? 'tel:{{ $phonePrimary }}';
   $mailPrimary = $settings?->mailLink($emailPrimary) ?? 'mailto:info@khadkeshwaracademy.com';
-  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/918856822032';
+  $whatsappUrl = $settings?->whatsappLink('Hello, I want admission information.') ?? 'https://wa.me/91{{ $phonePrimary }}';
   $footerDescription = $settings?->footer_description ?? 'Khadkeshwar Academy is a rural-first AI education platform building a national learning brand for NEET & JEE aspirants through technology, mentorship and quality teaching.';
   $admissionBadgeText = $settings?->admission_badge_text ?? 'Admission Open 2026';
   $copyrightText = $settings?->copyright_text ?? 'Copyright 2026 Khadkeshwar NEET JEE Academy. All Rights Reserved.';
@@ -899,288 +899,298 @@
 <!-- =====================================================
      FOUNDER VISION PREMIUM SECTION START
 ====================================================== -->
+@if(isset($founderSection) && $founderSection)
 <section class="kfv-section">
 
-  <div class="kfv-grid-bg" aria-hidden="true"></div>
-  <div class="kfv-glow kfv-glow-one" aria-hidden="true"></div>
-  <div class="kfv-glow kfv-glow-two" aria-hidden="true"></div>
+    <div class="kfv-grid-bg" aria-hidden="true"></div>
+    <div class="kfv-glow kfv-glow-one" aria-hidden="true"></div>
+    <div class="kfv-glow kfv-glow-two" aria-hidden="true"></div>
 
-  <div class="container">
+    <div class="container">
 
-    <div class="kfv-wrapper" data-aos="fade-up">
+        <div class="kfv-wrapper" data-aos="fade-up">
 
-      <!-- ================= TOP AREA ================= -->
-      <div class="kfv-top">
+            <!-- ================= TOP AREA ================= -->
+            <div class="kfv-top">
 
-        <!-- LEFT CONTENT -->
-        <div class="kfv-intro" data-aos="fade-right">
+                <!-- LEFT CONTENT -->
+                <div class="kfv-intro" data-aos="fade-right">
 
-          <span class="kfv-badge">
-            <i class="bi bi-people-fill"></i>
-            Founder Leadership
-          </span>
+                    <span class="kfv-badge">
+                        <i class="bi bi-people-fill"></i>
+                        Founder Leadership
+                    </span>
 
-          <h2>
-            Vision From
-            <span>Our Founder</span>
-          </h2>
+                    <h2>
+                        {{ $founderSection->hero_title ?: 'Vision From' }}
+                        <span>{{ $founderSection->hero_highlight_text ?: 'Our Founder' }}</span>
+                    </h2>
 
-          <div class="kfv-title-divider">
-            <span></span>
-            <i class="bi bi-star-fill"></i>
-            <span></span>
-          </div>
+                    <div class="kfv-title-divider">
+                        <span></span>
+                        <i class="bi bi-star-fill"></i>
+                        <span></span>
+                    </div>
 
-          <p>
-            Our mission is to empower rural students with affordable NEET &amp; JEE
-            preparation, AI-enabled learning, mentorship, and scholarship opportunities.
-          </p>
+                    <p>
+                        {{ $founderSection->hero_description ?: 'Our mission is to empower rural students with affordable NEET & JEE preparation, AI-enabled learning, mentorship, and scholarship opportunities.' }}
+                    </p>
 
-        </div>
+                </div>
 
-        <!-- RIGHT FOUNDER IMAGE -->
-        <div class="kfv-founder-visual" data-aos="fade-left">
+                <!-- RIGHT FOUNDER IMAGE -->
+                <div class="kfv-founder-visual" data-aos="fade-left">
 
-          <div class="kfv-founder-frame">
+                    <div class="kfv-founder-frame">
 
-            <img
-              src="assets/img/vi.png"
-              alt="Dr. Vitthal Nagare, Founder and Managing Director">
+                        <img
+                            src="{{ $founderSection->getFirstMediaUrl('founder_image') ?: asset('assets/img/vi.png') }}"
+                            alt="{{ $founderSection->image_alt ?: 'Dr. Vitthal Nagare, Founder and Managing Director' }}">
 
-            <div class="kfv-founder-overlay"></div>
+                        <div class="kfv-founder-overlay"></div>
 
-            <div class="kfv-founder-name-card">
+                        <div class="kfv-founder-name-card">
 
-              <span>Our Founder</span>
+                            <span>Our Founder</span>
 
-              <h3>Dr. Vitthal Nagare</h3>
+                            <h3>{{ $founderSection->founder_name ?: 'Dr. Vitthal Nagare' }}</h3>
 
-              <p>(M.A., M.Phil., Ph.D. in Economics)</p>
+                            @if($founderSection->qualification)
+                                <p>({{ $founderSection->qualification }})</p>
+                            @endif
 
-              <strong>Founder &amp; Managing Director</strong>
+                            @if($founderSection->designation)
+                                <strong>{{ $founderSection->designation }}</strong>
+                            @else
+                                <strong>Founder &amp; Managing Director</strong>
+                            @endif
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
-          </div>
+            <!-- ================= FOUR MAIN FEATURES ================= -->
+            <div class="kfv-primary-features">
+
+                <article class="kfv-primary-card">
+                    <span class="kfv-primary-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </span>
+
+                    <h3>Affordable NEET &amp; JEE Preparation</h3>
+                </article>
+
+                <article class="kfv-primary-card">
+                    <span class="kfv-primary-icon">
+                        <i class="bi bi-cpu-fill"></i>
+                    </span>
+
+                    <h3>AI Enabled Learning</h3>
+                </article>
+
+                <article class="kfv-primary-card">
+                    <span class="kfv-primary-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </span>
+
+                    <h3>Mentorship &amp; Guidance</h3>
+                </article>
+
+                <article class="kfv-primary-card">
+                    <span class="kfv-primary-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </span>
+
+                    <h3>Scholarship Opportunities</h3>
+                </article>
+
+            </div>
+
+            <!-- ================= FOUNDER QUOTE ================= -->
+            <div class="kfv-quote-box" data-aos="fade-up">
+
+                <span class="kfv-quote-label">
+                    Founder Vision
+                </span>
+
+                <i class="bi bi-quote kfv-quote-left"></i>
+
+                <blockquote>
+                    {{ $founderSection->quote_text ?: 'Our mission is to empower rural students with affordable NEET & JEE preparation and future-ready AI learning.' }}
+                </blockquote>
+
+                <i class="bi bi-quote kfv-quote-right"></i>
+
+                <span class="kfv-quote-line"></span>
+
+            </div>
+
+            <!-- ================= COMMITMENT TITLE ================= -->
+            <div class="kfv-commitment-title">
+
+                <span></span>
+
+                <h3>Our Commitment</h3>
+
+                <span></span>
+
+            </div>
+
+            <!-- ================= SIX COMMITMENT CARDS ================= -->
+            <div class="kfv-commitment-grid">
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-book-fill"></i>
+                    </span>
+
+                    <div>
+                        <h4>NEET &amp; JEE Guidance</h4>
+                        <p>Focused academic preparation</p>
+                    </div>
+
+                </article>
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-percent"></i>
+                    </span>
+
+                    <div>
+                        <h4>Scholarship Support</h4>
+                        <p>Support for deserving students</p>
+                    </div>
+
+                </article>
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-pc-display-horizontal"></i>
+                    </span>
+
+                    <div>
+                        <h4>AI Learning Vision</h4>
+                        <p>Future-ready education system</p>
+                    </div>
+
+                </article>
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-person-heart"></i>
+                    </span>
+
+                    <div>
+                        <h4>Career Mentorship</h4>
+                        <p>Guidance for a bright future</p>
+                    </div>
+
+                </article>
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-people-fill"></i>
+                    </span>
+
+                    <div>
+                        <h4>Expert Faculty</h4>
+                        <p>Experienced and dedicated educators</p>
+                    </div>
+
+                </article>
+
+                <article class="kfv-commitment-card">
+
+                    <span class="kfv-commitment-icon">
+                        <i class="bi bi-globe2"></i>
+                    </span>
+
+                    <div>
+                        <h4>Digital Learning Platform</h4>
+                        <p>Smart, interactive and accessible</p>
+                    </div>
+
+                </article>
+
+            </div>
+
+            <!-- ================= COMPANY & LOCATION ================= -->
+            <div class="kfv-meta-panel">
+
+                <div class="kfv-meta-item">
+
+                    <span class="kfv-meta-icon">
+                        <i class="bi bi-buildings"></i>
+                    </span>
+
+                    <div>
+                        <small>Company</small>
+                        <strong>
+                            {{ $founderSection->company_value ?: 'Khadkeshwar Development Services Pvt Ltd' }}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <span class="kfv-meta-divider"></span>
+
+                <div class="kfv-meta-item">
+
+                    <span class="kfv-meta-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </span>
+
+                    <div>
+                        <small>Location</small>
+                        <strong>
+                            {{ $founderSection->location_value ?: 'Lonar, Maharashtra' }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= ACTION BUTTONS ================= -->
+            <div class="kfv-actions">
+
+                <a href="{{ route('frontend.founders-journey') }}" class="kfv-btn kfv-btn-light">
+                    <i class="bi bi-book-fill"></i>
+                    Read Founder Journey
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+                <a href="{{ route('frontend.startup-vision') }}" class="kfv-btn kfv-btn-red">
+                    <i class="bi bi-rocket-takeoff-fill"></i>
+                    Startup Vision
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+
+                <a href="tel:{{ $phonePrimary }}" class="kfv-btn kfv-btn-green">
+                    <i class="bi bi-telephone-fill"></i>
+
+                    <span>
+                        <small>Contact Founder</small>
+                        <strong>{{ $phonePrimary }}</strong>
+                    </span>
+                </a>
+
+            </div>
 
         </div>
-
-      </div>
-
-      <!-- ================= FOUR MAIN FEATURES ================= -->
-      <div class="kfv-primary-features">
-
-        <article class="kfv-primary-card">
-          <span class="kfv-primary-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <h3>Affordable NEET &amp; JEE Preparation</h3>
-        </article>
-
-        <article class="kfv-primary-card">
-          <span class="kfv-primary-icon">
-            <i class="bi bi-cpu-fill"></i>
-          </span>
-
-          <h3>AI Enabled Learning</h3>
-        </article>
-
-        <article class="kfv-primary-card">
-          <span class="kfv-primary-icon">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <h3>Mentorship &amp; Guidance</h3>
-        </article>
-
-        <article class="kfv-primary-card">
-          <span class="kfv-primary-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <h3>Scholarship Opportunities</h3>
-        </article>
-
-      </div>
-
-      <!-- ================= FOUNDER QUOTE ================= -->
-      <div class="kfv-quote-box" data-aos="fade-up">
-
-        <span class="kfv-quote-label">
-          Founder Vision
-        </span>
-
-        <i class="bi bi-quote kfv-quote-left"></i>
-
-        <blockquote>
-          Our mission is to empower rural students with affordable NEET &amp; JEE
-          preparation and future-ready AI learning.
-        </blockquote>
-
-        <i class="bi bi-quote kfv-quote-right"></i>
-
-        <span class="kfv-quote-line"></span>
-
-      </div>
-
-      <!-- ================= COMMITMENT TITLE ================= -->
-      <div class="kfv-commitment-title">
-
-        <span></span>
-
-        <h3>Our Commitment</h3>
-
-        <span></span>
-
-      </div>
-
-      <!-- ================= SIX COMMITMENT CARDS ================= -->
-      <div class="kfv-commitment-grid">
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-book-fill"></i>
-          </span>
-
-          <div>
-            <h4>NEET &amp; JEE Guidance</h4>
-            <p>Focused academic preparation</p>
-          </div>
-
-        </article>
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-percent"></i>
-          </span>
-
-          <div>
-            <h4>Scholarship Support</h4>
-            <p>Support for deserving students</p>
-          </div>
-
-        </article>
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-pc-display-horizontal"></i>
-          </span>
-
-          <div>
-            <h4>AI Learning Vision</h4>
-            <p>Future-ready education system</p>
-          </div>
-
-        </article>
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-person-heart"></i>
-          </span>
-
-          <div>
-            <h4>Career Mentorship</h4>
-            <p>Guidance for a bright future</p>
-          </div>
-
-        </article>
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <div>
-            <h4>Expert Faculty</h4>
-            <p>Experienced and dedicated educators</p>
-          </div>
-
-        </article>
-
-        <article class="kfv-commitment-card">
-
-          <span class="kfv-commitment-icon">
-            <i class="bi bi-globe2"></i>
-          </span>
-
-          <div>
-            <h4>Digital Learning Platform</h4>
-            <p>Smart, interactive and accessible</p>
-          </div>
-
-        </article>
-
-      </div>
-
-      <!-- ================= COMPANY & LOCATION ================= -->
-      <div class="kfv-meta-panel">
-
-        <div class="kfv-meta-item">
-
-          <span class="kfv-meta-icon">
-            <i class="bi bi-buildings"></i>
-          </span>
-
-          <div>
-            <small>Company</small>
-            <strong>Khadkeshwar Development Services Pvt Ltd</strong>
-          </div>
-
-        </div>
-
-        <span class="kfv-meta-divider"></span>
-
-        <div class="kfv-meta-item">
-
-          <span class="kfv-meta-icon">
-            <i class="bi bi-geo-alt"></i>
-          </span>
-
-          <div>
-            <small>Location</small>
-            <strong>Lonar, Maharashtra</strong>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- ================= ACTION BUTTONS ================= -->
-      <div class="kfv-actions">
-
-        <a href="{{ route('frontend.founders-journey') }}" class="kfv-btn kfv-btn-light">
-          <i class="bi bi-book-fill"></i>
-          Read Founder Journey
-          <i class="bi bi-arrow-right"></i>
-        </a>
-
-        <a href="{{ route('frontend.startup-vision') }}" class="kfv-btn kfv-btn-red">
-          <i class="bi bi-rocket-takeoff-fill"></i>
-          Startup Vision
-          <i class="bi bi-arrow-right"></i>
-        </a>
-
-        <a href="tel:+918856822032" class="kfv-btn kfv-btn-green">
-          <i class="bi bi-telephone-fill"></i>
-
-          <span>
-            <small>Contact Founder</small>
-            <strong>8856822032</strong>
-          </span>
-        </a>
-
-      </div>
 
     </div>
-
-  </div>
 </section>
+@endif
 <!-- =====================================================
      FOUNDER VISION PREMIUM SECTION END
 ====================================================== -->
@@ -1232,218 +1242,103 @@
     <!-- =========================
          ROADMAP TIMELINE
     ========================== -->
+    @php
+    $timelineIcons = [
+        'bi bi-mortarboard-fill',
+        'bi bi-bar-chart-line-fill',
+        'bi bi-phone-fill',
+        'bi bi-people-fill',
+        'bi bi-person-check-fill',
+        'bi bi-rocket-takeoff-fill',
+    ];
+
+    $timelineStatuses = [
+        0 => [
+            'label' => 'Completed',
+            'status_class' => 'kvr-status-completed',
+            'status_icon' => 'bi bi-check-circle-fill',
+            'item_class' => 'kvr-completed',
+            'node_class' => 'kvr-node-red',
+        ],
+        1 => [
+            'label' => 'In Progress',
+            'status_class' => 'kvr-status-progress',
+            'status_icon' => 'bi bi-record-circle-fill',
+            'item_class' => 'kvr-current',
+            'node_class' => 'kvr-node-red',
+        ],
+    ];
+@endphp
+
+@if(isset($founderTimelines) && $founderTimelines->count())
     <div class="kvr-timeline">
 
-      <!-- CENTER LINE -->
-      <div class="kvr-timeline-line" aria-hidden="true"></div>
+        <!-- CENTER LINE -->
+        <div class="kvr-timeline-line" aria-hidden="true"></div>
 
-      <!-- 2025 -->
-      <article class="kvr-roadmap-item kvr-item-left kvr-completed"
-               data-aos="fade-right">
+        @foreach($founderTimelines as $index => $timeline)
 
-        <div class="kvr-roadmap-card">
+            @php
+                $sideClass = $loop->iteration % 2 === 1 ? 'kvr-item-left' : 'kvr-item-right';
+                $aosEffect = $loop->iteration % 2 === 1 ? 'fade-right' : 'fade-left';
 
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </div>
+                $statusData = $timelineStatuses[$index] ?? [
+                    'label' => 'Planned',
+                    'status_class' => 'kvr-status-planned',
+                    'status_icon' => 'bi bi-hourglass-split',
+                    'item_class' => '',
+                    'node_class' => 'kvr-node-blue',
+                ];
 
-          <div class="kvr-roadmap-content">
+                $icon = $timelineIcons[$index] ?? 'bi bi-rocket-takeoff-fill';
+            @endphp
 
-            <span class="kvr-year">2025</span>
+            <article class="kvr-roadmap-item {{ $sideClass }} {{ $statusData['item_class'] }}"
+                     data-aos="{{ $aosEffect }}">
 
-            <h3>Offline Academy Growth</h3>
+                @if($index === 1)
+                    <span class="kvr-current-label">
+                        Current Phase
+                    </span>
+                @endif
 
-            <p>
-              Strengthening classroom coaching, mentorship and test series support.
-            </p>
+                <div class="kvr-roadmap-card">
 
-            <span class="kvr-status kvr-status-completed">
-              <i class="bi bi-check-circle-fill"></i>
-              Completed
-            </span>
+                    <div class="kvr-roadmap-icon">
+                        <i class="{{ $icon }}"></i>
+                    </div>
 
-          </div>
+                    <div class="kvr-roadmap-content">
 
-        </div>
+                        <span class="kvr-year">
+                            {{ $timeline->year }}
+                        </span>
 
-        <span class="kvr-node kvr-node-red"></span>
+                        <h3>{{ $timeline->title }}</h3>
 
-      </article>
+                        @if($timeline->description)
+                            <p>
+                                {{ $timeline->description }}
+                            </p>
+                        @endif
 
-      <!-- 2026 -->
-      <article class="kvr-roadmap-item kvr-item-right kvr-current"
-               data-aos="fade-left">
+                        <span class="kvr-status {{ $statusData['status_class'] }}">
+                            <i class="{{ $statusData['status_icon'] }}"></i>
+                            {{ $statusData['label'] }}
+                        </span>
 
-        <span class="kvr-current-label">
-          Current Phase
-        </span>
+                    </div>
 
-        <div class="kvr-roadmap-card">
+                </div>
 
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-bar-chart-line-fill"></i>
-          </div>
+                <span class="kvr-node {{ $statusData['node_class'] }}"></span>
 
-          <div class="kvr-roadmap-content">
+            </article>
 
-            <span class="kvr-year">2026</span>
-
-            <h3>AI Learning Dashboard</h3>
-
-            <p>
-              Smart progress tracking, AI analytics and personalized study planning.
-            </p>
-
-            <span class="kvr-status kvr-status-progress">
-              <i class="bi bi-record-circle-fill"></i>
-              In Progress
-            </span>
-
-          </div>
-
-        </div>
-
-        <span class="kvr-node kvr-node-red"></span>
-
-      </article>
-
-      <!-- 2027 -->
-      <article class="kvr-roadmap-item kvr-item-left"
-               data-aos="fade-right">
-
-        <div class="kvr-roadmap-card">
-
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-phone-fill"></i>
-          </div>
-
-          <div class="kvr-roadmap-content">
-
-            <span class="kvr-year">2027</span>
-
-            <h3>Mobile App &amp; Online Test Series</h3>
-
-            <p>
-              Digital practice platform, AI test analysis and online test support
-              for students.
-            </p>
-
-            <span class="kvr-status kvr-status-planned">
-              <i class="bi bi-hourglass-split"></i>
-              Planned
-            </span>
-
-          </div>
-
-        </div>
-
-        <span class="kvr-node kvr-node-blue"></span>
-
-      </article>
-
-      <!-- 2028 -->
-      <article class="kvr-roadmap-item kvr-item-right"
-               data-aos="fade-left">
-
-        <div class="kvr-roadmap-card">
-
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-people-fill"></i>
-          </div>
-
-          <div class="kvr-roadmap-content">
-
-            <span class="kvr-year">2028</span>
-
-            <h3>Maharashtra Expansion</h3>
-
-            <p>
-              Hybrid learning support across rural districts and academy-connected
-              regions.
-            </p>
-
-            <span class="kvr-status kvr-status-planned">
-              <i class="bi bi-hourglass-split"></i>
-              Planned
-            </span>
-
-          </div>
-
-        </div>
-
-        <span class="kvr-node kvr-node-blue"></span>
-
-      </article>
-
-      <!-- 2029 -->
-      <article class="kvr-roadmap-item kvr-item-left"
-               data-aos="fade-right">
-
-        <div class="kvr-roadmap-card">
-
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-person-check-fill"></i>
-          </div>
-
-          <div class="kvr-roadmap-content">
-
-            <span class="kvr-year">2029</span>
-
-            <h3>Strategic Partnerships</h3>
-
-            <p>
-              Scholarship programs, educational collaborations and rural learning
-              partnerships.
-            </p>
-
-            <span class="kvr-status kvr-status-planned">
-              <i class="bi bi-hourglass-split"></i>
-              Planned
-            </span>
-
-          </div>
-
-        </div>
-
-        <span class="kvr-node kvr-node-blue"></span>
-
-      </article>
-
-      <!-- 2030 -->
-      <article class="kvr-roadmap-item kvr-item-right"
-               data-aos="fade-left">
-
-        <div class="kvr-roadmap-card">
-
-          <div class="kvr-roadmap-icon">
-            <i class="bi bi-rocket-takeoff-fill"></i>
-          </div>
-
-          <div class="kvr-roadmap-content">
-
-            <span class="kvr-year">2030</span>
-
-            <h3>India-Wide Rural AI Learning Network</h3>
-
-            <p>
-              Nationwide AI-powered rural education ecosystem for NEET &amp; JEE
-              aspirants.
-            </p>
-
-            <span class="kvr-status kvr-status-planned">
-              <i class="bi bi-hourglass-split"></i>
-              Planned
-            </span>
-
-          </div>
-
-        </div>
-
-        <span class="kvr-node kvr-node-blue"></span>
-
-      </article>
+        @endforeach
 
     </div>
+@endif
 
     <!-- =========================
          2030 GOALS
@@ -1545,7 +1440,7 @@
         </span>
 
         <div>
-          <strong>Lonar, Maharashtra</strong>
+          <strong>{{$address}}</strong>
           <small>India</small>
         </div>
 
@@ -1571,7 +1466,7 @@
 
       <span class="kvr-contact-divider"></span>
 
-      <a href="tel:+918856822032"
+      <a href="tel:{{ $phonePrimary }}"
          class="kvr-contact-item kvr-contact-link">
 
         <span class="kvr-contact-icon kvr-contact-phone">
@@ -1579,7 +1474,7 @@
         </span>
 
         <div>
-          <strong>8856822032</strong>
+          <strong>{{ $phonePrimary }}</strong>
           <small>We are here to help you!</small>
         </div>
 
@@ -2133,7 +2028,7 @@
 
       <div class="kpc-contact-item">
         <i class="bi bi-geo-alt-fill"></i>
-        <span>Lonar, Maharashtra, India</span>
+        <span>{{ $address }}</span>
       </div>
 
       <span class="kpc-contact-divider"></span>
@@ -2150,9 +2045,9 @@
 
       <span class="kpc-contact-divider"></span>
 
-      <a href="tel:+918856822032" class="kpc-contact-item">
+      <a href="tel:{{$phonePrimary}}" class="kpc-contact-item">
         <i class="bi bi-telephone-fill"></i>
-        <span>8856822032</span>
+        <span>{{$phonePrimary}}</span>
       </a>
 
     </div>
@@ -2188,169 +2083,84 @@
       </p>
     </div>
 
+   @php
+    $facultyDelays = [100, 180, 260, 340];
+@endphp
+
+@if(isset($facultyMembers) && $facultyMembers->count())
     <div class="faculty-preview-grid">
 
-      <!-- FACULTY CARD 1 -->
-      <div class="faculty-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="faculty-photo">
-          <img src="assets/img/faculty-1.png" alt="Physics faculty at Khadkeshwar Academy">
-          <span class="faculty-subject-badge">Physics</span>
-        </div>
+        @foreach($facultyMembers as $index => $member)
+            <div class="faculty-card {{ $member->is_active ? 'featured-faculty-card' : '' }}"
+                 data-aos="fade-up"
+                 data-aos-delay="{{ $facultyDelays[$index] ?? 100 }}">
 
-        <div class="faculty-content">
-          <h3>Prof. Rajesh Sharma</h3>
-          <span class="faculty-role">Physics Faculty</span>
+                <div class="faculty-photo">
+                    <img
+                        src="{{ $member->imageUrl() ?: asset('assets/img/faculty-1.png') }}"
+                        alt="{{ $member->image_alt ?: $member->name }}"
+                    >
 
-          <div class="faculty-info-list">
-            <div>
-              <i class="bi bi-mortarboard-fill"></i>
-              <span><strong>Qualification:</strong> M.Sc. Physics</span>
+                    @if($member->subject)
+                        <span class="faculty-subject-badge">
+                            {{ $member->subject }}
+                        </span>
+                    @endif
+                </div>
+
+                <div class="faculty-content">
+                    <h3>{{ $member->name }}</h3>
+
+                    <span class="faculty-role">
+                        {{ $member->badge ?: $member->subject }}
+                    </span>
+
+                    <div class="faculty-info-list">
+
+                        @if($member->point_one)
+                            <div>
+                                <i class="bi bi-mortarboard-fill"></i>
+                                <span>
+                                    <strong>Qualification:</strong> {{ $member->point_one }}
+                                </span>
+                            </div>
+                        @endif
+
+                        @if($member->point_two)
+                            <div>
+                                <i class="bi bi-clock-history"></i>
+                                <span>
+                                    <strong>Experience:</strong> {{ $member->point_two }}
+                                </span>
+                            </div>
+                        @endif
+
+                        @if($member->point_three)
+                            <div>
+                                <i class="bi bi-bullseye"></i>
+                                <span>
+                                    <strong>Expertise:</strong> {{ $member->point_three }}
+                                </span>
+                            </div>
+                        @endif
+
+                    </div>
+
+                    <button class="faculty-video-btn"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#facultyVideoModal"
+                            data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                            data-title="{{ $member->name }} - Intro Video">
+                        <i class="bi bi-play-circle-fill"></i>
+                        Intro Video
+                    </button>
+                </div>
             </div>
-
-            <div>
-              <i class="bi bi-clock-history"></i>
-              <span><strong>Experience:</strong> 8+ Years</span>
-            </div>
-
-            <div>
-              <i class="bi bi-bullseye"></i>
-              <span><strong>Expertise:</strong> NEET & JEE Numericals, Concepts, Test Practice</span>
-            </div>
-          </div>
-
-          <button class="faculty-video-btn"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#facultyVideoModal"
-                  data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  data-title="Prof. Rajesh Sharma - Physics Intro">
-            <i class="bi bi-play-circle-fill"></i>
-            Intro Video
-          </button>
-        </div>
-      </div>
-
-      <!-- FACULTY CARD 2 -->
-      <div class="faculty-card featured-faculty-card" data-aos="fade-up" data-aos-delay="180">
-        <div class="faculty-photo">
-          <img src="assets/img/faculty-2.png" alt="Chemistry faculty at Khadkeshwar Academy">
-          <span class="faculty-subject-badge">Chemistry</span>
-        </div>
-
-        <div class="faculty-content">
-          <h3>Prof. Priya Deshmukh</h3>
-          <span class="faculty-role">Chemistry Faculty</span>
-
-          <div class="faculty-info-list">
-            <div>
-              <i class="bi bi-mortarboard-fill"></i>
-              <span><strong>Qualification:</strong> M.Sc. Chemistry</span>
-            </div>
-
-            <div>
-              <i class="bi bi-clock-history"></i>
-              <span><strong>Experience:</strong> 7+ Years</span>
-            </div>
-
-            <div>
-              <i class="bi bi-bullseye"></i>
-              <span><strong>Expertise:</strong> Organic, Inorganic, Physical Chemistry</span>
-            </div>
-          </div>
-
-          <button class="faculty-video-btn"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#facultyVideoModal"
-                  data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  data-title="Prof. Priya Deshmukh - Chemistry Intro">
-            <i class="bi bi-play-circle-fill"></i>
-            Intro Video
-          </button>
-        </div>
-      </div>
-
-      <!-- FACULTY CARD 3 -->
-      <div class="faculty-card" data-aos="fade-up" data-aos-delay="260">
-        <div class="faculty-photo">
-          <img src="assets/img/facuulty-3.png" alt="Biology faculty at Khadkeshwar Academy">
-          <span class="faculty-subject-badge">Biology</span>
-        </div>
-
-        <div class="faculty-content">
-          <h3>Dr. Sneha Kulkarni</h3>
-          <span class="faculty-role">Biology Faculty</span>
-
-          <div class="faculty-info-list">
-            <div>
-              <i class="bi bi-mortarboard-fill"></i>
-              <span><strong>Qualification:</strong> M.Sc. Biology, Ph.D.</span>
-            </div>
-
-            <div>
-              <i class="bi bi-clock-history"></i>
-              <span><strong>Experience:</strong> 9+ Years</span>
-            </div>
-
-            <div>
-              <i class="bi bi-bullseye"></i>
-              <span><strong>Expertise:</strong> NEET Biology, Diagrams, NCERT Focus</span>
-            </div>
-          </div>
-
-          <button class="faculty-video-btn"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#facultyVideoModal"
-                  data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  data-title="Dr. Sneha Kulkarni - Biology Intro">
-            <i class="bi bi-play-circle-fill"></i>
-            Intro Video
-          </button>
-        </div>
-      </div>
-
-      <!-- FACULTY CARD 4 -->
-      <div class="faculty-card" data-aos="fade-up" data-aos-delay="340">
-        <div class="faculty-photo">
-          <img src="assets/img/faculty-4.png" alt="Mathematics faculty at Khadkeshwar Academy">
-          <span class="faculty-subject-badge">Maths</span>
-        </div>
-
-        <div class="faculty-content">
-          <h3>Prof. Amit Patil</h3>
-          <span class="faculty-role">Mathematics Faculty</span>
-
-          <div class="faculty-info-list">
-            <div>
-              <i class="bi bi-mortarboard-fill"></i>
-              <span><strong>Qualification:</strong> M.Sc. Mathematics</span>
-            </div>
-
-            <div>
-              <i class="bi bi-clock-history"></i>
-              <span><strong>Experience:</strong> 8+ Years</span>
-            </div>
-
-            <div>
-              <i class="bi bi-bullseye"></i>
-              <span><strong>Expertise:</strong> JEE Maths, Problem Solving, Practice Sets</span>
-            </div>
-          </div>
-
-          <button class="faculty-video-btn"
-                  type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#facultyVideoModal"
-                  data-video="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  data-title="Prof. Amit Patil - Mathematics Intro">
-            <i class="bi bi-play-circle-fill"></i>
-            Intro Video
-          </button>
-        </div>
-      </div>
+        @endforeach
 
     </div>
+@endif
 
     <div class="faculty-preview-action" data-aos="fade-up">
       <a href="{{ route('frontend.faculty') }}" class="btn-main">
@@ -2431,184 +2241,91 @@
     <!-- =================================================
          WHY CHOOSE CARDS
     ================================================== -->
+   @php
+    $kwcCardClasses = [
+        'kwc-card-red',
+        'kwc-card-blue',
+        'kwc-card-green',
+        'kwc-card-yellow',
+        'kwc-card-purple',
+        'kwc-card-cyan',
+    ];
+
+    $kwcDelays = [80, 140, 200, 260, 320, 380];
+
+    $kwcFooterData = [
+        [
+            'icon' => 'bi bi-star-fill',
+            'text' => '10+ Years Experience',
+        ],
+        [
+            'icon' => 'bi bi-person-fill',
+            'text' => 'Personalized Support',
+        ],
+        [
+            'icon' => 'bi bi-bar-chart-fill',
+            'text' => 'Performance Tracking',
+        ],
+        [
+            'icon' => 'bi bi-gift-fill',
+            'text' => 'Financial Assistance',
+        ],
+        [
+            'icon' => 'bi bi-people-fill',
+            'text' => 'Rural-First Approach',
+        ],
+        [
+            'icon' => 'bi bi-robot',
+            'text' => 'Smart Learning System',
+        ],
+    ];
+@endphp
+
+@if(isset($aboutWhyItems) && $aboutWhyItems->count())
     <div class="kwc-grid">
 
-      <!-- CARD 01 -->
-      <article class="kwc-card kwc-card-red"
-               data-aos="fade-up"
-               data-aos-delay="80">
+        @foreach($aboutWhyItems as $index => $whyItem)
+            @php
+                $cardClass = $kwcCardClasses[$index] ?? 'kwc-card-red';
+                $delay = $kwcDelays[$index] ?? 80;
+                $footer = $kwcFooterData[$index] ?? [
+                    'icon' => 'bi bi-star-fill',
+                    'text' => 'Trusted Learning Support',
+                ];
+            @endphp
 
-        <div class="kwc-card-icon">
-          <i class="bi bi-person-video3"></i>
-        </div>
+            <article class="kwc-card {{ $cardClass }}"
+                     data-aos="fade-up"
+                     data-aos-delay="{{ $delay }}">
 
-        <div class="kwc-card-content">
+                <div class="kwc-card-icon">
+                    <i class="{{ $whyItem->icon ?: 'bi bi-award-fill' }}"></i>
+                </div>
 
-          <h3>Expert Faculty</h3>
+                <div class="kwc-card-content">
 
-          <span class="kwc-card-line"></span>
+                    <h3>{{ $whyItem->title }}</h3>
 
-          <p>
-            Learn from highly experienced NEET &amp; JEE mentors with
-            in-depth subject knowledge and exam-focused teaching.
-          </p>
+                    <span class="kwc-card-line"></span>
 
-        </div>
+                    @if($whyItem->description)
+                        <p>
+                            {{ $whyItem->description }}
+                        </p>
+                    @endif
 
-        <div class="kwc-card-footer">
-          <i class="bi bi-star-fill"></i>
-          <strong>10+ Years Experience</strong>
-        </div>
+                </div>
 
-      </article>
+                <div class="kwc-card-footer">
+                    <i class="{{ $footer['icon'] }}"></i>
+                    <strong>{{ $footer['text'] }}</strong>
+                </div>
 
-      <!-- CARD 02 -->
-      <article class="kwc-card kwc-card-blue"
-               data-aos="fade-up"
-               data-aos-delay="140">
-
-        <div class="kwc-card-icon">
-          <i class="bi bi-person-check-fill"></i>
-        </div>
-
-        <div class="kwc-card-content">
-
-          <h3>Personal Mentorship</h3>
-
-          <span class="kwc-card-line"></span>
-
-          <p>
-            Get one-to-one guidance, regular feedback and doubt solving
-            for stronger academic discipline and focus.
-          </p>
-
-        </div>
-
-        <div class="kwc-card-footer">
-          <i class="bi bi-person-fill"></i>
-          <strong>Personalized Support</strong>
-        </div>
-
-      </article>
-
-      <!-- CARD 03 -->
-      <article class="kwc-card kwc-card-green"
-               data-aos="fade-up"
-               data-aos-delay="200">
-
-        <div class="kwc-card-icon">
-          <i class="bi bi-clipboard2-check-fill"></i>
-        </div>
-
-        <div class="kwc-card-content">
-
-          <h3>Smart Test Series</h3>
-
-          <span class="kwc-card-line"></span>
-
-          <p>
-            Chapter-wise, full-syllabus and mock tests with detailed
-            analysis and continuous performance tracking.
-          </p>
-
-        </div>
-
-        <div class="kwc-card-footer">
-          <i class="bi bi-bar-chart-fill"></i>
-          <strong>Performance Tracking</strong>
-        </div>
-
-      </article>
-
-      <!-- CARD 04 -->
-      <article class="kwc-card kwc-card-yellow"
-               data-aos="fade-up"
-               data-aos-delay="260">
-
-        <div class="kwc-card-icon">
-          <i class="bi bi-mortarboard-fill"></i>
-        </div>
-
-        <div class="kwc-card-content">
-
-          <h3>Scholarship Support</h3>
-
-          <span class="kwc-card-line"></span>
-
-          <p>
-            Merit-based scholarships and affordable fee support for
-            deserving and talented rural students.
-          </p>
-
-        </div>
-
-        <div class="kwc-card-footer">
-          <i class="bi bi-gift-fill"></i>
-          <strong>Financial Assistance</strong>
-        </div>
-
-      </article>
-
-      <!-- CARD 05 -->
-      <article class="kwc-card kwc-card-purple"
-               data-aos="fade-up"
-               data-aos-delay="320">
-
-        <div class="kwc-card-icon">
-          <i class="bi bi-house-heart-fill"></i>
-        </div>
-
-        <div class="kwc-card-content">
-
-          <h3>Rural Education Mission</h3>
-
-          <span class="kwc-card-line"></span>
-
-          <p>
-            Committed to making quality NEET &amp; JEE education,
-            mentorship and opportunities accessible to rural students.
-          </p>
-
-        </div>
-
-        <div class="kwc-card-footer">
-          <i class="bi bi-people-fill"></i>
-          <strong>Rural-First Approach</strong>
-        </div>
-
-      </article>
-
-      <!-- CARD 06 -->
-      <article class="kwc-card kwc-card-cyan"
-               data-aos="fade-up"
-               data-aos-delay="380">
-
-        <div class="kwc-card-icon">
-          <i class="bi bi-cpu-fill"></i>
-        </div>
-
-        <div class="kwc-card-content">
-
-          <h3>AI-Powered Learning</h3>
-
-          <span class="kwc-card-line"></span>
-
-          <p>
-            AI-enabled reports, smart analytics and personalized study
-            plans designed for every student.
-          </p>
-
-        </div>
-
-        <div class="kwc-card-footer">
-          <i class="bi bi-robot"></i>
-          <strong>Smart Learning System</strong>
-        </div>
-
-      </article>
+            </article>
+        @endforeach
 
     </div>
-
+@endif
     <!-- =================================================
          STATISTICS PANEL
     ================================================== -->
@@ -2701,7 +2418,7 @@
 
       <span class="kwc-admission-divider"></span>
 
-      <a href="tel:+918856822032" class="kwc-admission-phone">
+      <a href="tel:{{ $phonePrimary }}" class="kwc-admission-phone">
 
         <span>
           <i class="bi bi-telephone-fill"></i>
@@ -2709,7 +2426,7 @@
 
         <div>
           <small>Call for Enquiry</small>
-          <strong>8856822032</strong>
+          <strong>{{$phonePrimary}}</strong>
         </div>
 
       </a>
@@ -2728,7 +2445,7 @@
 
       <div class="kwc-bottom-item">
         <i class="bi bi-geo-alt-fill"></i>
-        <span>Lonar, Maharashtra, India</span>
+        <span>{{ $address }}</span>
       </div>
 
       <span class="kwc-bottom-divider"></span>
@@ -2745,32 +2462,80 @@
 
       <span class="kwc-bottom-divider"></span>
 
-      <div class="kwc-social-wrap">
+    @php
+    $socialLinks = [
+        'facebook' => [
+            'url' => $settings?->facebook_url ?? null,
+            'icon' => 'bi bi-facebook',
+            'class' => 'knj-social-facebook',
+            'label' => 'Facebook'
+        ],
+        'instagram' => [
+            'url' => $settings?->instagram_url ?? null,
+            'icon' => 'bi bi-instagram',
+            'class' => 'knj-social-instagram',
+            'label' => 'Instagram'
+        ],
+        'youtube' => [
+            'url' => $settings?->youtube_url ?? null,
+            'icon' => 'bi bi-youtube',
+            'class' => 'knj-social-youtube',
+            'label' => 'YouTube'
+        ],
+        'linkedin' => [
+            'url' => $settings?->linkedin_url ?? null,
+            'icon' => 'bi bi-linkedin',
+            'class' => 'knj-social-linkedin',
+            'label' => 'LinkedIn'
+        ],
+        'x' => [
+            'url' => $settings?->x_url ?? null,
+            'icon' => 'bi bi-twitter-x',
+            'class' => 'knj-social-x',
+            'label' => 'X'
+        ],
+        'telegram' => [
+            'url' => $settings?->telegram_url ?? null,
+            'icon' => 'bi bi-telegram',
+            'class' => 'knj-social-telegram',
+            'label' => 'Telegram'
+        ],
+    ];
 
-        <span>Follow Us On</span>
+    $whatsappNumber = $settings?->whatsapp_number
+        ?? $settings?->phone
+        ?? '91{{ $phonePrimary }}';
 
-        <a href="#" aria-label="Facebook">
-          <i class="bi bi-facebook"></i>
-        </a>
+    $whatsappNumber = preg_replace('/[^0-9]/', '', $whatsappNumber);
+@endphp
 
-        <a href="#" aria-label="Instagram">
-          <i class="bi bi-instagram"></i>
-        </a>
+<div class="kwc-social-wrap">
 
-        <a href="#" aria-label="YouTube">
-          <i class="bi bi-youtube"></i>
-        </a>
+    <span>Follow Us On</span>
 
-        <a href="https://wa.me/918856822032"
+    @foreach($socialLinks as $social)
+        @if(!empty($social['url']))
+            <a href="{{ $social['url'] }}"
+               class="{{ $social['class'] }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="{{ $social['label'] }}">
+                <i class="{{ $social['icon'] }}"></i>
+            </a>
+        @endif
+    @endforeach
+
+    @if($whatsappNumber)
+        <a href="https://wa.me/{{ $whatsappNumber }}"
+           class="knj-social-whatsapp"
            target="_blank"
            rel="noopener noreferrer"
            aria-label="WhatsApp">
-
-          <i class="bi bi-whatsapp"></i>
-
+            <i class="bi bi-whatsapp"></i>
         </a>
+    @endif
 
-      </div>
+</div>
 
     </div>
 
@@ -3210,7 +2975,7 @@
 
       <div class="ksf-admission-contact">
 
-        <a href="tel:+918856822032" class="ksf-contact-row">
+        <a href="tel:{{ $phonePrimary }}" class="ksf-contact-row">
 
           <span>
             <i class="bi bi-telephone-fill"></i>
@@ -3218,7 +2983,7 @@
 
           <div>
             <small>Admission Helpline</small>
-            <strong>8856822032</strong>
+            <strong>$phonePrimary</strong>
           </div>
 
         </a>
@@ -3232,8 +2997,7 @@
           <div>
             <small>Academy Address</small>
             <strong>
-              Loni Naka, Mantha Road,<br>
-              Vitthal Krupa Complex, Lonar
+              {{ $address }}
             </strong>
           </div>
 
@@ -3824,7 +3588,7 @@
 
       <span class="kal-bottom-divider"></span>
 
-      <a href="tel:+918856822032" class="kal-bottom-item">
+      <a href="tel:{{ $phonePrimary }}" class="kal-bottom-item">
 
         <span class="kal-bottom-icon kal-bottom-red">
           <i class="bi bi-telephone-fill"></i>
@@ -3832,7 +3596,7 @@
 
         <div>
           <small>Call for Enquiry</small>
-          <strong>8856822032</strong>
+          <strong>{{ $phonePrimary }}</strong>
         </div>
 
       </a>
@@ -3847,7 +3611,7 @@
 
         <div>
           <strong>Khadkeshwar Academy</strong>
-          <small>Lonar, Maharashtra, India</small>
+          <small>{{ $address }}</small>
         </div>
 
       </div>
@@ -3990,7 +3754,7 @@
         <i class="bi bi-arrow-right"></i>
       </a>
 
-      <a href="tel:+918856822032" class="fad-outline-btn">
+      <a href="tel:{{ $phonePrimary }}" class="fad-outline-btn">
         <i class="bi bi-telephone-fill"></i>
         Call Admission Team
       </a>
@@ -4441,13 +4205,13 @@
 
           <div>
             <small>Admission Helpline</small>
-            <a href="tel:+918856822032">8856822032</a>
+            <a href="tel:{{ $phonePrimary }}">{{ $phonePrimary }}</a>
           </div>
         </div>
 
         <p>
           <i class="bi bi-geo-alt-fill"></i>
-          Lonar, Maharashtra, India
+          {{ $address }}
         </p>
 
       </div>
@@ -5273,7 +5037,7 @@
 
       </div>
 
-      <a href="tel:+918856822032" class="knj-media-call">
+      <a href="tel:{{ $phonePrimary }}" class="knj-media-call">
 
         <span>
           <i class="bi bi-telephone-fill"></i>
@@ -5281,7 +5045,7 @@
 
         <div>
           <small>Call for Enquiry</small>
-          <strong>8856822032</strong>
+          <strong>{{ $phonePrimary }}</strong>
         </div>
 
       </a>
@@ -5333,7 +5097,7 @@
 
         <div>
           <strong>Khadkeshwar Academy</strong>
-          <small>Lonar, Maharashtra, India</small>
+          <small>{{ $address }}</small>
         </div>
       </div>
 
@@ -5381,458 +5145,209 @@
     </div>
 
     <!-- GALLERY FILTER TABS -->
-    <div class="gallery-tabs" data-aos="fade-up">
+<div class="gallery-tabs" data-aos="fade-up">
 
-      <button
+    <button
         class="gallery-tab active"
         type="button"
         data-filter="photos"
         aria-label="Show Photos"
-      >
+    >
         <i class="bi bi-image-fill"></i>
         <span>Photos</span>
-      </button>
+    </button>
 
-      <button
+    <button
         class="gallery-tab"
         type="button"
         data-filter="videos"
         aria-label="Show Videos"
-      >
+    >
         <i class="bi bi-play-circle-fill"></i>
         <span>Videos</span>
-      </button>
-
-    </div>
-
-    <!-- =================================================
-         PHOTO GALLERY
-    ================================================== -->
-    <div class="gallery-grid" id="photoGallery">
-
-      <!-- PHOTO 01 — LARGE -->
-      <article
-        class="gallery-item gallery-item-large"
-        data-img="assets/img/img10.jpeg"
-        data-title="Smart Classroom"
-        data-aos="zoom-in"
-      >
-        <img
-          src="assets/img/img10.jpeg"
-          alt="Khadkeshwar Academy smart classroom"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Smart Classroom Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-blue">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Smart Classroom</h3>
-            <p>Focused classroom learning environment</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 02 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img2.jpeg"
-        data-title="Classroom Learning"
-        data-aos="zoom-in"
-        data-aos-delay="100"
-      >
-        <img
-          src="assets/img/img2.jpeg"
-          alt="Students attending classroom learning session"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Classroom Learning Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-red">
-            <i class="bi bi-book-half"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Classroom Learning</h3>
-            <p>Students attending academic session</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 03 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img3.jpeg"
-        data-title="Seminar Session"
-        data-aos="zoom-in"
-        data-aos-delay="160"
-      >
-        <img
-          src="assets/img/img3.jpeg"
-          alt="Academy seminar and student interaction session"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Seminar Session Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-green">
-            <i class="bi bi-person-video3"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Seminar Session</h3>
-            <p>Teacher guidance and student interaction</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 04 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img4.jpeg"
-        data-title="Student Discussion"
-        data-aos="zoom-in"
-        data-aos-delay="220"
-      >
-        <img
-          src="assets/img/img4.jpeg"
-          alt="Students participating in group discussion"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Student Discussion Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-yellow">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Student Discussion</h3>
-            <p>Interactive learning atmosphere</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 05 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img9.jpeg"
-        data-title="Student Interaction"
-        data-aos="zoom-in"
-        data-aos-delay="280"
-      >
-        <img
-          src="assets/img/img9.jpeg"
-          alt="Khadkeshwar Academy student interaction"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Student Interaction Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-purple">
-            <i class="bi bi-person-hearts"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Student Interaction</h3>
-            <p>Collaborative and supportive environment</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 06 — LARGE -->
-      <article
-        class="gallery-item gallery-item-large"
-        data-img="assets/img/img5.jpeg"
-        data-title="Academy Session"
-        data-aos="zoom-in"
-        data-aos-delay="340"
-      >
-        <img
-          src="assets/img/img5.jpeg"
-          alt="Khadkeshwar Academy focused classroom session"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Academy Session Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-indigo">
-            <i class="bi bi-building-fill-check"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Academy Session</h3>
-            <p>Focused NEET JEE preparation guidance</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 07 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img6.jpeg"
-        data-title="Learning Environment"
-        data-aos="zoom-in"
-        data-aos-delay="100"
-      >
-        <img
-          src="assets/img/img6.jpeg"
-          alt="Learning environment at Khadkeshwar Academy"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Learning Environment Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-cyan">
-            <i class="bi bi-lightbulb-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Learning Environment</h3>
-            <p>Students learning with discipline</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 08 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img7.jpeg"
-        data-title="Faculty Session"
-        data-aos="zoom-in"
-        data-aos-delay="160"
-      >
-        <img
-          src="assets/img/img7.jpeg"
-          alt="Faculty academic guidance session"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Faculty Session Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-orange">
-            <i class="bi bi-person-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Faculty Session</h3>
-            <p>Academic guidance by faculty</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 09 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img8.jpeg"
-        data-title="Academy Group Photo"
-        data-aos="zoom-in"
-        data-aos-delay="220"
-      >
-        <img
-          src="assets/img/img8.jpeg"
-          alt="Khadkeshwar Academy group photograph"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Academy Group Photo"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-pink">
-            <i class="bi bi-camera-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Academy Group Photo</h3>
-            <p>Students and academy team</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- PHOTO 10 -->
-      <article
-        class="gallery-item"
-        data-img="assets/img/img9.jpeg"
-        data-title="Board Teaching"
-        data-aos="zoom-in"
-        data-aos-delay="280"
-      >
-        <img
-          src="assets/img/img9.jpeg"
-          alt="Concept-based board teaching session"
-          loading="lazy"
-        >
-
-        <button
-          class="gallery-zoom-btn"
-          type="button"
-          aria-label="Open Board Teaching Image"
-        >
-          <i class="bi bi-arrows-fullscreen"></i>
-        </button>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-teal">
-            <i class="bi bi-easel2-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Board Teaching</h3>
-            <p>Concept-based classroom teaching</p>
-          </div>
-
-        </div>
-      </article>
-
-    </div>
-
-    <!-- =================================================
-         VIDEO GALLERY
-    ================================================== -->
-    <div class="gallery-grid hidden-gallery" id="videoGallery">
-
-      <!-- VIDEO 01 -->
-      <article
-        class="gallery-item gallery-item-large video-item"
-        data-video="assets/img/video.mp4"
-        data-title="Academy Classroom Video"
-      >
-        <video class="video-thumb" muted playsinline preload="metadata">
-          <source src="assets/img/video.mp4" type="video/mp4">
-        </video>
-
-        <span class="play-btn">
-          <i class="bi bi-play-fill"></i>
-        </span>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-red">
-            <i class="bi bi-camera-video-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Academy Classroom Video</h3>
-            <p>Watch the classroom learning environment</p>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- VIDEO 02 -->
-      <article
-        class="gallery-item video-item"
-        data-video="assets/img/video1.mp4"
-        data-title="Student Activity Video"
-      >
-        <video class="video-thumb" muted playsinline preload="metadata">
-          <source src="assets/img/video1.mp4" type="video/mp4">
-        </video>
-
-        <span class="play-btn">
-          <i class="bi bi-play-fill"></i>
-        </span>
-
-        <div class="gallery-overlay">
-
-          <span class="gallery-content-icon gallery-icon-purple">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <div class="gallery-overlay-content">
-            <h3>Student Activity Video</h3>
-            <p>Academy activities and student participation</p>
-          </div>
-
-        </div>
-      </article>
-
-    </div>
+    </button>
+
+</div>
+
+@php
+    $galleryIconData = [
+        [
+            'icon' => 'bi bi-mortarboard-fill',
+            'class' => 'gallery-icon-blue',
+        ],
+        [
+            'icon' => 'bi bi-book-half',
+            'class' => 'gallery-icon-red',
+        ],
+        [
+            'icon' => 'bi bi-person-video3',
+            'class' => 'gallery-icon-green',
+        ],
+        [
+            'icon' => 'bi bi-people-fill',
+            'class' => 'gallery-icon-yellow',
+        ],
+        [
+            'icon' => 'bi bi-person-hearts',
+            'class' => 'gallery-icon-purple',
+        ],
+        [
+            'icon' => 'bi bi-building-fill-check',
+            'class' => 'gallery-icon-indigo',
+        ],
+        [
+            'icon' => 'bi bi-lightbulb-fill',
+            'class' => 'gallery-icon-cyan',
+        ],
+        [
+            'icon' => 'bi bi-person-fill',
+            'class' => 'gallery-icon-orange',
+        ],
+        [
+            'icon' => 'bi bi-camera-fill',
+            'class' => 'gallery-icon-pink',
+        ],
+        [
+            'icon' => 'bi bi-easel2-fill',
+            'class' => 'gallery-icon-teal',
+        ],
+    ];
+
+    $galleryDelays = [0, 100, 160, 220, 280, 340];
+@endphp
+
+<!-- =================================================
+     PHOTO GALLERY
+================================================== -->
+<div class="gallery-grid" id="photoGallery">
+
+    @if(isset($photoGalleryItems) && $photoGalleryItems->count())
+
+        @foreach($photoGalleryItems as $index => $item)
+
+            @php
+                $iconData = $galleryIconData[$index % count($galleryIconData)];
+                $delay = $galleryDelays[$index % count($galleryDelays)];
+
+                $layoutClass = in_array($item->layout, ['wide', 'tall', 'large'], true)
+                    ? 'gallery-item-large'
+                    : '';
+
+                $imageSource = $item->mediaSource() ?: asset('assets/img/img10.jpeg');
+                $thumbSource = $item->thumbnailSource() ?: $imageSource;
+            @endphp
+
+            <article
+                class="gallery-item {{ $layoutClass }}"
+                data-img="{{ $imageSource }}"
+                data-title="{{ $item->title }}"
+                data-aos="zoom-in"
+                @if($delay) data-aos-delay="{{ $delay }}" @endif
+            >
+                <img
+                    src="{{ $thumbSource }}"
+                    alt="{{ $item->alt_text ?: $item->title }}"
+                    loading="lazy"
+                >
+
+                <button
+                    class="gallery-zoom-btn"
+                    type="button"
+                    aria-label="Open {{ $item->title }} Image"
+                >
+                    <i class="bi bi-arrows-fullscreen"></i>
+                </button>
+
+                <div class="gallery-overlay">
+
+                    <span class="gallery-content-icon {{ $iconData['class'] }}">
+                        <i class="{{ $iconData['icon'] }}"></i>
+                    </span>
+
+                    <div class="gallery-overlay-content">
+                        <h3>{{ $item->title }}</h3>
+
+                        @if($item->label)
+                            <p>{{ $item->label }}</p>
+                        @endif
+                    </div>
+
+                </div>
+            </article>
+
+        @endforeach
+
+    @endif
+
+</div>
+
+<!-- =================================================
+     VIDEO GALLERY
+================================================== -->
+<div class="gallery-grid hidden-gallery" id="videoGallery">
+
+    @if(isset($videoGalleryItems) && $videoGalleryItems->count())
+
+        @foreach($videoGalleryItems as $index => $item)
+
+            @php
+                $iconData = $galleryIconData[$index % count($galleryIconData)];
+                $delay = $galleryDelays[$index % count($galleryDelays)];
+
+                $layoutClass = in_array($item->layout, ['wide', 'tall', 'large'], true)
+                    ? 'gallery-item-large'
+                    : '';
+
+                $videoSource = $item->mediaSource();
+                $thumbSource = $item->thumbnailSource();
+            @endphp
+
+            <article
+                class="gallery-item {{ $layoutClass }} video-item"
+                data-video="{{ $videoSource }}"
+                data-title="{{ $item->title }}"
+                data-aos="zoom-in"
+                @if($delay) data-aos-delay="{{ $delay }}" @endif
+            >
+
+                @if($item->media_type === 'video')
+                    <video class="video-thumb" muted playsinline preload="metadata">
+                        <source src="{{ $videoSource }}" type="video/mp4">
+                    </video>
+                @else
+                    <img
+                        src="{{ $thumbSource ?: asset('assets/img/img10.jpeg') }}"
+                        alt="{{ $item->alt_text ?: $item->title }}"
+                        loading="lazy"
+                    >
+                @endif
+
+                <span class="play-btn">
+                    <i class="bi bi-play-fill"></i>
+                </span>
+
+                <div class="gallery-overlay">
+
+                    <span class="gallery-content-icon {{ $iconData['class'] }}">
+                        <i class="bi bi-camera-video-fill"></i>
+                    </span>
+
+                    <div class="gallery-overlay-content">
+                        <h3>{{ $item->title }}</h3>
+
+                        @if($item->label)
+                            <p>{{ $item->label }}</p>
+                        @endif
+                    </div>
+
+                </div>
+            </article>
+
+        @endforeach
+
+    @endif
+
+</div>
 
     <!-- TRUST STRIP -->
     <div class="gallery-trust-strip" data-aos="fade-up">
@@ -5983,279 +5498,85 @@
     </div>
 
     <!-- TESTIMONIAL CARDS -->
+  @php
+    $testimonialClasses = [
+        'testimonial-card-red',
+        'testimonial-card-purple',
+        'testimonial-card-parent',
+        'testimonial-card-red',
+        'testimonial-card-red',
+        'testimonial-card-parent',
+    ];
+
+    $testimonialDelays = [100, 160, 220, 280, 340, 400];
+@endphp
+
+@if(isset($resultTestimonials) && $resultTestimonials->count())
     <div class="testimonials-grid">
 
-      <!-- TESTIMONIAL 01 -->
-      <article
-        class="testimonial-card testimonial-card-red"
-        data-aos="fade-up"
-        data-aos-delay="100"
-      >
-        <div class="testimonial-top">
+        @foreach($resultTestimonials as $index => $testimonial)
+            @php
+                $cardClass = $testimonialClasses[$index] ?? 'testimonial-card-red';
+                $delay = $testimonialDelays[$index] ?? 100;
+                $rating = (int) ($testimonial->rating ?: 5);
 
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
+                $isParent = str_contains(strtolower($testimonial->reviewer_type ?? ''), 'parent');
+                $userIcon = $isParent ? 'bi bi-people-fill' : 'bi bi-mortarboard-fill';
+            @endphp
 
-            <span class="review-badge">5.0</span>
-          </div>
+            <article
+                class="testimonial-card {{ $cardClass }}"
+                data-aos="fade-up"
+                data-aos-delay="{{ $delay }}"
+            >
+                <div class="testimonial-top">
 
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
+                    <div class="testimonial-rating">
+                        <div class="stars" aria-label="{{ $rating }} out of 5 stars">
+                            @for($i = 1; $i <= 5; $i++)
+                                @if($i <= $rating)
+                                    <i class="bi bi-star-fill"></i>
+                                @else
+                                    <i class="bi bi-star"></i>
+                                @endif
+                            @endfor
+                        </div>
 
-        </div>
+                        <span class="review-badge">
+                            {{ number_format($testimonial->rating ?: 5, 1) }}
+                        </span>
+                    </div>
 
-        <p class="testimonial-text">
-          The academy gives proper guidance and regular tests. It helped me
-          understand my weak topics and improve my preparation.
-        </p>
+                    <span class="testimonial-quote-icon">
+                        <i class="bi bi-quote"></i>
+                    </span>
 
-        <div class="student-info">
+                </div>
 
-          <span class="testimonial-user-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
+                <p class="testimonial-text">
+                    {{ $testimonial->review_text }}
+                </p>
 
-          <div>
-            <h4>NEET Aspirant</h4>
-            <span>Student Review</span>
-          </div>
+                <div class="student-info">
 
-        </div>
-      </article>
+                    <span class="testimonial-user-icon">
+                        <i class="{{ $userIcon }}"></i>
+                    </span>
 
-      <!-- TESTIMONIAL 02 -->
-      <article
-        class="testimonial-card testimonial-card-purple"
-        data-aos="fade-up"
-        data-aos-delay="160"
-      >
-        <div class="testimonial-top">
+                    <div>
+                        <h4>{{ $testimonial->reviewer_name }}</h4>
 
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
+                        <span>
+                            {{ $testimonial->reviewer_type ?: 'Student Review' }}
+                        </span>
+                    </div>
 
-            <span class="review-badge">5.0</span>
-          </div>
-
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
-
-        </div>
-
-        <p class="testimonial-text">
-          Daily practice tests and personal mentorship boosted my confidence
-          and improved my score in JEE Mains.
-        </p>
-
-        <div class="student-info">
-
-          <span class="testimonial-user-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <div>
-            <h4>JEE Aspirant</h4>
-            <span>Student Review</span>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- TESTIMONIAL 03 -->
-      <article
-        class="testimonial-card testimonial-card-parent"
-        data-aos="fade-up"
-        data-aos-delay="220"
-      >
-        <div class="testimonial-top">
-
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <span class="review-badge">5.0</span>
-          </div>
-
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
-
-        </div>
-
-        <p class="testimonial-text">
-          Personal attention and discipline are very helpful. The teachers
-          explain concepts clearly and motivate students.
-        </p>
-
-        <div class="student-info">
-
-          <span class="testimonial-user-icon">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <div>
-            <h4>Parent Review</h4>
-            <span>Parent Testimonial</span>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- TESTIMONIAL 04 -->
-      <article
-        class="testimonial-card testimonial-card-red"
-        data-aos="fade-up"
-        data-aos-delay="280"
-      >
-        <div class="testimonial-top">
-
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <span class="review-badge">5.0</span>
-          </div>
-
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
-
-        </div>
-
-        <p class="testimonial-text">
-          Good environment for students from rural areas. Fee support and
-          mentorship make the preparation journey easier.
-        </p>
-
-        <div class="student-info">
-
-          <span class="testimonial-user-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <div>
-            <h4>JEE Aspirant</h4>
-            <span>Student Review</span>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- TESTIMONIAL 05 -->
-      <article
-        class="testimonial-card testimonial-card-red"
-        data-aos="fade-up"
-        data-aos-delay="340"
-      >
-        <div class="testimonial-top">
-
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <span class="review-badge">5.0</span>
-          </div>
-
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
-
-        </div>
-
-        <p class="testimonial-text">
-          The faculty goes beyond teaching. They guide us at every step and
-          help us stay focused on our goals.
-        </p>
-
-        <div class="student-info">
-
-          <span class="testimonial-user-icon">
-            <i class="bi bi-mortarboard-fill"></i>
-          </span>
-
-          <div>
-            <h4>NEET Aspirant</h4>
-            <span>Student Review</span>
-          </div>
-
-        </div>
-      </article>
-
-      <!-- TESTIMONIAL 06 -->
-      <article
-        class="testimonial-card testimonial-card-parent"
-        data-aos="fade-up"
-        data-aos-delay="400"
-      >
-        <div class="testimonial-top">
-
-          <div class="testimonial-rating">
-            <div class="stars" aria-label="5 out of 5 stars">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-            </div>
-
-            <span class="review-badge">5.0</span>
-          </div>
-
-          <span class="testimonial-quote-icon">
-            <i class="bi bi-quote"></i>
-          </span>
-
-        </div>
-
-        <p class="testimonial-text">
-          We are happy with the progress of our child. The regular updates and
-          parent interaction sessions are very useful.
-        </p>
-
-        <div class="student-info">
-
-          <span class="testimonial-user-icon">
-            <i class="bi bi-people-fill"></i>
-          </span>
-
-          <div>
-            <h4>Parent Review</h4>
-            <span>Parent Testimonial</span>
-          </div>
-
-        </div>
-      </article>
+                </div>
+            </article>
+        @endforeach
 
     </div>
+@endif
 
     <!-- TESTIMONIAL ACTIONS -->
     <div class="testimonial-actions" data-aos="fade-up">
@@ -6424,7 +5745,7 @@
             <i class="bi bi-arrow-right"></i>
           </button>
 
-          <a href="tel:+918856822032" class="cta-call-btn">
+          <a href="tel:{{ $phonePrimary }}" class="cta-call-btn">
             <i class="bi bi-telephone-fill"></i>
             <span>Call Now</span>
           </a>
@@ -6446,8 +5767,8 @@
           <div class="cta-helpline-content">
             <span>Admission Helpline</span>
 
-            <a href="tel:+918856822032">
-              +91 88568 22032
+            <a href="tel:{{ $phonePrimary }}">
+              {{ $phonePrimary }}
             </a>
 
             <p>
@@ -6766,12 +6087,12 @@
 
         <div class="scholarship-contact-divider"></div>
 
-        <a href="tel:+918856822032" class="scholarship-phone-item">
+        <a href="tel:{{ $phonePrimary }}" class="scholarship-phone-item">
 
           <i class="bi bi-telephone-fill"></i>
 
           <div>
-            <strong>+91 88568 22032</strong>
+            <strong>{{ $phonePrimary }}</strong>
             <small>Mon – Sat | 9:00 AM – 6:00 PM</small>
           </div>
 
@@ -6963,7 +6284,7 @@
           </span>
         </a>
 
-        <a href="tel:+918856822032"
+        <a href="tel:{{ $phonePrimary }}"
            class="kha-scholarship-btn kha-scholarship-btn-outline">
           <span>
             <i class="bi bi-telephone-fill"></i>
@@ -6975,7 +6296,7 @@
           </span>
         </a>
 
-        <a href="https://wa.me/918856822032"
+        <a href="https://wa.me/91{{ $phonePrimary }}"
            target="_blank"
            rel="noopener"
            class="kha-scholarship-btn kha-scholarship-btn-whatsapp">

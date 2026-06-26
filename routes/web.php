@@ -34,7 +34,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('founder-responsibilities', 'FounderResponsibilityController');
 
     // Founder Timeline
-    Route::resource('founder-timelines', 'FounderTimelineController');
+Route::delete('founder-timelines/destroy', 'FounderTimelineController@massDestroy')
+    ->name('founder-timelines.massDestroy');
+
+Route::resource('founder-timelines', 'FounderTimelineController');
     Route::resource('about-why-items', 'AboutWhyItemController');
     Route::resource('company-recognitions', 'CompanyRecognitionController');
     Route::resource('result-rankers', 'ResultRankerController');

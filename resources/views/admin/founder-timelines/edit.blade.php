@@ -15,7 +15,7 @@
         </h2>
 
         <p class="admin-page-subtitle">
-            Update journey timeline year, title, order and visibility
+            Update journey timeline item for the About Us page
         </p>
     </div>
 </div>
@@ -26,6 +26,7 @@
 
     <div class="admin-form-grid">
 
+        {{-- TIMELINE INFORMATION --}}
         <div class="form-card">
             <div class="form-card-header">
                 <div class="form-card-icon">
@@ -34,7 +35,7 @@
 
                 <div>
                     <p class="form-card-title">Timeline Information</p>
-                    <p class="form-card-subtitle">Year and roadmap title shown on frontend</p>
+                    <p class="form-card-subtitle">Year, title and roadmap description shown on frontend</p>
                 </div>
             </div>
 
@@ -65,7 +66,7 @@
                     @else
                         <p class="field-hint">
                             <i class="fas fa-info-circle"></i>
-                            Example: 2022, 2023, 2026 or 2030
+                            Example: 2025, 2026, 2027 or 2030
                         </p>
                     @endif
                 </div>
@@ -75,12 +76,17 @@
                         Title <span class="req">*</span>
                     </label>
 
-                    <textarea name="title"
-                              id="title"
-                              rows="5"
-                              required
-                              placeholder="AI learning dashboard, smart test analysis and student progress roadmap planned."
-                              class="field-input {{ $errors->has('title') ? 'error' : '' }}">{{ old('title', $founderTimeline->title) }}</textarea>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-heading icon"></i>
+
+                        <input type="text"
+                               name="title"
+                               id="title"
+                               value="{{ old('title', $founderTimeline->title) }}"
+                               required
+                               placeholder="AI Learning Dashboard"
+                               class="field-input {{ $errors->has('title') ? 'error' : '' }}">
+                    </div>
 
                     @if($errors->has('title'))
                         <p class="field-error">
@@ -89,8 +95,32 @@
                         </p>
                     @else
                         <p class="field-hint">
+                            <i class="fas fa-info-circle"></i>
+                            This title will appear below the year.
+                        </p>
+                    @endif
+                </div>
+
+                <div class="field-group">
+                    <label class="field-label" for="description">
+                        Description
+                    </label>
+
+                    <textarea name="description"
+                              id="description"
+                              rows="5"
+                              placeholder="Smart progress tracking, AI analytics and personalized study planning."
+                              class="field-input {{ $errors->has('description') ? 'error' : '' }}">{{ old('description', $founderTimeline->description) }}</textarea>
+
+                    @if($errors->has('description'))
+                        <p class="field-error">
+                            <i class="fas fa-exclamation-circle"></i>
+                            {{ $errors->first('description') }}
+                        </p>
+                    @else
+                        <p class="field-hint">
                             <i class="fas fa-align-left"></i>
-                            This text will appear under the timeline year.
+                            This description will appear under the timeline title.
                         </p>
                     @endif
                 </div>
@@ -98,6 +128,7 @@
             </div>
         </div>
 
+        {{-- DISPLAY SETTINGS --}}
         <div class="form-card">
             <div class="form-card-header">
                 <div class="form-card-icon">
@@ -159,7 +190,7 @@
                 <div class="form-info-box">
                     <p>
                         <i class="fas fa-info-circle"></i>
-                        Card icon, badge and heading will remain static on frontend.
+                        Card icon, badge, status style and timeline side will remain static on frontend.
                     </p>
                 </div>
 

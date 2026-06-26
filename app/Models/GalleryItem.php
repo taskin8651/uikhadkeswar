@@ -30,12 +30,13 @@ class GalleryItem extends Model implements HasMedia
         $this->addMediaCollection('gallery_thumbnail')->singleFile();
     }
 
-    public function mediaSource(): string
+    public function mediaSource(): ?string
     {
-        return $this->getFirstMediaUrl('gallery_media') ?: ($this->source_url ?: $this->thumbnailSource());
+        return $this->getFirstMediaUrl('gallery_media')
+            ?: ($this->source_url ?: $this->thumbnailSource());
     }
 
-    public function thumbnailSource(): string
+    public function thumbnailSource(): ?string
     {
         return $this->getFirstMediaUrl('gallery_thumbnail')
             ?: $this->getFirstMediaUrl('gallery_media')

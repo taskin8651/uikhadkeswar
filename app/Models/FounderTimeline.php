@@ -12,6 +12,7 @@ class FounderTimeline extends Model
     protected $fillable = [
         'year',
         'title',
+        'description',
         'sort_order',
         'status',
     ];
