@@ -135,6 +135,15 @@
             </a>
         @endcan
 
+        @can('faculty_member_access')
+            <a href="{{ route('admin.faculty-members.index') }}"
+               data-tooltip="Faculty"
+               class="nav-link {{ request()->is('admin/faculty-members*') ? 'active' : '' }}">
+                <i class="fas fa-chalkboard-teacher nav-icon"></i>
+                <span class="nav-label">Faculty Members</span>
+            </a>
+        @endcan
+
        {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php

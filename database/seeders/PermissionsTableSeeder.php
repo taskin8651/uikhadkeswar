@@ -146,6 +146,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'gallery_item_access',
             ],
+            [
+                'title' => 'faculty_member_create',
+            ],
+            [
+                'title' => 'faculty_member_edit',
+            ],
+            [
+                'title' => 'faculty_member_delete',
+            ],
+            [
+                'title' => 'faculty_member_access',
+            ],
         ];
 
         Permission::insert($permissions);
