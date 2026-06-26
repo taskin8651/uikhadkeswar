@@ -158,6 +158,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'faculty_member_access',
             ],
+            [
+                'title' => 'startup_card_create',
+            ],
+            [
+                'title' => 'startup_card_edit',
+            ],
+            [
+                'title' => 'startup_card_delete',
+            ],
+            [
+                'title' => 'startup_card_access',
+            ],
         ];
 
         Permission::insert($permissions);

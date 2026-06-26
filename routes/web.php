@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('result-testimonials', 'ResultTestimonialController');
     Route::resource('gallery-items', 'GalleryItemController', ['except' => ['show']]);
     Route::resource('faculty-members', 'FacultyMemberController', ['except' => ['show']]);
+    Route::resource('startup-cards', 'StartupCardController', ['except' => ['show']]);
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -66,3 +67,5 @@ Route::get('results.html', 'Frontend\ResultController@index')->name('frontend.re
 Route::get('results', 'Frontend\ResultController@index');
 Route::get('gallery', 'Frontend\GalleryController@index');
 Route::get('faculty', 'Frontend\FacultyController@index');
+Route::get('startup-vision.html', 'Frontend\StartupVisionController@index')->name('frontend.startup-vision');
+Route::get('startup-vision', 'Frontend\StartupVisionController@index');

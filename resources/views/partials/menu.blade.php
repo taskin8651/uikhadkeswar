@@ -144,6 +144,15 @@
             </a>
         @endcan
 
+        @can('startup_card_access')
+            <a href="{{ route('admin.startup-cards.index') }}"
+               data-tooltip="Startup"
+               class="nav-link {{ request()->is('admin/startup-cards*') ? 'active' : '' }}">
+                <i class="fas fa-rocket nav-icon"></i>
+                <span class="nav-label">Startup Cards</span>
+            </a>
+        @endcan
+
        {{-- ABOUT US GROUP --}}
 @can('about_us_access')
     @php
