@@ -125,6 +125,15 @@
             </a>
         @endcan
 
+        @can('home_certificate_access')
+            <a href="{{ route('admin.home-certificates.index') }}"
+               data-tooltip="Certificates"
+               class="nav-link {{ request()->is('admin/home-certificates*') ? 'active' : '' }}">
+                <i class="fas fa-certificate nav-icon"></i>
+                <span class="nav-label">Home Certificates</span>
+            </a>
+        @endcan
+
         @can('startup_trust_card_access')
             <a href="{{ route('admin.startup-trust-cards.index') }}"
                data-tooltip="Trust"

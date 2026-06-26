@@ -6388,155 +6388,55 @@
 
           <div class="kha-certificate-track">
 
-            <!-- CERTIFICATE 01 -->
-            <article class="kha-certificate-card">
-              <div class="kha-certificate-image">
-                <img
-                  src="assets/img/certificate-1.jpeg"
-                  alt="Government free coaching support certificate"
-                  loading="lazy">
+            @forelse($homeCertificates as $certificate)
+              @php
+                $certificateImage = $certificate->imageUrl();
+              @endphp
 
-                <button
-                  class="kha-certificate-zoom"
-                  type="button"
-                  aria-label="View certificate one">
-                  <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-              </div>
+              @if($certificateImage)
+                <article class="kha-certificate-card">
+                  <div class="kha-certificate-image">
+                    <img
+                      src="{{ $certificateImage }}"
+                      alt="{{ $certificate->alt_text ?: $certificate->title }}"
+                      loading="lazy">
 
-              <div class="kha-certificate-card-content">
-                <div>
-                  <h3>Free Coaching Support Certificate</h3>
-                  <p>Government Scholarship Initiative</p>
-                  <strong>Academic Year 2025–26</strong>
+                    <button
+                      class="kha-certificate-zoom"
+                      type="button"
+                      aria-label="View {{ $certificate->title }}">
+                      <i class="bi bi-arrows-fullscreen"></i>
+                    </button>
+                  </div>
+
+                  <div class="kha-certificate-card-content">
+                    <div>
+                      <h3>{{ $certificate->title }}</h3>
+                      @if($certificate->subtitle)
+                        <p>{{ $certificate->subtitle }}</p>
+                      @endif
+                      @if($certificate->year_text)
+                        <strong>{{ $certificate->year_text }}</strong>
+                      @endif
+                    </div>
+
+                    <button class="kha-view-certificate" type="button">
+                      {{ $certificate->button_text ?: 'View Certificate' }}
+                      <i class="bi bi-box-arrow-up-right"></i>
+                    </button>
+                  </div>
+                </article>
+              @endif
+            @empty
+              <article class="kha-certificate-card">
+                <div class="kha-certificate-card-content">
+                  <div>
+                    <h3>No certificates added yet</h3>
+                    <p>Add certificates from admin dashboard.</p>
+                  </div>
                 </div>
-
-                <button class="kha-view-certificate" type="button">
-                  View Certificate
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </div>
-            </article>
-
-            <!-- CERTIFICATE 02 -->
-            <article class="kha-certificate-card">
-              <div class="kha-certificate-image">
-                <img
-                  src="assets/img/certificate-2.jpeg"
-                  alt="Government scholarship certificate"
-                  loading="lazy">
-
-                <button
-                  class="kha-certificate-zoom"
-                  type="button"
-                  aria-label="View certificate two">
-                  <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-              </div>
-
-              <div class="kha-certificate-card-content">
-                <div>
-                  <h3>Free Coaching Support Certificate</h3>
-                  <p>Government Scholarship Initiative</p>
-                  <strong>Academic Year 2025–26</strong>
-                </div>
-
-                <button class="kha-view-certificate" type="button">
-                  View Certificate
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </div>
-            </article>
-
-            <!-- CERTIFICATE 03 -->
-            <article class="kha-certificate-card">
-              <div class="kha-certificate-image">
-                <img
-                  src="assets/img/certificate-3.jpeg"
-                  alt="Student free coaching support certificate"
-                  loading="lazy">
-
-                <button
-                  class="kha-certificate-zoom"
-                  type="button"
-                  aria-label="View certificate three">
-                  <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-              </div>
-
-              <div class="kha-certificate-card-content">
-                <div>
-                  <h3>Free Coaching Support Certificate</h3>
-                  <p>Government Scholarship Initiative</p>
-                  <strong>Academic Year 2025–26</strong>
-                </div>
-
-                <button class="kha-view-certificate" type="button">
-                  View Certificate
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </div>
-            </article>
-
-            <!-- CERTIFICATE 04 -->
-            <article class="kha-certificate-card">
-              <div class="kha-certificate-image">
-                <img
-                  src="assets/img/certificate-4.jpeg"
-                  alt="Rural student scholarship support certificate"
-                  loading="lazy">
-
-                <button
-                  class="kha-certificate-zoom"
-                  type="button"
-                  aria-label="View certificate four">
-                  <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-              </div>
-
-              <div class="kha-certificate-card-content">
-                <div>
-                  <h3>Free Coaching Support Certificate</h3>
-                  <p>Government Scholarship Initiative</p>
-                  <strong>Academic Year 2025–26</strong>
-                </div>
-
-                <button class="kha-view-certificate" type="button">
-                  View Certificate
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </div>
-            </article>
-
-            <!-- CERTIFICATE 05 -->
-            <!-- <article class="kha-certificate-card">
-              <div class="kha-certificate-image">
-                <img
-                  src="assets/img/certificate-5.jpeg"
-                  alt="Scholarship and free coaching certificate"
-                  loading="lazy">
-
-                <button
-                  class="kha-certificate-zoom"
-                  type="button"
-                  aria-label="View certificate five">
-                  <i class="bi bi-arrows-fullscreen"></i>
-                </button>
-              </div>
-
-              <div class="kha-certificate-card-content">
-                <div>
-                  <h3>Free Coaching Support Certificate</h3>
-                  <p>Government Scholarship Initiative</p>
-                  <strong>Academic Year 2025–26</strong>
-                </div>
-
-                <button class="kha-view-certificate" type="button">
-                  View Certificate
-                  <i class="bi bi-box-arrow-up-right"></i>
-                </button>
-              </div>
-            </article> -->
+              </article>
+            @endforelse
 
           </div>
 

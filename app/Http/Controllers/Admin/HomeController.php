@@ -15,6 +15,7 @@ use App\Models\FounderTimeline;
 use App\Models\GalleryCategory;
 use App\Models\GalleryItem;
 use App\Models\HomeHeroSetting;
+use App\Models\HomeCertificate;
 use App\Models\KeyPointTrustCard;
 use App\Models\Permission;
 use App\Models\ResourceItem;
@@ -33,6 +34,7 @@ class HomeController
     {
         $contentCards = [
             ['label' => 'Home Hero', 'count' => HomeHeroSetting::count(), 'icon' => 'fa-home', 'route' => route('admin.home-hero-settings.edit'), 'color' => '#4F46E5'],
+            ['label' => 'Home Certificates', 'count' => HomeCertificate::count(), 'icon' => 'fa-certificate', 'route' => route('admin.home-certificates.index'), 'color' => '#d40d1f'],
             ['label' => 'Website Settings', 'count' => WebsiteSetting::count(), 'icon' => 'fa-cog', 'route' => route('admin.website-settings.edit'), 'color' => '#0EA5E9'],
             ['label' => 'Founder Section', 'count' => FounderSection::count(), 'icon' => 'fa-user-tie', 'route' => route('admin.founder-section.edit'), 'color' => '#10B981'],
             ['label' => 'Founder Responsibilities', 'count' => FounderResponsibility::count(), 'icon' => 'fa-tasks', 'route' => route('admin.founder-responsibilities.index'), 'color' => '#F59E0B'],

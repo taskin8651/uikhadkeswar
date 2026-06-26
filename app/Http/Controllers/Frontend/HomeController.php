@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\HomeHeroSetting;
+use App\Models\HomeCertificate;
 use App\Models\KeyPointTrustCard;
 use App\Models\StartupTrustCard;
 use App\Models\FacultyMember;
@@ -18,6 +19,12 @@ class HomeController extends Controller
     public function index()
     {
         $homeHero = HomeHeroSetting::current();
+
+        $homeCertificates = HomeCertificate::query()
+            ->where('status', true)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get();
 
         $startupTrustCards = StartupTrustCard::query()
             ->where('status', true)
@@ -76,6 +83,7 @@ class HomeController extends Controller
 
         return view('frontend.index', compact(
             'homeHero',
+            'homeCertificates',
             'startupTrustCards',
             'keyPointTrustCards',
             'facultyMembers',

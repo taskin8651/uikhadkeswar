@@ -48,6 +48,7 @@ Route::resource('founder-timelines', 'FounderTimelineController');
     Route::resource('resource-items', 'ResourceItemController', ['except' => ['show']]);
     Route::resource('startup-trust-cards', 'StartupTrustCardController', ['except' => ['show']]);
     Route::resource('key-point-trust-cards', 'KeyPointTrustCardController', ['except' => ['show']]);
+    Route::resource('home-certificates', 'HomeCertificateController', ['except' => ['show']]);
     Route::resource('contact-inquiries', 'ContactInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('admission-inquiries', 'AdmissionInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('scholarship-inquiries', 'ScholarshipInquiryController', ['only' => ['index', 'destroy']]);

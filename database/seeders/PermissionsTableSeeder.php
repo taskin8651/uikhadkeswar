@@ -236,6 +236,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'key_point_trust_card_access',
             ],
+            [
+                'title' => 'home_certificate_create',
+            ],
+            [
+                'title' => 'home_certificate_edit',
+            ],
+            [
+                'title' => 'home_certificate_delete',
+            ],
+            [
+                'title' => 'home_certificate_access',
+            ],
         ];
 
         Permission::insert($permissions);
