@@ -16,7 +16,7 @@
     <div class="container">
 
       <nav class="admissionx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
@@ -327,7 +327,7 @@
           <span>Medical Entrance</span>
           <h3>NEET Preparation</h3>
           <p>Biology, Physics and Chemistry focused preparation with revision and tests.</p>
-          <a href="neet-program.html">View Course <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.neet-program') }}">View Course <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="admissionx-course-card featured" data-aos="fade-up" data-aos-delay="180">
@@ -335,7 +335,7 @@
           <span>Engineering Entrance</span>
           <h3>JEE Preparation</h3>
           <p>Physics, Chemistry and Mathematics preparation with problem-solving practice.</p>
-          <a href="jee-program.html">View Course <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.jee-program') }}">View Course <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="admissionx-course-card" data-aos="fade-up" data-aos-delay="260">
@@ -343,7 +343,7 @@
           <span>Early Preparation</span>
           <h3>Foundation Course</h3>
           <p>Strong base-building program for school students and future competitive exams.</p>
-          <a href="foundation-course.html">View Course <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.foundation-course') }}">View Course <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="admissionx-course-card" data-aos="fade-up" data-aos-delay="340">
@@ -351,7 +351,7 @@
           <span>Practice & Revision</span>
           <h3>Test Series</h3>
           <p>Chapter-wise tests, revision tests and full syllabus mock test support.</p>
-          <a href="test-series.html">View Test Series <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.test-series') }}">View Test Series <i class="bi bi-arrow-right"></i></a>
         </div>
 
       </div>

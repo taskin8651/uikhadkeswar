@@ -17,12 +17,12 @@
     <div class="container">
 
       <nav class="companyx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
         <i class="bi bi-chevron-right"></i>
-        <a href="about-academy.html">About Us</a>
+        <a href="{{ route('frontend.about-academy') }}">About Us</a>
         <i class="bi bi-chevron-right"></i>
         <span>Company Information</span>
       </nav>
@@ -59,7 +59,7 @@
               </div>
 
               <div class="companyx-hero-actions">
-                <a href="contact.html" class="btn-main">
+                <a href="{{ route('frontend.contact') }}" class="btn-main">
                   Contact Company
                   <i class="bi bi-arrow-right"></i>
                 </a>

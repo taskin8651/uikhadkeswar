@@ -17,7 +17,7 @@
 
       <!-- BREADCRUMB -->
       <nav class="aboutv2-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="aboutv2-hero-actions">
-                    <a href="admission.html" class="btn-main">
+                    <a href="{{ route('frontend.admission') }}" class="btn-main">
                         Apply for Admission
                         <i class="bi bi-arrow-right"></i>
                     </a>
@@ -351,7 +351,7 @@
             <li><i class="bi bi-check-circle-fill"></i> Physics numericals</li>
             <li><i class="bi bi-check-circle-fill"></i> Chemistry practice</li>
           </ul>
-          <a href="neet-program.html">View NEET Program <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.neet-program') }}">View NEET Program <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="aboutv2-program-card featured" data-aos="fade-up" data-aos-delay="180">
@@ -369,7 +369,7 @@
             <li><i class="bi bi-check-circle-fill"></i> Physics application</li>
             <li><i class="bi bi-check-circle-fill"></i> Mock test practice</li>
           </ul>
-          <a href="jee-program.html">View JEE Program <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.jee-program') }}">View JEE Program <i class="bi bi-arrow-right"></i></a>
         </div>
 
         <div class="aboutv2-program-card" data-aos="fade-up" data-aos-delay="260">
@@ -387,7 +387,7 @@
             <li><i class="bi bi-check-circle-fill"></i> Study discipline</li>
             <li><i class="bi bi-check-circle-fill"></i> Mentorship support</li>
           </ul>
-          <a href="foundation-course.html">View Foundation Course <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('frontend.foundation-course') }}">View Foundation Course <i class="bi bi-arrow-right"></i></a>
         </div>
 
       </div>

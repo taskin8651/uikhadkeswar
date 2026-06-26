@@ -96,7 +96,7 @@
             <i class="bi bi-arrow-right"></i>
           </button>
 
-          <a href="ai-learning.html" class="knj-secondary-btn">
+          <a href="{{ route('frontend.ai-learning') }}" class="knj-secondary-btn">
             <i class="bi bi-robot"></i>
             <span>Explore AI Learning</span>
           </a>
@@ -918,7 +918,7 @@
           coaching to help every student achieve their dreams.
         </p>
 
-        <a href="contact.html" class="kpt-commitment-btn">
+        <a href="{{ route('frontend.contact') }}" class="kpt-commitment-btn">
           Book Free Counselling
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -1140,7 +1140,7 @@
 
       <!-- CTA -->
       <div class="kaa-about-action">
-        <a href="about-academy.html" class="kaa-about-btn">
+        <a href="{{ route('frontend.about-academy') }}" class="kaa-about-btn">
           Explore Our Academy
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -1535,13 +1535,13 @@
       <!-- ================= ACTION BUTTONS ================= -->
       <div class="kfv-actions">
 
-        <a href="founders-journey.html" class="kfv-btn kfv-btn-light">
+        <a href="{{ route('frontend.founders-journey') }}" class="kfv-btn kfv-btn-light">
           <i class="bi bi-book-fill"></i>
           Read Founder Journey
           <i class="bi bi-arrow-right"></i>
         </a>
 
-        <a href="startup-vision.html" class="kfv-btn kfv-btn-red">
+        <a href="{{ route('frontend.startup-vision') }}" class="kfv-btn kfv-btn-red">
           <i class="bi bi-rocket-takeoff-fill"></i>
           Startup Vision
           <i class="bi bi-arrow-right"></i>
@@ -2118,12 +2118,12 @@
 
         <div class="kpc-course-actions">
 
-          <a href="neet-program.html" class="kpc-btn kpc-btn-outline">
+          <a href="{{ route('frontend.neet-program') }}" class="kpc-btn kpc-btn-outline">
             Learn More
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="admission.html" class="kpc-btn kpc-btn-filled">
+          <a href="{{ route('frontend.admission') }}" class="kpc-btn kpc-btn-filled">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -2225,12 +2225,12 @@
 
         <div class="kpc-course-actions">
 
-          <a href="jee-program.html" class="kpc-btn kpc-btn-outline">
+          <a href="{{ route('frontend.jee-program') }}" class="kpc-btn kpc-btn-outline">
             Learn More
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="admission.html" class="kpc-btn kpc-btn-filled">
+          <a href="{{ route('frontend.admission') }}" class="kpc-btn kpc-btn-filled">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -2332,12 +2332,12 @@
 
         <div class="kpc-course-actions">
 
-          <a href="foundation-course.html" class="kpc-btn kpc-btn-outline">
+          <a href="{{ route('frontend.foundation-course') }}" class="kpc-btn kpc-btn-outline">
             Learn More
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="admission.html" class="kpc-btn kpc-btn-filled">
+          <a href="{{ route('frontend.admission') }}" class="kpc-btn kpc-btn-filled">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -2439,12 +2439,12 @@
 
         <div class="kpc-course-actions">
 
-          <a href="ai-learning.html" class="kpc-btn kpc-btn-outline">
+          <a href="{{ route('frontend.ai-learning') }}" class="kpc-btn kpc-btn-outline">
             Learn More
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="admission.html" class="kpc-btn kpc-btn-filled">
+          <a href="{{ route('frontend.admission') }}" class="kpc-btn kpc-btn-filled">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -2734,7 +2734,7 @@
     </div>
 
     <div class="faculty-preview-action" data-aos="fade-up">
-      <a href="faculty.html" class="btn-main">
+      <a href="{{ route('frontend.faculty') }}" class="btn-main">
         View All Faculty
         <i class="bi bi-arrow-right"></i>
       </a>
@@ -3095,7 +3095,7 @@
 
       </a>
 
-      <a href="admission.html" class="kwc-apply-btn">
+      <a href="{{ route('frontend.admission') }}" class="kwc-apply-btn">
         Apply Now
         <i class="bi bi-chevron-right"></i>
       </a>
@@ -3577,7 +3577,7 @@
               <i class="bi bi-arrow-right"></i>
             </button>
 
-            <a href="scholarship-exam.html" class="ksf-btn ksf-btn-outline">
+            <a href="{{ route('frontend.scholarship') }}" class="ksf-btn ksf-btn-outline">
               Check Eligibility
               <i class="bi bi-chevron-right"></i>
             </a>
@@ -4109,7 +4109,7 @@
 
       <!-- CTA -->
       <div class="kal-main-action">
-        <a href="ai-learning.html" class="kal-primary-btn">
+        <a href="{{ route('frontend.ai-learning') }}" class="kal-primary-btn">
           Explore AI Learning Plan
           <i class="bi bi-arrow-right"></i>
         </a>
@@ -4366,7 +4366,7 @@
     ================================================== -->
     <div class="fad-main-actions" data-aos="fade-up">
 
-      <a href="ai-learning.html" class="fad-primary-btn">
+      <a href="{{ route('frontend.ai-learning') }}" class="fad-primary-btn">
         Explore AI Learning Plan
         <i class="bi bi-arrow-right"></i>
       </a>
@@ -4686,7 +4686,7 @@
         <h4>Weak Topic</h4>
         <p>Electrostatics</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           Practice Now
         </a>
 
@@ -4702,7 +4702,7 @@
         <h4>Study Planner</h4>
         <p>4 Tasks Today</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           View Plan
         </a>
 
@@ -4718,7 +4718,7 @@
         <h4>Weekly Analytics</h4>
         <p>Detailed Report</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           View Report
         </a>
 
@@ -4734,7 +4734,7 @@
         <h4>Parent Dashboard</h4>
         <p>Progress Monitoring</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           Open Dashboard
         </a>
 
@@ -4750,7 +4750,7 @@
         <h4>Rank Predictor</h4>
         <p>Predicted Rank</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           Check Rank
         </a>
 
@@ -4766,7 +4766,7 @@
         <h4>AI Mentor</h4>
         <p>AI Doubt Assistant</p>
 
-        <a href="ai-learning.html">
+        <a href="{{ route('frontend.ai-learning') }}">
           Ask Now
         </a>
 
@@ -4878,7 +4878,7 @@
 
       </div>
 
-      <a href="ai-learning.html" class="fad-revolution-card">
+      <a href="{{ route('frontend.ai-learning') }}" class="fad-revolution-card">
 
         <div>
           <strong>Join the AI Revolution</strong>
@@ -5165,7 +5165,7 @@
 
       <span class="knj-results-divider" aria-hidden="true"></span>
 
-      <a href="results.html" class="knj-results-button">
+      <a href="{{ route('frontend.results') }}" class="knj-results-button">
         View Results
         <i class="bi bi-arrow-right"></i>
       </a>
@@ -5268,7 +5268,7 @@
             </li>
           </ul>
 
-          <a href="resources.html" class="knj-media-link">
+          <a href="{{ route('frontend.resources') }}" class="knj-media-link">
             Watch Lectures
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -5331,7 +5331,7 @@
             </li>
           </ul>
 
-          <a href="resources.html" class="knj-media-link">
+          <a href="{{ route('frontend.resources') }}" class="knj-media-link">
             View Interviews
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -5383,7 +5383,7 @@
             </li>
           </ul>
 
-          <a href="resources.html" class="knj-media-link">
+          <a href="{{ route('frontend.resources') }}" class="knj-media-link">
             Read Stories
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -5439,7 +5439,7 @@
             </li>
           </ul>
 
-          <a href="resources.html" class="knj-media-link">
+          <a href="{{ route('frontend.resources') }}" class="knj-media-link">
             Read Articles
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -5495,7 +5495,7 @@
             </li>
           </ul>
 
-          <a href="resources.html" class="knj-media-link">
+          <a href="{{ route('frontend.resources') }}" class="knj-media-link">
             View Coverage
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -5555,7 +5555,7 @@
             </li>
           </ul>
 
-          <a href="gallery.html" class="knj-media-link">
+          <a href="{{ route('frontend.gallery') }}" class="knj-media-link">
             View Photos
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -6254,7 +6254,7 @@
 
     <!-- ACTION -->
     <div class="gallery-action" data-aos="fade-up">
-      <a href="gallery.html" class="btn-main">
+      <a href="{{ route('frontend.gallery') }}" class="btn-main">
         View Full Gallery
         <i class="bi bi-arrow-right"></i>
       </a>
@@ -6641,7 +6641,7 @@
     <!-- TESTIMONIAL ACTIONS -->
     <div class="testimonial-actions" data-aos="fade-up">
 
-      <a href="testimonials.html" class="testimonial-more-btn">
+      <a href="{{ route('frontend.results') }}" class="testimonial-more-btn">
         <i class="bi bi-star-fill"></i>
         <span>Read More Reviews</span>
         <i class="bi bi-arrow-right"></i>
@@ -7005,7 +7005,7 @@
       ================================================== -->
       <div class="scholarship-actions">
 
-        <a href="scholarship-exam.html" class="scholarship-primary-btn">
+        <a href="{{ route('frontend.scholarship') }}" class="scholarship-primary-btn">
           <i class="bi bi-pencil-square"></i>
           <span>Register for Scholarship Exam</span>
         </a>
@@ -7332,7 +7332,7 @@
       <!-- ACTION BUTTONS -->
       <div class="kha-scholarship-actions">
 
-        <a href="scholarship-exam.html"
+        <a href="{{ route('frontend.scholarship') }}"
            class="kha-scholarship-btn kha-scholarship-btn-primary">
           <span>
             <i class="bi bi-pencil-square"></i>

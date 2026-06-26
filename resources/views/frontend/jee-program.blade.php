@@ -18,12 +18,12 @@
     <div class="container">
 
       <nav class="jeex-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
         <i class="bi bi-chevron-right"></i>
-        <a href="courses.html">Courses</a>
+        <a href="{{ route('frontend.courses') }}">Courses</a>
         <i class="bi bi-chevron-right"></i>
         <span>JEE Program</span>
       </nav>
@@ -395,7 +395,7 @@
             <li><i class="bi bi-check-circle-fill"></i> Mock tests and revision</li>
           </ul>
 
-          <a href="neet-program.html">
+          <a href="{{ route('frontend.neet-program') }}">
             View NEET Course
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -441,7 +441,7 @@
             <li><i class="bi bi-check-circle-fill"></i> Mentorship support</li>
           </ul>
 
-          <a href="foundation-course.html">
+          <a href="{{ route('frontend.foundation-course') }}">
             View Foundation
             <i class="bi bi-arrow-right"></i>
           </a>

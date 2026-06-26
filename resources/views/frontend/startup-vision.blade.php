@@ -16,7 +16,7 @@
     <div class="container">
 
       <nav class="startupx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
@@ -63,12 +63,12 @@
               </div>
 
               <div class="startupx-hero-actions">
-                <a href="admission.html" class="btn-main">
+                <a href="{{ route('frontend.admission') }}" class="btn-main">
                   Apply Now
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
-                <a href="ai-learning.html" class="startupx-outline-btn">
+                <a href="{{ route('frontend.ai-learning') }}" class="startupx-outline-btn">
                   <i class="bi bi-cpu-fill"></i>
                   AI Vision
                 </a>
@@ -253,12 +253,12 @@
             </div>
 
             <div class="startupx-recognition-actions">
-              <a href="company-information.html" class="btn-main">
+              <a href="{{ route('frontend.company-information') }}" class="btn-main">
                 Company Info
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="contact.html" class="btn-white">
+              <a href="{{ route('frontend.contact') }}" class="btn-white">
                 Contact Us
               </a>
             </div>
@@ -403,7 +403,7 @@
               </span>
             </div>
 
-            <a href="ai-learning.html" class="btn-main">
+            <a href="{{ route('frontend.ai-learning') }}" class="btn-main">
               Explore AI Learning Plan
               <i class="bi bi-arrow-right"></i>
             </a>
@@ -536,7 +536,7 @@
         </div>
 
         <div class="startupx-cta-actions">
-          <a href="admission.html" class="btn-main">
+          <a href="{{ route('frontend.admission') }}" class="btn-main">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>

@@ -42,9 +42,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('gallery-items', 'GalleryItemController', ['except' => ['show']]);
     Route::resource('faculty-members', 'FacultyMemberController', ['except' => ['show']]);
     Route::resource('startup-cards', 'StartupCardController', ['except' => ['show']]);
+    Route::resource('resource-items', 'ResourceItemController', ['except' => ['show']]);
     Route::resource('contact-inquiries', 'ContactInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('admission-inquiries', 'AdmissionInquiryController', ['only' => ['index', 'destroy']]);
     Route::resource('scholarship-inquiries', 'ScholarshipInquiryController', ['only' => ['index', 'destroy']]);
+    Route::get('website-settings', 'WebsiteSettingController@edit')->name('website-settings.edit');
+    Route::put('website-settings', 'WebsiteSettingController@update')->name('website-settings.update');
 
     // About Page Content
 Route::get('about-page-content', 'AboutPageContentController@edit')->name('about-page-content.edit');
@@ -62,22 +65,26 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
 });
 
 
-Route::get('founder-journey', 'Frontend\AboutController@index')->name('frontend.about');
-Route::get('about-academy', 'Frontend\AboutAcademyController@index');
-Route::get('company-information.html', 'Frontend\AboutController@company')->name('frontend.company-information');
-Route::get('company-information', 'Frontend\AboutController@company');
-Route::get('results.html', 'Frontend\ResultController@index')->name('frontend.results');
-Route::get('results', 'Frontend\ResultController@index');
-Route::get('gallery', 'Frontend\GalleryController@index');
-Route::get('faculty', 'Frontend\FacultyController@index');
-Route::get('startup-vision.html', 'Frontend\StartupVisionController@index')->name('frontend.startup-vision');
-Route::get('startup-vision', 'Frontend\StartupVisionController@index');
-Route::view('contact.html', 'frontend.contact')->name('frontend.contact');
-Route::view('contact', 'frontend.contact');
-Route::view('admission.html', 'frontend.admission')->name('frontend.admission');
-Route::view('admission', 'frontend.admission');
-Route::view('scholarship-exam.html', 'frontend.scholarship-exam')->name('frontend.scholarship');
-Route::view('scholarship-exam', 'frontend.scholarship-exam');
+Route::view('index', 'frontend.index')->name('frontend.home');
+Route::get('founders-journey', 'Frontend\AboutController@index')->name('frontend.founders-journey');
+Route::get('about-academy', 'Frontend\AboutAcademyController@index')->name('frontend.about-academy');
+Route::get('company-information', 'Frontend\AboutController@company')->name('frontend.company-information');
+Route::view('courses', 'frontend.courses')->name('frontend.courses');
+Route::view('neet-program', 'frontend.neet-program')->name('frontend.neet-program');
+Route::view('jee-program', 'frontend.jee-program')->name('frontend.jee-program');
+Route::view('foundation-course', 'frontend.foundation-course')->name('frontend.foundation-course');
+Route::view('test-series', 'frontend.test-series')->name('frontend.test-series');
+Route::view('ai-learning', 'frontend.ai-learning')->name('frontend.ai-learning');
+Route::get('results', 'Frontend\ResultController@index')->name('frontend.results');
+Route::get('gallery', 'Frontend\GalleryController@index')->name('frontend.gallery');
+Route::get('resources', 'Frontend\ResourceController@index')->name('frontend.resources');
+Route::get('faculty', 'Frontend\FacultyController@index')->name('frontend.faculty');
+Route::get('startup-vision', 'Frontend\StartupVisionController@index')->name('frontend.startup-vision');
+Route::view('contact', 'frontend.contact')->name('frontend.contact');
+Route::view('admission', 'frontend.admission')->name('frontend.admission');
+Route::view('scholarship-exam', 'frontend.scholarship-exam')->name('frontend.scholarship');
+Route::view('privacy-policy', 'frontend.privacy-policy')->name('frontend.privacy-policy');
+Route::view('terms-and-conditions', 'frontend.terms-and-conditions')->name('frontend.terms-and-conditions');
 Route::post('contact-inquiry', 'Frontend\InquiryController@storeContact')->name('frontend.contact-inquiry.store');
 Route::post('admission-inquiry', 'Frontend\InquiryController@storeAdmission')->name('frontend.admission-inquiry.store');
 Route::post('scholarship-inquiry', 'Frontend\InquiryController@storeScholarship')->name('frontend.scholarship-inquiry.store');

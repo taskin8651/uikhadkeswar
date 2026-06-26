@@ -18,7 +18,7 @@
     <div class="container">
 
       <nav class="coursepg-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
@@ -65,7 +65,7 @@
               </div>
 
               <div class="coursepg-hero-actions">
-                <a href="admission.html" class="btn-main">
+                <a href="{{ route('frontend.admission') }}" class="btn-main">
                   Apply for Admission
                   <i class="bi bi-arrow-right"></i>
                 </a>
@@ -211,12 +211,12 @@
             </ul>
 
             <div class="coursepg-card-actions">
-              <a href="neet-program.html" class="btn-main">
+              <a href="{{ route('frontend.neet-program') }}" class="btn-main">
                 View Course
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="admission.html" class="coursepg-card-link">
+              <a href="{{ route('frontend.admission') }}" class="coursepg-card-link">
                 Apply Now
               </a>
             </div>
@@ -252,12 +252,12 @@
             </ul>
 
             <div class="coursepg-card-actions">
-              <a href="jee-program.html" class="btn-main">
+              <a href="{{ route('frontend.jee-program') }}" class="btn-main">
                 View Course
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="admission.html" class="coursepg-card-link">
+              <a href="{{ route('frontend.admission') }}" class="coursepg-card-link">
                 Apply Now
               </a>
             </div>
@@ -293,12 +293,12 @@
             </ul>
 
             <div class="coursepg-card-actions">
-              <a href="foundation-course.html" class="btn-main">
+              <a href="{{ route('frontend.foundation-course') }}" class="btn-main">
                 View Course
                 <i class="bi bi-arrow-right"></i>
               </a>
 
-              <a href="admission.html" class="coursepg-card-link">
+              <a href="{{ route('frontend.admission') }}" class="coursepg-card-link">
                 Apply Now
               </a>
             </div>
@@ -395,7 +395,7 @@
               </span>
             </div>
 
-            <a href="admission.html" class="btn-main">
+            <a href="{{ route('frontend.admission') }}" class="btn-main">
               Get Course Guidance
               <i class="bi bi-arrow-right"></i>
             </a>
@@ -521,7 +521,7 @@
             </p>
 
             <div class="coursepg-test-actions">
-              <a href="test-series.html" class="btn-main">
+              <a href="{{ route('frontend.test-series') }}" class="btn-main">
                 View Test Series
                 <i class="bi bi-arrow-right"></i>
               </a>
@@ -695,12 +695,12 @@
         </div>
 
         <div class="coursepg-concession-actions">
-          <a href="scholarship-exam.html" class="btn-main">
+          <a href="{{ route('frontend.scholarship') }}" class="btn-main">
             Check Eligibility
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="admission.html" class="btn-white">
+          <a href="{{ route('frontend.admission') }}" class="btn-white">
             Apply Now
           </a>
         </div>
@@ -733,7 +733,7 @@
         </div>
 
         <div class="coursepg-cta-actions">
-          <a href="admission.html" class="btn-main">
+          <a href="{{ route('frontend.admission') }}" class="btn-main">
             Apply Now
             <i class="bi bi-arrow-right"></i>
           </a>

@@ -17,14 +17,14 @@
 
       <!-- Breadcrumb Start -->
       <nav class="fjx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
 
         <i class="bi bi-chevron-right"></i>
 
-        <a href="about-academy.html">About Us</a>
+        <a href="{{ route('frontend.about-academy') }}">About Us</a>
 
         <i class="bi bi-chevron-right"></i>
 
@@ -134,7 +134,7 @@
                         Call Admission Team
                     </a>
 
-                    <a href="company-information.html" class="fjx-outline-btn">
+                    <a href="{{ route('frontend.company-information') }}" class="fjx-outline-btn">
                         Company Information
                         <i class="bi bi-arrow-right"></i>
                     </a>
@@ -300,7 +300,7 @@
 
             </div>
 
-            <a href="company-information.html" class="fjx-company-btn">
+            <a href="{{ route('frontend.company-information') }}" class="fjx-company-btn">
               View Company Page
               <i class="bi bi-arrow-right"></i>
             </a>

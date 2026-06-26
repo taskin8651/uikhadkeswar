@@ -19,12 +19,12 @@
     <div class="container">
 
       <nav class="coursex-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
         <i class="bi bi-chevron-right"></i>
-        <a href="courses.html">Courses</a>
+        <a href="{{ route('frontend.courses') }}">Courses</a>
         <i class="bi bi-chevron-right"></i>
         <span>NEET Program</span>
       </nav>

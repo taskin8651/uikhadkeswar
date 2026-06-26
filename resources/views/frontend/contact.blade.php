@@ -2,6 +2,17 @@
 @extends('frontend.master')
 @section('content')
 
+@php
+  $contactSettings = $websiteSetting ?? null;
+  $contactPhone = $contactSettings?->phone_primary ?? '+91 88568 22032';
+  $contactEmail = $contactSettings?->email_primary ?? 'info@khadkeshwaracademy.com';
+  $contactAddress = $contactSettings?->address ?? 'Lonar, Buldhana, Maharashtra - 443302, India';
+  $contactWorkingHours = $contactSettings?->working_hours ?? 'Admission Support';
+  $contactTel = $contactSettings?->telLink($contactPhone) ?? 'tel:+918856822032';
+  $contactMail = $contactSettings?->mailLink($contactEmail) ?? 'mailto:info@khadkeshwaracademy.com';
+  $contactMapSrc = $contactSettings?->map_embed_url ?: 'https://www.google.com/maps?q=Lonar%2C%20Buldhana%2C%20Maharashtra%20443302%2C%20India&output=embed';
+@endphp
+
 <!-- ========================= CONTACT PAGE START ========================== -->
 
 <main class="contactx-page">
@@ -16,7 +27,7 @@
     <div class="container">
 
       <nav class="contactx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>
@@ -67,7 +78,7 @@
                   <i class="bi bi-arrow-right"></i>
                 </a>
 
-                <a href="tel:+918856822032" class="contactx-outline-btn">
+                <a href="{{ $contactTel }}" class="contactx-outline-btn">
                   <i class="bi bi-telephone-fill"></i>
                   Call Now
                 </a>
@@ -97,7 +108,7 @@
                     </div>
                     <div>
                       <span>Admission Helpline</span>
-                      <h3>+91 88568 22032</h3>
+                      <h3>{{ $contactPhone }}</h3>
                       <p>NEET / JEE / Foundation / Test Series</p>
                     </div>
                   </div>
@@ -106,19 +117,19 @@
                     <div>
                       <i class="bi bi-envelope-fill"></i>
                       <strong>Email</strong>
-                      <span>info@khadkeshwaracademy.com</span>
+                      <span>{{ $contactEmail }}</span>
                     </div>
 
                     <div>
                       <i class="bi bi-geo-alt-fill"></i>
                       <strong>Location</strong>
-                      <span>Lonar, Maharashtra</span>
+                      <span>{{ $contactAddress }}</span>
                     </div>
 
                     <div>
                       <i class="bi bi-clock-fill"></i>
-                      <strong>Inquiry</strong>
-                      <span>Admission Support</span>
+                      <strong>Hours</strong>
+                      <span>{{ $contactWorkingHours }}</span>
                     </div>
 
                     <div>
@@ -179,24 +190,24 @@
 
       <div class="contactx-detail-grid">
 
-        <a href="tel:+918856822032" class="contactx-detail-card" data-aos="fade-up" data-aos-delay="100">
+        <a href="{{ $contactTel }}" class="contactx-detail-card" data-aos="fade-up" data-aos-delay="100">
           <i class="bi bi-telephone-fill"></i>
           <span>Phone Number</span>
-          <h3>+91 88568 22032</h3>
+          <h3>{{ $contactPhone }}</h3>
           <p>Click to call admission desk</p>
         </a>
 
-        <a href="mailto:info@khadkeshwaracademy.com" class="contactx-detail-card featured" data-aos="fade-up" data-aos-delay="180">
+        <a href="{{ $contactMail }}" class="contactx-detail-card featured" data-aos="fade-up" data-aos-delay="180">
           <i class="bi bi-envelope-fill"></i>
           <span>Email Address</span>
-          <h3>info@khadkeshwaracademy.com</h3>
+          <h3>{{ $contactEmail }}</h3>
           <p>Send course or admission inquiry</p>
         </a>
 
         <div class="contactx-detail-card" data-aos="fade-up" data-aos-delay="260">
           <i class="bi bi-geo-alt-fill"></i>
           <span>Registered Address</span>
-          <h3>Lonar, Buldhana, Maharashtra - 443302, India</h3>
+          <h3>{{ $contactAddress }}</h3>
           <p>Academy location information</p>
         </div>
 
@@ -340,12 +351,12 @@
             </div>
 
             <div class="contactx-sidebar-actions">
-              <a href="tel:+918856822032" class="btn-main">
+              <a href="{{ $contactTel }}" class="btn-main">
                 Call Now
                 <i class="bi bi-telephone-fill"></i>
               </a>
 
-              <a href="mailto:info@khadkeshwaracademy.com" class="contactx-light-btn">
+              <a href="{{ $contactMail }}" class="contactx-light-btn">
                 Email Us
               </a>
             </div>
@@ -373,7 +384,7 @@
         <h2>Find Khadkeshwar NEET JEE Academy location.</h2>
 
         <p>
-          Replace the iframe source with the final Google Map embed link provided by the client.
+          Use the academy location map for visit planning and admission support.
         </p>
       </div>
 
@@ -382,12 +393,12 @@
           <i class="bi bi-geo-alt-fill"></i>
           <div>
             <span>Academy Location</span>
-            <h3>Loni Naka, Mantha Road, Vitthal Krupa Complex, Lonar</h3>
+            <h3>{{ $contactAddress }}</h3>
           </div>
         </div>
 
         <iframe
-          src="https://www.google.com/maps?q=Lonar%2C%20Buldhana%2C%20Maharashtra%20443302%2C%20India&output=embed"
+          src="{{ $contactMapSrc }}"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           title="Khadkeshwar NEET JEE Academy Location">
@@ -420,14 +431,14 @@
 
       <div class="contactx-quick-grid">
 
-        <a href="tel:+918856822032" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="100">
+        <a href="{{ $contactTel }}" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="100">
           <span>01</span>
           <i class="bi bi-telephone-fill"></i>
           <h3>Call Admission Desk</h3>
           <p>Speak directly with academy support.</p>
         </a>
 
-        <a href="mailto:info@khadkeshwaracademy.com" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="180">
+        <a href="{{ $contactMail }}" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="180">
           <span>02</span>
           <i class="bi bi-envelope-fill"></i>
           <h3>Send Email</h3>
@@ -441,7 +452,7 @@
           <p>Fill the form and get a callback.</p>
         </a>
 
-        <a href="admission.html" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="340">
+        <a href="{{ route('frontend.admission') }}" class="contactx-quick-card" data-aos="zoom-in" data-aos-delay="340">
           <span>04</span>
           <i class="bi bi-mortarboard-fill"></i>
           <h3>Admission Page</h3>
@@ -464,7 +475,7 @@
         <div>
           <span>
             <i class="bi bi-mortarboard-fill"></i>
-            Admission Open 2026
+            {{ $contactSettings?->admission_badge_text ?? 'Admission Open 2026' }}
           </span>
 
           <h2>Start your NEET & JEE preparation with the right guidance.</h2>
@@ -481,7 +492,7 @@
             <i class="bi bi-arrow-right"></i>
           </a>
 
-          <a href="tel:+918856822032" class="btn-white">
+          <a href="{{ $contactTel }}" class="btn-white">
             <i class="bi bi-telephone-fill"></i>
             Call Now
           </a>

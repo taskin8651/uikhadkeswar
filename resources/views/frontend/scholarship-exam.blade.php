@@ -17,7 +17,7 @@
     <div class="container">
 
       <nav class="scholarx-breadcrumb" data-aos="fade-up">
-        <a href="index.html">
+        <a href="{{ route('frontend.home') }}">
           <i class="bi bi-house-door-fill"></i>
           Home
         </a>

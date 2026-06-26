@@ -188,6 +188,24 @@ class PermissionsTableSeeder extends Seeder
             [
                 'title' => 'scholarship_inquiry_delete',
             ],
+            [
+                'title' => 'website_setting_access',
+            ],
+            [
+                'title' => 'website_setting_edit',
+            ],
+            [
+                'title' => 'resource_item_create',
+            ],
+            [
+                'title' => 'resource_item_edit',
+            ],
+            [
+                'title' => 'resource_item_delete',
+            ],
+            [
+                'title' => 'resource_item_access',
+            ],
         ];
 
         Permission::insert($permissions);
